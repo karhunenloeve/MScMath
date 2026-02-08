@@ -1,0 +1,148 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Categories
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Ab}{name={$\mathbf{Ab}$}, description={Category of abelian groups}, sort={Ab}}
+\newglossaryentry{Top}{name={$\mathbf{Top}$}, description={Category of topological spaces}, sort={Top}}
+\newglossaryentry{LCH}{name={$\mathbf{LCH}$}, description={Category of locally compact Hausdorff spaces}, sort={LCH}}
+\newglossaryentry{Ch}{name={$\mathbf{Ch}(\mathbf{Ab})$}, description={Category of chain complexes of abelian groups}, sort={Ch}}
+
+\newglossaryentry{DeltaSimp}{name={$\Delta$}, description={Simplex category}, sort={DeltaSimp}}
+\newglossaryentry{DeltaInj}{name={$\Delta_{\mathrm{inj}}$}, description={Wide subcategory of $\Delta$ with the same objects $[n]$ and only injective order-preserving maps}, sort={DeltaInj}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2. Spaces and separation axioms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{T0}{name={$T_{0}$}, description={Kolmogorov: points are topologically distinguishable}, sort={T0}}
+\newglossaryentry{T1}{name={$T_{1}$}, description={Fr{\'e}chet: points are closed}, sort={T1}}
+\newglossaryentry{T2}{name={$T_{2}$}, description={Hausdorff: points have disjoint neighbourhoods}, sort={T2}}
+\newglossaryentry{T2a}{name={$T_{2\frac12}$}, description={Urysohn: points separated by closed neighbourhoods}, sort={T2a}}
+\newglossaryentry{T3}{name={$T_{3}$}, description={Regular Hausdorff}, sort={T3}}
+\newglossaryentry{T3a}{name={$T_{3\frac{1}{2}}$}, description={Completely regular Hausdorff}, sort={T3a}}
+\newglossaryentry{T4}{name={$T_{4}$}, description={Normal Hausdorff}, sort={T4}}
+\newglossaryentry{T5}{name={$T_{5}$}, description={Completely normal Hausdorff}, sort={T5}}
+\newglossaryentry{T6}{name={$T_{6}$}, description={Perfectly normal Hausdorff}, sort={T6}}
+
+\newglossaryentry{sigmacompact}{name={$\sigma$-compact}, description={Countable union of compact subsets}, sort={sigmacompact}}
+\newglossaryentry{clopen}{name={clopen}, description={Simultaneously closed and open}, sort={clopen}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 3. Groupoids and structure maps
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{G}{name={$\mathcal{G}$}, description={Groupoid $(\mathcal{G},\mathcal{G}_{0},r,s,m,(-)^{-1})$ with arrow space $\mathcal{G}=\mathcal{G}_{1}$}, sort={G}}
+\newglossaryentry{G0}{name={$\mathcal{G}_{0}$}, description={Unit space of $\mathcal{G}$}, sort={G0}}
+\newglossaryentry{G1}{name={$\mathcal{G}_1$}, description={Arrow space $\mathcal{G}=\mathcal{G}_{1}$ of $\mathcal{G}$}, sort={G1}}
+
+\newglossaryentry{G'}{name={$\mathcal{G}'$}, description={Open subgroupoid of $\mathcal{G}$}, sort={Gp}}
+\newglossaryentry{H'}{name={$\mathcal{H}'$}, description={Auxiliary subgroupoid in a regular decomposition}, sort={Hp}}
+\newglossaryentry{Delta}{name={$\triangle$}, description={Complement $\triangle=\mathcal{G}\setminus\mathcal{G}'$}, sort={Delta}}
+
+\newglossaryentry{rG}{name={$r$}, description={Range map $r:\mathcal{G}\to\mathcal{G}_{0}$}, sort={range}}
+\newglossaryentry{sG}{name={$s$}, description={Source map $s:\mathcal{G}\to\mathcal{G}_{0}$}, sort={source}}
+\newglossaryentry{uG}{name={$u$}, description={Unit map $u:\mathcal{G}_{0}\to\mathcal{G}$, $u(x)=1_{x}$}, sort={unit}}
+\newglossaryentry{1x}{name={$1_{x}$}, description={Unit arrow at $x\in\mathcal{G}_{0}$, i.e. $1_{x}=u(x)$}, sort={1x}}
+\newglossaryentry{mG}{name={$m$}, description={$m:\mathcal{G}_{2}\to\mathcal{G}$, $m(g,h)=gh$ on composable pairs}, sort={mult}}
+\newglossaryentry{iG}{name={$(-)^{-1}$}, description={Inversion map $\mathcal{G}\to\mathcal{G}$, $g\mapsto g^{-1}$}, sort={inv}}
+\newglossaryentry{comp}{name={$gh$}, description={Composition in $\mathcal{G}$, defined when $s(g)=r(h)$}, sort={comp}}
+
+\newglossaryentry{Gred}{name={$\mathcal{G}\vert_{U}$}, description={Reduction of $\mathcal{G}$ to $U\subseteq\mathcal{G}_{0}$}, sort={Gred}}
+\newglossaryentry{Bis}{name={$\operatorname{Bis}(\mathcal{G})$}, description={Compact open bisections of $\mathcal{G}$}, sort={Bis}}
+
+\newglossaryentry{etale}{name={\'etale}, description={$r$ and $s$ are local homeomorphisms}, sort={etale}}
+\newglossaryentry{ample}{name={ample}, description={\'Etale with $\mathcal{G}_{0}$ locally compact, Hausdorff, totally disconnected, and with a basis of compact open sets (equivalently, compact open bisections form a basis of $\mathcal{G}$)}, sort={ample}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 4. Equivalences
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Kak}{name={$\sim_{\mathrm{Kak}}$}, description={Kakutani equivalence of ample groupoids}, sort={Kak}}
+
+\newglossaryentry{simfun}{name={$\rho\sim\sigma$}, description={Similarity of étale functors}, sort={simfun}}
+\newglossaryentry{simh}{name={$\mathcal{G}\sim_{h}\mathcal{H}$}, description={Homological similarity of groupoids}, sort={simh}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 5. Nerve and simplicial data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Gn}{name={$\mathcal{G}_{n}$}, description={Space of composable $n$-tuples in $\mathcal{G}$}, sort={Gn}}
+\newglossaryentry{Gbullet}{name={$\mathcal{G}_{\bullet}$}, description={Nerve of $\mathcal{G}$ as a simplicial space}, sort={Gbullet}}
+\newglossaryentry{di}{name={$d_{i}$}, description={Face map $d_{i}:\mathcal{G}_{n}\to\mathcal{G}_{n-1}$}, sort={di}}
+\newglossaryentry{si}{name={$s_{i}$}, description={Degeneracy map $s_{i}:\mathcal{G}_{n}\to\mathcal{G}_{n+1}$}, sort={si}}
+
+\newglossaryentry{tupleg}{name={$\mathbf{g}$}, description={$n$-tuple $(g_{1},\dots,g_{n})\in\mathcal{G}_{n}$}, sort={tupleg}}
+\newglossaryentry{gprod}{name={$g_{1}\cdots g_{n}$}, description={Iterated product of $\mathbf{g}\in\mathcal{G}_{n}$ which satisfies $r(g_{1}\cdots g_{n})=r(g_{1})$ and $s(g_{1}\cdots g_{n})=s(g_{n})$}, sort={gprod}}
+
+\newglossaryentry{BG}{name={$B\mathcal{G}$}, description={Classifying space}, sort={BG}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 6. Functions, chains, pushforward
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Cc}{name={$C_{c}(X,A)$}, description={Continuous $A$-valued functions on $X$ with compact support}, sort={Cc}}
+\newglossaryentry{supp}{name={$\operatorname{supp}(f)$}, description={Support of a function $f$}, sort={supp}}
+
+\newglossaryentry{push}{name={$\pi_{*}$}, description={Pushforward}, sort={push}}
+\newglossaryentry{pull}{name={$\pi^{*}$}, description={Pullback}, sort={pull}}
+
+\newglossaryentry{CnG}{name={$C_{n}(\mathcal{G})$}, description={Moore chain group $C_{c}(\mathcal{G}_{n},\mathbb{Z})$}, sort={CnG}}
+\newglossaryentry{CnGA}{name={$C_{n}(\mathcal{G};A)$}, description={Moore chain group $C_{c}(\mathcal{G}_{n},A)$}, sort={CnGA}}
+\newglossaryentry{dG}{name={$\partial_{n}$}, description={Moore boundary $\partial_{n}=\sum_{i=0}^{n}(-1)^{i}(d_{i})_{*}$}, sort={dG}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 7. Cohains and cohomology
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Ccoch}{name={$C^{n}_{c}(\mathcal{G};A)$}, description={Compactly supported function cochains $\operatorname{Hom}_{\mathbb{Z}}(C_{n}(\mathcal{G}),A)$}, sort={Ccoch}}
+\newglossaryentry{delta}{name={$\delta^{n}$}, description={Coboundary on dual cochains, $(\delta^{n}\xi)(c)=\xi(\partial_{n+1}c)$}, sort={delta}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 8. Homology, cohomology and UCT maps
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{HnG}{name={$H_{n}(\mathcal{G})$}, description={Moore homology with $\mathbb{Z}$-coefficients, $H_{n}(C_{\bullet}(\mathcal{G}))$}, sort={HnG}}
+\newglossaryentry{HnGA}{name={$H_{n}(\mathcal{G};A)$}, description={Moore homology with coefficients $A$}, sort={HnGA}}
+\newglossaryentry{H^nGM}{name={$H^{n}(\mathcal{G};M)$}, description={Cohomology of the dual complex $\operatorname{Hom}_{\mathbb{Z}}(C_{\bullet}(\mathcal{G}),M)$}, sort={HnGM}}
+
+\newglossaryentry{H0pos}{name={$H_{0}(\mathcal{G})^{+}$}, description={Positive cone in $H_{0}(\mathcal{G})$, given by classes of nonnegative integer-valued functions on $\mathcal{G}_{0}$}, sort={H0pos}}
+
+\newglossaryentry{Phi}{name={$\Phi_{n}$}, description={Canonical map $\Phi_{n}:C_{n}(\mathcal{G})\otimes_{\mathbb{Z}}A\to C_{n}(\mathcal{G};A)$}, sort={Phi}}
+
+\newglossaryentry{iotaG}{name={$\iota_{n}^{\mathcal{G}}$}, description={$\iota_{n}^{\mathcal{G}}:H_{n}(\mathcal{G})\otimes_{\mathbb{Z}}A\to H_{n}(\mathcal{G};A)$}, sort={iotaG}}
+\newglossaryentry{piG}{name={$\kappa_{n}^{\mathcal{G}}$}, description={UCT map $\kappa_{n}^{\mathcal{G}}:H_{n}(\mathcal{G};A)\to \operatorname{Tor}_{1}^{\mathbb{Z}}(H_{n-1}(\mathcal{G}),A)$}, sort={piG}}
+
+\newglossaryentry{rhoUCT}{name={$\rho_{\mathcal{G}}^{n}$}, description={$\rho_{\mathcal{G}}^{n}:H^{n}(\mathcal{G};A)\to \operatorname{Hom}_{\mathbb{Z}}(H_{n}(\mathcal{G}),A)$}, sort={rhoUCT}}
+\newglossaryentry{kappaUCT}{name={$\kappa_{\mathcal{G}}^{n}$}, description={$\kappa_{\mathcal{G}}^{n}:\operatorname{Ext}^{1}_{\mathbb{Z}}(H_{n-1}(\mathcal{G}),A)\to H^{n}(\mathcal{G};A)$}, sort={kappaUCT}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 9. Homological algebra
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{HomZ}{name={$\operatorname{Hom}_{\mathbb{Z}}$}, description={Group of $\mathbb{Z}$-linear homomorphisms}, sort={HomZ}}
+\newglossaryentry{tensor}{name={$\otimes_{\mathbb{Z}}$}, description={Tensor product over $\mathbb{Z}$}, sort={tensor}}
+\newglossaryentry{Tor}{name={$\operatorname{Tor}_{1}^{\mathbb{Z}}$}, description={First Tor functor over $\mathbb{Z}$}, sort={Tor}}
+\newglossaryentry{Ext}{name={$\operatorname{Ext}^{1}_{\mathbb{Z}}$}, description={First Ext functor over $\mathbb{Z}$}, sort={Ext}}
+\newglossaryentry{colim}{name={$\varinjlim$}, description={Filtered colimit (direct limit) in $\mathbf{Ab}$}, sort={colim}}
+\newglossaryentry{hash}{name={$\#$}, description={Cardinality of a set}, sort={hash}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 10. Regular maps and reduction maps (factor-groupoid setup)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{diam}{name={$\operatorname{diam}$}, description={Diameter of a subset in a metric space}, sort={diam}}
+\newglossaryentry{dH}{name={$d_{H}$}, description={Hausdorff metric on compact subsets of a metric space}, sort={dH}}
+
+\newglossaryentry{Xpi}{name={$X_{\pi}$}, description={Space $X_{\pi}$ associated to $\pi$}, sort={Xpi}}
+\newglossaryentry{Xpiprime}{name={$X'_{\pi}$}, description={Subset $X'_{\pi}=\{x'\in X'\mid \#\pi^{-1}(x')>1\}$}, sort={Xpiprime}}
+\newglossaryentry{dprimepi}{name={$d'_{\pi}$}, description={Metric on ${X'}_{\pi}$, $d'_{\pi}(x',y')=d_{H}(\pi^{-1}(x'),\pi^{-1}(y'))$}, sort={dprimepi}}
+\newglossaryentry{dpi}{name={$d_{\pi}$}, description={Metric on $X_{\pi}$, $d_{\pi}(x,y)=d(x,y)+d'_{\pi}(\pi(x),\pi(y))$}, sort={dpi}}
+
+\newglossaryentry{Pi}{name={$\Pi$}, description={Reduction map $C_{c}(X,A)\to C_{c}(X_{\pi},A)/C_{c}({X}_{\pi}',A)$}, sort={Pi}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 11. Scalars
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newglossaryentry{Z}{name={$\mathbb{Z}$}, description={Integers}, sort={Z}}
+\newglossaryentry{R}{name={$\mathbb{R}$}, description={Real numbers}, sort={R}}

@@ -1,0 +1,3643 @@
+\chapter{Computing Moore Homology}
+\label{sec:computing-moore-homology}
+
+In the preceding chapters we defined Moore homology \(H_\bullet(\G;A)\) for \'etale groupoids from the simplicial geometry of the nerve \(\G_\bullet\). For each \(n\ge 1\), every face map \(d_i:\G_n\to \G_{n-1}\) is a local homeomorphism, hence admits pushforward on compactly supported functions by a finite fibre sum over each point. The alternating sum of these pushforwards defines the Moore boundary on \(C_c(\G_n,A)\). We also established the functorial and invariance mechanisms that make \(H_\bullet(\G;A)\) workable in the ample setting, in particular invariance under full reductions and under Kakutani equivalence.
+
+The purpose of this chapter is to turn this structural framework into a computational toolkit. In the ample world, the natural cut and paste operations are reductions along open subsets of the unit space, typically clopen and saturated, and gluings along such pieces. We therefore do not pursue excision in full generality. Instead we develop exact sequence technology tailored to compact support and to the orbit geometric operations used throughout the thesis. The basic mechanism is simple: for an open inclusion, extension by zero and restriction produce degreewise short exact sequences of compactly supported chain groups, and the \'etale pushforward formulas ensure compatibility with the Moore differentials. This is exactly what is needed for reductions, clopen saturated decompositions, and Mayer--Vietoris arguments in the totally disconnected setting.
+
+The chapter develops three complementary tools:
+\begin{enumerate}[noitemsep,nolistsep]
+\item \textbf{Long exact Moore homology sequence.}
+Section~\ref{sec:longexactmoore} constructs the long exact sequence associated to inclusions of subgroupoids and to reductions. In Section~\ref{sec:subgroupoid-case} we prove the chain level short exact sequence using extension by zero and restriction, verify compatibility with the Moore boundary by explicit pushforward computations, and describe the connecting morphism at chain level in the sense of Matui\'s theory \cite{matui2012homology}. In Section~\ref{sec:quotient-case} we recast the same mechanism in a quotient language by chains supported on complements.
+
+\item \textbf{Universal coefficient sequences.}
+Section~\ref{sec:UCT} addresses coefficient changes. When the Moore complex \(C_c(\G_\bullet,\ZZ)\) is degreewise free abelian, the classical universal coefficient theorem for chain complexes yields short exact sequences for homology and cohomology. In Section~\ref{sec:UCT-Homology} we obtain the UCT for \(H_n(\G;A)\) in terms of \(H_n(\G)=H_n(\G;\ZZ)\), \(\otimes_{\ZZ}\), and \(\operatorname{Tor}_1^{\ZZ}\). In Section~\ref{sec:UCT-Cohomology} we obtain the dual statement for the cohomology of \(\Hom_{\ZZ}(C_c(\G_\bullet,\ZZ),A)\), involving \(\Hom_{\ZZ}\) and \(\operatorname{Ext}^1_{\ZZ}\). The substantive point here is structural: the Moore complex is built from compactly supported functions on an ample nerve, so freeness must be verified from compact open partitions, and the restriction to discrete coefficients is essential in this compact support model since the tensor comparison map can fail to be surjective for non-discrete \(A\).
+
+\item \textbf{Moore--Mayer--Vietoris.}
+Section~\ref{sec:moore-mayer-vietoris} develops a Mayer--Vietoris principle adapted to compactly supported Moore chains. In Definition~\ref{def:MV-cover} we isolate admissible covers by clopen saturated pieces for which compact support and total disconnectedness give a clean decomposition of chains. In Section~\ref{sec:mv-chain-level} we build the Moore--Mayer--Vietoris sequence at chain level and verify exactness by explicit control of supports and compatibility with pushforward along the face maps. Passing to homology yields the Moore--Mayer--Vietoris long exact sequence in Theorem~\ref{thm:MV-long-exact}, which is the main gluing tool for computations from clopen saturated decompositions.
+\end{enumerate}
+
+Taken together, these results provide a practical calculus for \(H_\bullet(\G;A)\). One first replaces \(\G\) by a convenient full clopen model without changing homology, then decomposes the unit space into admissible pieces, applies the long exact and Moore--Mayer--Vietoris sequences to relate the pieces, and finally uses the universal coefficient sequences to change coefficients whenever the freeness hypothesis holds.
+
+\section{Long Exact Moore Homology Sequence}
+\label{sec:longexactmoore}
+We study Moore homology for pairs of \'etale groupoids with totally disconnected unit spaces. The goal is to compare their homology groups via exact sequences coming from open inclusions and from proper quotient maps.
+
+\begin{definition}\label{def:regular-pair}
+Let \(\G\) be an \'etale groupoid and let \(\G'\subseteq \G\) be an open subgroupoid. Set
+\(\triangle\coloneqq \G\setminus \G'\).
+Equip \(r(\triangle)\subseteq \G_0\) with the final topology induced by \(r\vert_{\triangle}\colon \triangle\to r(\triangle)\), that is,
+\(V\subseteq r(\triangle)\) is open if and only if \((r\vert_{\triangle})^{-1}(V)\) is open in \(\triangle\).
+\begin{enumerate}[noitemsep,nolistsep]
+  \item
+  The inclusion \(\G'\subseteq \G\) is called regular if \(r\vert_{\triangle}\colon \triangle\to r(\triangle)\) is an open map for the above topology on \(r(\triangle)\).
+  Equivalently, \(r\vert_{\triangle}\) is a quotient map onto its image.
+  \item
+  The pair \((\G',\G)\) is called a regular pair if \(\G'\subseteq \G\) is a regular open subgroupoid.
+\end{enumerate}
+\end{definition}
+
+Regularity means that applying the range map does not create artificial boundary phenomena when one passes from \(\triangle\) to the subset \(r(\triangle)\) of units.
+In practice, it ensures that openness of subsets of \(\triangle\) is detected after applying \(r\), so supports of compactly supported functions project to open subsets of units in a controlled way.
+This is exactly what one needs for extension by zero and restriction to interact cleanly with the pushforwards along the face maps.
+
+We work in two complementary settings.
+\begin{itemize}[noitemsep,nolistsep]
+  \item
+  Subgroupoid case: \(\G'\subseteq \G\) is an open subgroupoid and \((\G',\G)\) is a regular pair.
+  \item
+  Quotient case: \(\G'\) is a quotient of \(\G\) with a proper\footnote{A continuous map is proper if the preimage of every compact set is compact.} and regular\footnote{Here regular means that the topology on \(\G'\) is the quotient topology for \(\pi\), and the restriction of \(\pi\) to the relevant complement behaves as an open map onto its image, in the same sense as in Definition~\ref{def:regular-pair} after replacing \(r\vert_{\triangle}\) by the corresponding restriction of \(\pi\).} factor map \(\pi:\G\to \G'\).
+\end{itemize}
+
+\subsection{Subgroupoid Case}
+\label{sec:subgroupoid-case}
+In this section we recall the subgroupoid framework of Matui \cite[Setting~3.1]{matui2022long}, which is the starting point for the long exact sequence in the subgroupoid case. Throughout, \(\G\) denotes an ample groupoid with arrow space \(\G_1\) and unit space \(\G_0\).
+
+\begin{setting}\label{setting:subgroupoid}
+Let \(\G\) be an \'etale groupoid and let \(\G'\subseteq \G\) be an open subgroupoid with the same unit space, \((\G')_0=\G_0\). Set
+\(
+\triangle \coloneqq \G\setminus \G'
+\)
+for the complement of \(\G'\) inside \(\G\) on the level of arrows. Thus \(\triangle\) consists exactly of those arrows of \(\G\) that do not belong to \(\G'\). In particular, \(\triangle\cap \G_0=\varnothing\), since all units lie in \(\G'\). Since \(\G'\) is a subgroupoid, it is closed under inversion, hence \(\triangle\) is also closed under inversion: if \(g\in\triangle\) and \(g^{-1}\in \G'\), then \(g=(g^{-1})^{-1}\in \G'\), a contradiction. Consequently, for every \(g\in \triangle\) both endpoints lie in \(r(\triangle)\):
+\(
+r(g)\in r(\triangle),
+s(g)=r(g^{-1})\in r(\triangle).
+\)
+Equivalently, the subset \(r(\triangle)\subseteq \G_0\) is invariant for \(\triangle\) in the sense that every arrow in \(\triangle\) both starts and ends in \(r(\triangle)\).
+We now restrict \(\G\) and \(\G'\) to the unit space \(r(\triangle)\). Define
+\(
+\Hh \coloneqq \G\vert_{r(\triangle)},
+\Hh' \coloneqq \G'\vert_{r(\triangle)}.
+\)
+Thus \(\Hh\) has unit space \(\Hh_0=r(\triangle)\) and arrow space
+\(
+\Hh_1=\{g\in \G_1\mid r(g),s(g)\in r(\triangle)\},
+\)
+while \(\Hh'\) has the same unit space \(\Hh'_0=r(\triangle)\) and arrow space
+\(
+\Hh'_1=\{g\in \G'_1\mid r(g),s(g)\in r(\triangle)\}
+=\Hh_1\cap \G'_1.
+\)
+\end{setting}
+
+In particular, \(\Hh'\) is a subgroupoid of \(\Hh\) with the same unit space. Since every \(g\in\triangle\) satisfies \(r(g),s(g)\in r(\triangle)\), we have \(\triangle\subseteq \Hh_1\). Moreover, for \(h\in \Hh_1\) either \(h\in \G'_1\) or \(h\in \triangle\). If \(h\in \G'_1\), then \(h\in \Hh'_1\) by definition. Hence, on the level of arrows,
+\[
+\Hh_1=\Hh'_1 \sqcup \triangle,
+\qquad
+\Hh_0=\Hh'_0=r(\triangle).
+\]
+This decomposition is the input for a short exact sequence of chain groups built from extension by zero on \(\Hh'_1\subseteq \Hh_1\) and restriction to the complement \(\triangle\). To make this compatible with the \'etale pushforwards in the Moore boundary, one needs a mild regularity condition ensuring that openness in \(\triangle\) is reflected on the unit space through the range map.
+
+\begin{lemma}[{\cite[Remark~3.3]{matui2022long}}]\label{lem:regular-equivalences}
+Assume that \(\triangle\) is first countable, for example if \(\G_1\) is second countable. Then the following conditions are equivalent:
+\begin{enumerate}[noitemsep,nolistsep]
+\item
+\(r\vert_{\triangle}\colon \triangle\to r(\triangle)\) is open when \(r(\triangle)\) is equipped with the final topology induced by \(r\vert_{\triangle}\).
+\item
+For every open subset \(U\subseteq \triangle\), the set \(r^{-1}(r(U))\cap \triangle\) is open in \(\triangle\).
+\item
+For every open subset \(U\subseteq \triangle\) and every sequence \((g_k)_k\) in \(\triangle\) converging to some \(g\in \triangle\) with \(r(g)\in r(U)\), one has \(r(g_k)\in r(U)\) for all sufficiently large \(k\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The point is that regularity can be tested on the arrow space \(\triangle\) by asking whether the range of an open set in \(\triangle\) is again open in the quotient topology on \(r(\triangle)\).
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textup{\(1.\Rightarrow 2\).}
+Let \(U\subseteq \triangle\) be open. If \(r\vert_{\triangle}\) is open, then \(r(U)\) is open in \(r(\triangle)\) for the final topology. By definition of the final topology,
+\(
+(r\vert_{\triangle})^{-1}(r(U))=r^{-1}(r(U))\cap \triangle
+\)
+is open in \(\triangle\).
+
+\item \textup{\(2.\Rightarrow 1\).}
+Let \(U\subseteq \triangle\) be open. Condition \textup{2.} says that \((r\vert_{\triangle})^{-1}(r(U))\) is open in \(\triangle\). By definition of the final topology, this implies that \(r(U)\) is open in \(r(\triangle)\). Hence \(r\vert_{\triangle}\) is open, which is \textup{1}.
+
+\item \textup{\(2.\Rightarrow 3\).}
+Let \(U\subseteq \triangle\) be open and \((g_k)_k\to g\) in \(\triangle\) with \(r(g)\in r(U)\). Then \(g\in r^{-1}(r(U))\cap \triangle\), which is open by \textup{2}. Hence \(g_k\in r^{-1}(r(U))\cap \triangle\) for large \(k\), so \(r(g_k)\in r(U)\) eventually.
+
+\item \textup{\(3.\Rightarrow 2\).}
+Fix an open \(U\subseteq \triangle\) and set \(A\coloneqq r^{-1}(r(U))\cap \triangle\). Let \(g\in A\) and let \((g_k)_k\) be a sequence in \(\triangle\) with \(g_k\to g\). Since \(r(g)\in r(U)\), condition \textup{3.} implies \(r(g_k)\in r(U)\) for all sufficiently large \(k\), hence \(g_k\in A\) eventually. Thus \(A\) is sequentially open in \(\triangle\). Since \(\triangle\) is first countable, sequential openness agrees with openness, so \(A\) is open in \(\triangle\).
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[{\cite[Lemma~3.5]{matui2022long}}]\label{lem:mult-open-regular}
+Assume that \(\G'\subset\G\) is regular. Then the multiplication map
+\[
+m\colon (\triangle\times\triangle)\cap m^{-1}(\G')\rightarrow \Hh'_1,
+\qquad (g,h)\mapsto gh,
+\]
+is open when \(\Hh'_1\) is equipped with the final topology induced by \(m\).
+\end{lemma}
+
+\begin{proof}
+Let \(U_1,U_2\subseteq \G_1\) be open and set
+\(
+V\coloneqq (U_1\times U_2)\cap(\triangle\times\triangle)\cap m^{-1}(\G').
+\)
+We show that \(m(V)\) is open in \(\Hh'_1\) for the final topology.
+Since \(\triangle\times\triangle\) is first countable, it suffices to prove that \(m(V)\) is sequentially open in \(\Hh'_1\) in the sense of Lemma~\ref{lem:regular-equivalences}.
+
+Let \((g_k,h_k)\) be a sequence in \((\triangle\times\triangle)\cap m^{-1}(\G')\) converging to \((g,h)\), and assume that \(gh\in m(V)\).
+Choose \((a,b)\in V\) with \(ab=gh\) and set
+\(
+c\coloneqq bh^{-1}=a^{-1}g.
+\)
+Then \(c\in \G_1\) and the products \(ch=b\) and \(ac=g\) are defined.
+Moreover \(b\in\triangle\), hence \(c=(bh^{-1})\in\triangle\) because \(\triangle\) is closed under inversion and multiplication by units.
+
+Since \(\G\) is étale, the map
+\(
+r\times s\colon \G_1\rightarrow \G_0\times \G_0
+\)
+is a local homeomorphism on a bisection neighbourhood of \(c\). Shrinking around \(c\) if necessary, we can choose a sequence \((c_k)_k\) in \(\G_1\) such that
+\(
+c_k\to c, r(c_k)=r(h_k), s(c_k)=r(h)
+\)
+for all \(k\) large. The indices split into two sets
+\[
+A\coloneqq \{k\mid c_k\in \G'_1\},\qquad B\coloneqq \{k\mid c_k\in \triangle\}.
+\]
+Passing to a subsequence, we may assume either \(c_k\in\G'_1\) for all \(k\) or \(c_k\in\triangle\) for all \(k\).
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Case \(c_k\in\G'_1\) for all \(k\).}
+Since \(\triangle\) is open in \(\G_1\) and \(ch=b\in\triangle\), we have \(c_k h_k\in\triangle\) for all \(k\) sufficiently large.
+Similarly, \(g_k c_k^{-1}\to gc^{-1}=a\in\triangle\) implies \(g_k c_k^{-1}\in\triangle\) for large \(k\).
+Moreover,
+\[
+(g_k c_k^{-1})(c_k h_k)=g_k h_k,\qquad
+c_k h_k\in U_2,\qquad g_k c_k^{-1}\in U_1
+\]
+for all \(k\) sufficiently large because \(U_1,U_2\) are open and \(a\in U_1\), \(b\in U_2\).
+Hence \((g_k c_k^{-1},c_k h_k)\in V\) for large \(k\), and therefore \(g_k h_k\in m(V)\) eventually.
+
+\item \textbf{Case \(c_k\in\triangle\) for all \(k\).}
+By \cite[Lemma~6.4]{putnam2020excision}, the set \((\triangle\times\triangle)\cap m^{-1}(\triangle)\) is open in \(\triangle\times\triangle\).
+Since \((c_k,h_k)\to(c,h)\) and \(ch=b\in\triangle\), we obtain \(c_k h_k\in\triangle\) for all \(k\) sufficiently large.
+As above, \(g_k c_k^{-1}\to a\in\triangle\) gives \(g_k c_k^{-1}\in\triangle\) eventually, and openness of \(U_1,U_2\) yields \(g_k c_k^{-1}\in U_1\), \(c_k h_k\in U_2\) for large \(k\).
+Thus \((g_k c_k^{-1},c_k h_k)\in V\) eventually, hence \(g_k h_k\in m(V)\) eventually.
+\end{itemize}
+
+In either case, whenever \((g_k,h_k)\to(g,h)\) with \(gh\in m(V)\), we have \(g_k h_k\in m(V)\) for all sufficiently large \(k\).
+Thus \(m(V)\) is sequentially open in \(\Hh'_1\) for the final topology induced by \(m\), hence open.
+\end{proof}
+
+Now we introduce topologies on $\Hh$ and $\Hh'$.
+
+\begin{definition}[{\cite[Definition~6.5]{putnam2020excision}, \cite[Definition~3.6]{matui2022long}}]\label{def:topologies-H-Hprime}
+Consider the surjection
+\[
+m\colon (\triangle\times\triangle)\cap m^{-1}(\G')\rightarrow \Hh'_1,
+\qquad (g,h)\mapsto gh,
+\]
+given by groupoid multiplication.
+We equip \(\Hh'\) with the final topology induced by \(m\).
+We equip \(\Hh=\Hh'\cup\triangle\) with the disjoint union topology, meaning \(\Hh'\) carries the final topology, \(\triangle\) carries the subspace topology from \(\G\), and both \(\Hh'\) and \(\triangle\) are clopen in \(\Hh\).
+\end{definition}
+
+Regularity is designed so that these quotient-type topologies still interact well with the étale structure maps.
+
+\begin{theorem}[{\cite[Theorem~3.7]{matui2022long}, \cite[Theorem~6.8]{putnam2020excision}}]\label{thm:H-Hprime-etale}
+Let \(\G'\subset\G\) and \(\Hh'\subset\Hh\) be as above, and suppose that \(\G'\subset\G\) is regular.
+Then:
+\begin{enumerate}[noitemsep,nolistsep]
+\item \(\Hh\) and \(\Hh'\) are étale groupoids,
+\item \(\Hh\) and \(\Hh'\) are totally disconnected,
+\item \(\Hh'\) is a clopen subgroupoid of \(\Hh\).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}~
+\begin{enumerate}[noitemsep,nolistsep]
+\item
+Set
+\[
+W\coloneqq \bigl((\triangle\times\triangle)\cap \G_2\bigr)\cap m^{-1}(\G')
+\subseteq \G_2\subseteq \G_1\times \G_1.
+\]
+Then \(W\) is locally compact Hausdorff as an open subset of the closed subspace \(\G_2\).
+Equip \(\Hh'_1\) with the final topology for the surjection \(m:W\to \Hh'_1\).
+We first show that \(\Hh'_1\) is Hausdorff.
+Define
+\[
+\Phi\colon W\times W\rightarrow \G_1\times \G_1,
+\qquad
+\bigl((g,h),(g',h')\bigr)\mapsto (gh,g'h').
+\]
+Let \(\triangle_{\G_1}\coloneqq \{(x,x)\mid x\in \G_1\}\), which is closed since \(\G_1\) is Hausdorff.
+The equivalence relation of the quotient map \(m\) is
+\[
+R\coloneqq \{(w,w')\in W\times W\mid m(w)=m(w')\}
+=\Phi^{-1}(\triangle_{\G_1}),
+\]
+hence \(R\) is closed in \(W\times W\).
+Therefore the quotient \(\Hh'_1=W/R\) is Hausdorff.
+
+We next show that \(\Hh'_1\) is locally compact.
+Fix \(x\in \Hh'_1\) and choose \(w\in W\) with \(m(w)=x\).
+Since \(W\) is locally compact, there exists an open neighbourhood \(U\subseteq W\) of \(w\) with compact closure \(\overline U\subseteq W\).
+By Lemma~\ref{lem:mult-open-regular}, the map \(m\) is open, hence \(m(U)\) is open in \(\Hh'_1\).
+The set \(m(\overline U)\) is compact, hence closed in the Hausdorff space \(\Hh'_1\), and it contains \(m(U)\), so \(\overline{m(U)}\subseteq m(\overline U)\).
+Thus \(x\) has an open neighbourhood with compact closure, and \(\Hh'_1\) is locally compact.
+
+It remains to see that \(\Hh\) and \(\Hh'\) are étale.
+Since the topologies on \(\triangle\subseteq \Hh\) and on \(\G'_1\cap \Hh'_1\subseteq \Hh'\) restrict to the given subspace topologies from \(\G_1\), it suffices to show that the range map is open on each of the two clopen pieces \(\triangle\) and \(\Hh'_1\).
+Let \(U\subseteq \G_1\) be an open bisection.
+Then \(U\cap \triangle\) is open in \(\triangle\) and
+\[
+r(U\cap \triangle)=(U\cap \triangle)(U\cap \triangle)^{-1}
+= m\Bigl(\bigl((U\cap\triangle)\times (U\cap\triangle)\bigr)\cap W\Bigr),
+\]
+so \(r(U\cap \triangle)\) is open in \(\Hh'_1\) because \(m\) is open.
+Since \(\Hh_0=r(\triangle)\subseteq \Hh'_1\), this shows \(r\vert_{\triangle}\colon \triangle\to \Hh_0\) is open.
+For \(\Hh'\), consider the commutative identity
+\(
+r\circ m = r\circ p \ \text{on } W,
+\)
+where \(p\colon W\to \triangle\) is the restriction of the projection \((g,h)\mapsto g\).
+The map \(p\) is open, and we have just shown that \(r\vert_{\triangle}\) is open, hence \(r\circ p\) is open.
+Since \(m\) is a quotient map by definition of the final topology, it follows that \(r\vert_{\Hh'_1}\) is open.
+The same argument applies to \(s\), using \(s(gh)=s(h)\) and the projection \((g,h)\mapsto h\).
+Therefore \(r\) and \(s\) are local homeomorphisms on \(\Hh\) and on \(\Hh'\), so both are étale groupoids.
+
+\item
+The topologies on \(\Hh\) and \(\Hh'\) are finer than the subspace topology from \(\G_1\) on each clopen piece, so any subset that is connected in \(\Hh\) or \(\Hh'\) is connected in \(\G_1\).
+Since \(\G_1\) is totally disconnected, every connected subset is a singleton. Hence \(\Hh, \Hh'\) are totally disconnected.
+
+\item
+By Definition~\ref{def:topologies-H-Hprime}, \(\Hh=\Hh'\sqcup \triangle\) is a disjoint union of clopen subsets.
+The set \(\Hh'\) is closed under multiplication, inversion, and units by construction, hence is a subgroupoid of \(\Hh\), and it is clopen by definition of the disjoint union topology.
+\end{enumerate}
+\end{proof}
+
+Next, we show that $\G_n\setminus\G'_n$ and $\Hh_n\setminus\Hh'_n$ are canonically homeomorphic for all $n\ge 0$. This identifies the relative chain complexes
+\[
+C_{c}\bigl(\G_{n}\setminus \G'_{n},A\bigr)
+\quad\text{and}\quad
+C_{c}\bigl(\Hh_{n}\setminus \Hh'_{n},A\bigr),
+\]
+and hence shows that the inclusions $\G'\subseteq\G$ and $\Hh'\subseteq\Hh$ have the same relative homology. For this we need the following technical lemma.
+
+\begin{lemma}[{\cite[Lemma~3.8]{matui2022long}}]\label{lem:convergence-H}
+Let \(\G'\subseteq\G\) and \(\Hh'\subseteq\Hh\) be as in Setting~\ref{setting:subgroupoid}, and suppose that \(\G'\subseteq\G\) is regular.
+Let \((g_k)_k\) be a sequence in \(\Hh\) and let \(g\in\Hh\).
+Then the following conditions are equivalent:
+\begin{enumerate}[noitemsep,nolistsep]
+\item \(g_k\to g\) in \(\Hh\),
+\item \(r(g_k)\to r(g)\) in \(\Hh_0\), \(s(g_k)\to s(g)\) in \(\Hh_0\), and \(g_k\to g\) in \(\G\),
+\item \(r(g_k)\to r(g)\) in \(\Hh_0\) and \(g_k\to g\) in \(\G\),
+\item \(s(g_k)\to s(g)\) in \(\Hh_0\) and \(g_k\to g\) in \(\G\).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implications \textup{1.\(\Rightarrow\)2.}, \textup{2.\(\Rightarrow\)3.}, and \textup{2.\(\Rightarrow\)4.} are immediate.
+It remains to show \textup{3.\(\Rightarrow\)1.}; the implication \textup{4.\(\Rightarrow\)1.} is analogous by symmetry of \(r\) and \(s\).
+
+Assume \(r(g_k)\to r(g)\) in \(\Hh_0\) and \(g_k\to g\) in \(\G\).
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Case \(g\in \triangle\).}
+Let \(U\subseteq\G\) be an open bisection with \(g\in U\).
+Then \(g_k\in U\) for all large \(k\).
+By Theorem~\ref{thm:H-Hprime-etale}, the map \(r\vert_{\triangle}\colon \triangle\to \Hh_0\) is open, hence \(r(U\cap \triangle)\) is an open neighbourhood of \(r(g)\) in \(\Hh_0\).
+Thus \(r(g_k)\in r(U\cap \triangle)\) for all large \(k\).
+For such \(k\), there exists a unique \(h_k\in U\cap\triangle\) with \(r(h_k)=r(g_k)\), because \(r\vert_U\colon U\to r(U)\) is a homeomorphism and \(r(U\cap\triangle)=r(U)\cap r(\triangle)\).
+Since also \(g_k\in U\) and \(r(g_k)=r(h_k)\), injectivity of \(r\vert_U\) gives \(g_k=h_k\in U\cap\triangle\) for all large \(k\).
+The \(\Hh\)-topology on \(\triangle\) is the subspace topology from \(\G\), and sets of the form \(U\cap\triangle\) form a neighbourhood basis at \(g\).
+Hence \(g_k\to g\) in \(\Hh\).
+
+\item \textbf{Case \(g\in \Hh'\).}
+By surjectivity of \(m:W\to \Hh'\) from Definition~\ref{def:topologies-H-Hprime}, choose \(a,b\in \triangle\) with \(g=ab\).
+Let \(U\subseteq\G\) be an open bisection with \(a\in U\).
+As in the first case, \(r(U\cap\triangle)\) is an open neighbourhood of \(r(a)=r(g)\) in \(\Hh_0\), so \(r(g_k)\in r(U\cap\triangle)\) for all large \(k\).
+For each such \(k\), let \(a_k\in U\cap\triangle\) be the unique element with \(r(a_k)=r(g_k)\).
+Then \(a_k\to a\) in \(\Hh\), because \(r\vert_{U\cap\triangle}\colon U\cap\triangle\to r(U\cap\triangle)\) is a homeomorphism and \(r(a_k)=r(g_k)\to r(g)=r(a)\) in \(\Hh_0\).
+On \(\triangle\) the \(\Hh\)-topology is the subspace topology from \(\G\), hence \(a_k\to a\) in \(\G\).
+
+Define \(b_k\coloneqq a_k^{-1}g_k\).
+By continuity of inversion and multiplication in \(\G\), we have \(b_k\to a^{-1}g=b\) in \(\G\).
+Moreover,
+\[
+r(b_k)=r(a_k^{-1}g_k)=r(a_k^{-1})=s(a_k)\rightarrow s(a)=r(b)
+\quad \text{in } \Hh_0,
+\]
+where the convergence \(s(a_k)\to s(a)\) holds because \(s\) is continuous on the étale groupoid \(\Hh\) and \(a_k\to a\) in \(\Hh\).
+Thus \((b_k)_k\) and \(b\in\triangle\) satisfy condition \textup{3.} of the lemma.
+Applying the first case to \(b_k\to b\), we obtain \(b_k\to b\) in \(\Hh\).
+Finally, multiplication in \(\Hh\) is continuous by Theorem~\ref{thm:H-Hprime-etale}, hence
+\(
+g_k=a_k b_k \rightarrow a b=g
+\ \text{in } \Hh.
+\)
+\end{itemize}
+This proves \textup{3.\(\Rightarrow\)1.}, hence all four conditions are equivalent.
+\end{proof}
+
+Before comparing the long exact sequences for the pairs \((\G,\G')\) and \((\Hh,\Hh')\), we need to understand how the Moore chain complexes decompose along a regular subgroupoid \(\G'\subseteq\G\) and how this decomposition behaves under the equivalence from Setting~\ref{setting:subgroupoid}. The next proposition identifies, for discrete coefficients, the quotient complex \(C_c(\G_\bullet,A)/C_c(\G'_\bullet,A)\) with the chain complex on the complement \(\G\setminus\G'\), and shows that this identification is compatible with the corresponding pair \((\Hh,\Hh')\). It is the analogue of \cite[Proposition~3.10]{matui2022long} in our notation.
+
+\begin{proposition}[{\cite[Proposition~3.9]{matui2022long}}]\label{prop:quotient-complex-regular}
+Assume Setting~\ref{setting:subgroupoid} and let $\G'\subseteq\G$ be regular.
+Let $A$ be a discrete abelian group.
+For each $n\ge 0$ write
+\(
+\triangle_n\coloneqq \G_n\setminus \G'_n.
+\)
+Then $\G'_n\subseteq \G_n$ is clopen and there is a canonical short exact sequence
+\[
+0\longrightarrow C_c(\G'_n,A)\xrightarrow{(\iota_n)_*} C_c(\G_n,A)\xrightarrow{(\rho_n)_*} C_c(\triangle_n,A)\longrightarrow 0,
+\]
+where $\iota_n:\G'_n\hookrightarrow \G_n$ is the inclusion, $(\iota_n)_*$ is extension by zero, and $(\rho_n)_*$ is restriction to $\triangle_n$.
+
+Moreover, under Definition~\ref{def:topologies-H-Hprime} we have equalities of sets
+\(
+\Hh_n=\Hh'_n\sqcup \triangle_n,
+\Hh'_n=\G'_n,
+\)
+and $\triangle_n$ is clopen in $\Hh_n$.
+Hence there is a second canonical short exact sequence
+\[
+0\longrightarrow C_c(\Hh'_n,A)\xrightarrow{(\jmath_n)_*} C_c(\Hh_n,A)\xrightarrow{(\widetilde\rho_n)_*} C_c(\triangle_n,A)\longrightarrow 0,
+\]
+where $\jmath_n:\Hh'_n\hookrightarrow \Hh_n$ is the inclusion, $(\jmath_n)_*$ is extension by zero, and $(\widetilde\rho_n)_*$ is restriction to $\triangle_n$.
+
+For each $n\ge 0$, the universal property of cokernels yields a unique isomorphism
+\[
+(\Theta_n)_*:\; C_c(\G_n,A)\big/(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr)\xrightarrow{\cong}
+C_c(\Hh_n,A)\big/(\jmath_n)_*\bigl(C_c(\Hh'_n,A)\bigr)
+\]
+characterized by the commutative diagram with exact rows
+\[
+\begin{tikzcd}
+0 \arrow{r}
+  & C_c(\G'_n,A) \arrow{r}{(\iota_n)_*}
+  & C_c(\G_n,A) \arrow{r}
+  & C_c(\G_n,A)\big/(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr) \arrow{r}
+  & 0 \\
+0 \arrow{r}
+  & C_c(\Hh'_n,A) \arrow{r}{(\jmath_n)_*}
+  & C_c(\Hh_n,A) \arrow{r}
+  & C_c(\Hh_n,A)\big/(\jmath_n)_*\bigl(C_c(\Hh'_n,A)\bigr) \arrow{r}
+  & 0
+\arrow[from=1-4, to=2-4, "(\Theta_n)_*"', "\cong"]
+\end{tikzcd}
+\]
+together with the requirement that, under the canonical identifications
+\[
+\begin{aligned}
+&C_c(\G_n,A)\big/(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr)\xrightarrow[\cong]{\ (\overline{\rho}_n)_*\ } C_c(\triangle_n,A),
+\\
+&C_c(\Hh_n,A)\big/(\jmath_n)_*\bigl(C_c(\Hh'_n,A)\bigr)\xrightarrow[\cong]{\ (\overline{\widetilde\rho}_n)_*\ } C_c(\triangle_n,A),
+\end{aligned}
+\]
+the map $(\Theta_n)_*$ corresponds to $\operatorname{id}_{C_c(\triangle_n,A)}$, meaning
+\(
+(\overline{\widetilde\rho}_n)_*\circ (\Theta_n)_*=(\overline{\rho}_n)_*.
+\)
+Finally, the maps $(\Theta_n)_*$ are compatible with the Moore differentials, hence $(\Theta_\bullet)_*$ is a natural chain isomorphism
+\(
+(\Theta_\bullet)_*:\; C_c(\G_\bullet,A)\big/C_c(\G'_\bullet,A)\xrightarrow{\cong} C_c(\Hh_\bullet,A)\big/C_c(\Hh'_\bullet,A).
+\)
+\end{proposition}
+
+\begin{proof}
+Fix $n\ge 0$.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Clopen decomposition for $\G_n$.}
+Since $\G'\subseteq \G$ is regular, the inclusion $\G'_1\subseteq \G_1$ is clopen.
+For $n\ge 1$ we have
+\[
+\G_n=\bigl\{(g_1,\dots,g_n)\in \G_1^n \mid s(g_i)=r(g_{i+1}) \text{ for all } i\bigr\}
+\]
+as a subspace of $\G_1^n$, and similarly $\G'_n$ is the intersection of $\G_n$ with $(\G'_1)^n$.
+Because $(\G'_1)^n\subseteq \G_1^n$ is clopen, its intersection with $\G_n$ is clopen in $\G_n$.
+Thus $\G'_n\subseteq \G_n$ is clopen, so $\triangle_n=\G_n\setminus \G'_n$ is clopen as well.
+For $n=0$ we have $\G'_0=\G_0$, hence $\triangle_0=\varnothing$.
+
+\item \textbf{Exact sequence for $\G_n$ and explicit maps.}
+Let $\iota_n:\G'_n\hookrightarrow \G_n$ be the inclusion.
+Since $\G'_n$ is open, extension by zero defines an injective homomorphism
+\[
+(\iota_n)_*:C_c(\G'_n,A)\to C_c(\G_n,A),
+\qquad
+(\iota_n)_*(f)(g)\coloneqq
+\begin{cases}
+f(g), & \text{for} \ g\in \G'_n,\\
+0, & \text{for} \ g\in \triangle_n.
+\end{cases}
+\]
+Define restriction to the clopen complement
+\[
+(\rho_n)_*:C_c(\G_n,A)\to C_c(\triangle_n,A),
+\qquad
+(\rho_n)_*(f)\coloneqq f\vert_{\triangle_n}.
+\]
+Then $(\rho_n)_*$ is surjective since $\triangle_n$ is clopen in $\G_n$, so any $h\in C_c(\triangle_n,A)$ extends by zero to an element of $C_c(\G_n,A)$.
+Moreover,
+\[
+\begin{aligned}
+\ker\bigl((\rho_n)_*\bigr)&=\bigl\{f\in C_c(\G_n,A)\mid f\vert_{\triangle_n}=0\bigr\}\\
+&=\bigl\{f\in C_c(\G_n,A)\mid \operatorname{supp}(f)\subseteq \G'_n\bigr\}\\
+&=(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr),
+\end{aligned}
+\]
+where the last equality holds because $\G'_n$ is open and every $f$ supported in $\G'_n$ restricts to $C_c(\G'_n,A)$ and is recovered by extension by zero.
+This proves exactness of
+\[
+0\to C_c(\G'_n,A)\xrightarrow{(\iota_n)_*} C_c(\G_n,A)\xrightarrow{(\rho_n)_*} C_c(\triangle_n,A)\to 0.
+\]
+Let $(\overline{\rho}_n)_*$ denote the induced isomorphism
+\[
+(\overline{\rho}_n)_*:\; C_c(\G_n,A)\big/(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr)\xrightarrow{\cong} C_c(\triangle_n,A),
+\qquad
+[f]\mapsto f\vert_{\triangle_n}.
+\]
+
+\item \textbf{Exact sequence for $\Hh_n$ and the same complement.}
+By Definition~\ref{def:topologies-H-Hprime} we have $\Hh_n=\Hh'_n\sqcup \triangle_n$ as sets and $\triangle_n$ is clopen in $\Hh_n$.
+The same argument as in the previous step yields exactness of
+\[
+0\to C_c(\Hh'_n,A)\xrightarrow{(\jmath_n)_*} C_c(\Hh_n,A)\xrightarrow{(\widetilde\rho_n)_*} C_c(\triangle_n,A)\to 0,
+\]
+where $(\widetilde\rho_n)_*$ is restriction to $\triangle_n$.
+Let $(\overline{\widetilde\rho}_n)_*$ denote the induced isomorphism
+\[
+(\overline{\widetilde\rho}_n)_*:\; C_c(\Hh_n,A)\big/(\jmath_n)_*\bigl(C_c(\Hh'_n,A)\bigr)\xrightarrow{\cong} C_c(\triangle_n,A),
+\qquad
+[f]\mapsto f\vert_{\triangle_n}.
+\]
+
+\item \textbf{Definition and uniqueness of $(\Theta_n)_*$.}
+Define
+\(
+(\Theta_n)_*\coloneqq (\overline{\widetilde\rho}_n)_*^{-1}\circ (\overline{\rho}_n)_*.
+\)
+This is an isomorphism and it is the unique homomorphism such that
+\(
+(\overline{\widetilde\rho}_n)_*\circ (\Theta_n)_*=(\overline{\rho}_n)_*,
+\)
+$(\Theta_n)_*$ sends the class of $f\in C_c(\G_n,A)$ to the unique class in the bottom quotient whose restriction to $\triangle_n$ equals $f\vert_{\triangle_n}$.
+
+\item \textbf{Compatibility with Moore differentials.}
+Let $\partial_n^{\G}:C_c(\G_n,A)\to C_c(\G_{n-1},A)$ and $\partial_n^{\Hh}:C_c(\Hh_n,A)\to C_c(\Hh_{n-1},A)$ be the Moore differentials, defined as alternating sums of pushforwards along the face maps.
+Since each face map restricts to the corresponding face map on the subgroupoids, the extension-by-zero maps are chain maps, meaning
+\[
+\partial_n^{\G}\circ (\iota_n)_*=(\iota_{n-1})_*\circ \partial_n^{\G'},
+\qquad
+\partial_n^{\Hh}\circ (\jmath_n)_*=(\jmath_{n-1})_*\circ \partial_n^{\Hh'}.
+\]
+Hence $\partial_n^{\G}$ and $\partial_n^{\Hh}$ descend to differentials on the quotients, denoted
+\[
+\begin{aligned}
+\overline{\partial}_n^{\G}&:\; C_c(\G_n,A)\big/(\iota_n)_*\bigl(C_c(\G'_n,A)\bigr)\to
+C_c(\G_{n-1},A)\big/(\iota_{n-1})_*\bigl(C_c(\G'_{n-1},A)\bigr),\\
+\overline{\partial}_n^{\Hh}&:\; C_c(\Hh_n,A)\big/(\jmath_n)_*\bigl(C_c(\Hh'_n,A)\bigr)\to
+C_c(\Hh_{n-1},A)\big/(\jmath_{n-1})_*\bigl(C_c(\Hh'_{n-1},A)\bigr).
+\end{aligned}
+\]
+
+To show that $(\Theta_\bullet)_*$ is a chain map, it suffices to show
+\(
+(\Theta_{n-1})_*\circ \overline{\partial}_n^{\G}=\overline{\partial}_n^{\Hh}\circ (\Theta_n)_*.
+\)
+Apply $(\overline{\widetilde\rho}_{n-1})_*$ to both sides.
+Using $(\overline{\widetilde\rho}_{n-1})_*\circ (\Theta_{n-1})_*=(\overline{\rho}_{n-1})_*$ and $(\overline{\widetilde\rho}_n)_*\circ (\Theta_n)_*=(\overline{\rho}_n)_*$, this reduces to
+\(
+(\overline{\rho}_{n-1})_*\circ \overline{\partial}_n^{\G}=(\overline{\widetilde\rho}_{n-1})_*\circ \overline{\partial}_n^{\Hh}\circ (\overline{\widetilde\rho}_n)_*^{-1}\circ (\overline{\rho}_n)_*.
+\)
+But $(\overline{\rho}_{n-1})_*\circ \overline{\partial}_n^{\G}$ is, by definition of the induced quotient differential, the map
+\(
+[f]\longmapsto \bigl(\partial_n^{\G} f\bigr)\vert_{\triangle_{n-1}},
+\)
+and similarly the right-hand side is
+\(
+[f]\longmapsto \bigl(\partial_n^{\Hh} \widetilde f\bigr)\vert_{\triangle_{n-1}},
+\)
+where $\widetilde f\in C_c(\Hh_n,A)$ is any function with $\widetilde f\vert_{\triangle_n}=f\vert_{\triangle_n}$.
+Choosing $\widetilde f$ to be the extension by zero from $\triangle_n\subset \Hh_n$, we have $\widetilde f\vert_{\triangle_n}=f\vert_{\triangle_n}$ and $\widetilde f\vert_{\Hh'_n}=0$.
+Since $\Hh'_n=\G'_n$ and $\triangle_n$ agree as subsets of the underlying set, and since the face maps and their pushforwards agree on $\triangle_n$ under the identifications fixed in Definition~\ref{def:topologies-H-Hprime}, we get
+\[
+\bigl(\partial_n^{\G} f\bigr)\vert_{\triangle_{n-1}}
+=\bigl(\partial_n^{\Hh} \widetilde f\bigr)\vert_{\triangle_{n-1}}.
+\]
+\end{itemize}
+\end{proof}
+
+The preceding proposition identifies, in the regular subgroupoid setting, the correct quotient complex: after passing from \(\G\) and \(\G'\) to the auxiliary pair \(\Hh\supseteq\Hh'\), the complement \(\triangle\) becomes a clopen summand in \(\Hh\), so the quotient by chains supported on \(\Hh'\) is literally the chain complex of compactly supported functions on the complement.
+
+Invariance statements are proved by the same two ingredients.
+First, any étale functor \(\varphi:\Hh\to\G\) induces maps on nerves \(\varphi_n:\Hh_n\to\G_n\), hence pushforwards \((\varphi_n)_*\) on compactly supported chains, and these assemble to a chain map by functoriality of pushforward.
+Second, when \(\varphi\) implements an equivalence of groupoids, the equivalence data provide a quasi-inverse up to similarity, and similarity yields a chain homotopy.
+Thus an equivalence gives a chain homotopy equivalence of Moore complexes and therefore an isomorphism on Moore homology.
+The next proposition records this in the discrete-coefficient, finite-fibre situation.
+
+\begin{proposition}\label{prop:equivalence-chain-iso}
+Let $\G$ and $\Hh$ be ample groupoids and let $A$ be a discrete abelian group.
+Assume there is an \'etale functor $\varphi:\Hh\to \G$ which is a groupoid equivalence and such that, for every $n\ge 0$, the induced map on nerves $\varphi_n:\Hh_n\to \G_n$ is a local homeomorphism with finite fibres.
+For each $n\ge 0$ define
+\(
+(\varphi_n)_*: C_c(\Hh_n,A)\to C_c(\G_n,A)
+\)
+by
+\[
+\bigl((\varphi_n)_*\xi\bigr)(g)
+\coloneqq \sum_{\substack{h\in\Hh_n\\ \varphi_n(h)=g}} \xi(h),
+\qquad
+g\in\G_n,\ \xi\in C_c(\Hh_n,A),
+\]
+and write
+\(
+(\varphi_\bullet)_*\coloneqq \bigl((\varphi_n)_*\bigr)_{n\ge 0}.
+\)
+Then:
+\begin{enumerate}[noitemsep,nolistsep]
+  \item $(\varphi_\bullet)_*$ is a chain map, that is
+  \(
+  \partial_n^{\G}\circ (\varphi_n)_*=(\varphi_{n-1})_*\circ \partial_n^{\Hh}
+  \)
+  for all $n\ge 1$.
+  \item The induced maps in homology
+  \(
+  H_n\bigl((\varphi_\bullet)_*\bigr):H_n(\Hh;A)\to H_n(\G;A)
+  \)
+  are isomorphisms for all $n\ge 0$, natural in $A$.
+\end{enumerate}
+In particular, $\G$ and $\Hh$ have canonically isomorphic Moore homology with discrete coefficients.
+\end{proposition}
+
+\begin{proof}
+Since $A$ is discrete and $\G,\Hh$ are ample, each $\G_n$ and $\Hh_n$ is locally compact, Hausdorff, and totally disconnected.
+For fixed $n$ and $g\in\G_n$ the fibre $\varphi_n^{-1}(g)$ is finite by assumption, hence the sum defining $(\varphi_n)_*\xi$ is finite.
+Standard compact-support arguments for pushforward along local homeomorphisms with finite fibres show that $(\varphi_n)_*\xi$ is continuous and compactly supported, so $(\varphi_n)_*$ is a well-defined group homomorphism.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Chain map property.}
+For $n\ge 1$ and $0\le i\le n$, functoriality of the nerve gives
+\(
+d_i^{\G}\circ \varphi_n=\varphi_{n-1}\circ d_i^{\Hh}.
+\)
+By functoriality of pushforward for composition, Proposition~\ref{prop:pushforward_compatible} yields
+\(
+(d_i^{\G})_*\circ (\varphi_n)_*=(\varphi_{n-1})_*\circ (d_i^{\Hh})_*.
+\)
+Summing with signs gives
+\[
+\partial_n^{\G}\circ (\varphi_n)_*
+=\sum_{i=0}^n (-1)^i (d_i^{\G})_*\circ (\varphi_n)_*
+=\sum_{i=0}^n (-1)^i (\varphi_{n-1})_*\circ (d_i^{\Hh})_*
+=(\varphi_{n-1})_*\circ \partial_n^{\Hh}.
+\]
+
+\item \textbf{Isomorphism on homology.}
+Choose an \'etale quasi-inverse $\psi:\G\to\Hh$ for $\varphi$, so that $\psi_n:\G_n\to\Hh_n$ is a local homeomorphism with finite fibres for all $n$.
+Define $(\psi_n)_*$ by the same fibrewise sum and obtain a chain map $(\psi_\bullet)_*$.
+Since $\varphi$ and $\psi$ are quasi-inverses, there are natural transformations
+\(
+\psi\circ\varphi \Rightarrow \mathrm{id}_{\Hh},
+\varphi\circ\psi \Rightarrow \mathrm{id}_{\G}.
+\)
+Applying Proposition~\ref{prop:similar-homotopy} to these similarities yields chain homotopies
+\(
+(\psi_\bullet)_*\circ (\varphi_\bullet)_* \simeq \mathrm{id}_{C_\bullet(\Hh;A)},
+(\varphi_\bullet)_*\circ (\psi_\bullet)_* \simeq \mathrm{id}_{C_\bullet(\G;A)}.
+\)
+Thus $(\varphi_\bullet)_*$ and $(\psi_\bullet)_*$ are chain homotopy inverses, hence induce mutually inverse isomorphisms on homology.
+
+\item \textbf{Naturality.}
+Naturality in $A$ follows because any homomorphism $A\to B$ induces levelwise postcomposition maps $C_c(-,A)\to C_c(-,B)$, and these commute with all fibrewise-sum pushforwards.
+\end{itemize}
+\end{proof}
+
+The regular subgroupoid setting replaces the original inclusion \(\G'\subseteq\G\) by the equivalent pair \(\Hh'\subseteq\Hh\) from Setting~\ref{setting:subgroupoid}, where the complement \(\triangle\) becomes a clopen summand and the quotient complex is identified with compactly supported chains on the complement.
+Proposition~\ref{prop:quotient-complex-regular} provides short exact sequences of Moore complexes for both pairs.
+To use these sequences for computations, one must know that the passage from \((\G,\G')\) to \((\Hh,\Hh')\) does not alter homology, and that the resulting long exact sequences match under the equivalence.
+The next theorem records this compatibility at the level of long exact sequences.
+
+\begin{theorem}\label{thm:LES-regular-diagram}
+Let $\G'\subseteq\G$ and $\Hh'\subseteq\Hh$ be as in Setting~\ref{setting:subgroupoid}, so that $\G'\subseteq\G$ is regular and the pair $(\G,\G')$ is equivalent to $(\Hh,\Hh')$.
+Let $A$ be a discrete abelian group.
+Then for each $n\ge 0$ there are natural isomorphisms
+\[
+H_n(\G';A)\cong H_n(\Hh';A),
+\qquad
+H_n(\G;A)\cong H_n(\Hh;A),
+\qquad
+H_n(\G/\G';A)\cong H_n(\Hh/\Hh';A),
+\]
+such that the following diagram has exact horizontal lines and commutes:
+\[
+\begin{tikzcd}[column sep=2.5em]
+\cdots \arrow{r}
+  & H_n(\G';A)
+        \arrow{r}{H_n((j^{\G}_\bullet)_\ast;A)}
+        \arrow{d}[swap]{H_n\bigl((\Phi'_\bullet)_*\bigr)}
+  & H_n(\G;A)
+        \arrow{r}{H_n((q^{\G}_\bullet)_\ast;A)}
+        \arrow{d}[swap]{H_n\bigl((\Phi_\bullet)_*\bigr)}
+  & H_n(\G/\G';A)
+        \arrow{r}{\partial_n^{\G}}
+        \arrow{d}[swap]{H_n\bigl((\overline{\Phi}_\bullet)_*\bigr)}
+  & H_{n-1}(\G';A)
+        \arrow{r}
+        \arrow{d}[swap]{H_{n-1}\bigl((\Phi'_\bullet)_*\bigr)}
+  & \cdots \\
+\cdots \arrow{r}
+  & H_n(\Hh';A)
+        \arrow{r}{H_n((j^{\Hh}_\bullet)_\ast;A)}
+  & H_n(\Hh;A)
+        \arrow{r}{H_n((q^{\Hh}_\bullet)_\ast;A)}
+  & H_n(\Hh/\Hh';A)
+        \arrow{r}{\partial_n^{\Hh}}
+  & H_{n-1}(\Hh';A)
+        \arrow{r}
+  & \cdots
+\end{tikzcd}
+\]
+\end{theorem}
+
+\begin{proof}
+By Setting~\ref{setting:subgroupoid} there is an \'etale functor $\Phi:\G\to\Hh$ which restricts to $\Phi':\G'\to\Hh'$ and induces a functor on complements
+\[
+\overline{\Phi}:\G\setminus\G'\to\Hh\setminus\Hh'.
+\]
+For each $n\ge 0$ this yields local homeomorphisms
+\[
+\Phi_n:\G_n\to\Hh_n,
+\qquad
+\Phi'_n:\G'_n\to\Hh'_n,
+\qquad
+\overline{\Phi}_n:\G_n\setminus\G'_n\to\Hh_n\setminus\Hh'_n.
+\]
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Chain-level short exact sequences.}
+Proposition~\ref{prop:quotient-complex-regular} gives short exact sequences
+\[
+\begin{aligned}
+0\to &C_c(\G'_\bullet,A)\xrightarrow{(j^{\G}_\bullet)_*} C_c(\G_\bullet,A)\xrightarrow{(q^{\G}_\bullet)_*} C_c(\G_\bullet,A)\big/C_c(\G'_\bullet,A)\to 0,\\
+0\to &C_c(\Hh'_\bullet,A)\xrightarrow{(j^{\Hh}_\bullet)_*} C_c(\Hh_\bullet,A)\xrightarrow{(q^{\Hh}_\bullet)_*} C_c(\Hh_\bullet,A)\big/C_c(\Hh'_\bullet,A)\to 0.
+\end{aligned}
+\]
+
+\item \textbf{Chain-level isomorphisms and compatibility.}
+Since $A$ is discrete, pushforward along $\Phi_n,\Phi'_n,\overline{\Phi}_n$ defines chain maps
+\[
+\begin{aligned}
+(\Phi_\bullet)_*&:C_c(\G_\bullet,A)\to C_c(\Hh_\bullet,A),\\
+(\Phi'_\bullet)_*&:C_c(\G'_\bullet,A)\to C_c(\Hh'_\bullet,A),\\
+(\overline{\Phi}_\bullet)_*&:C_c(\G_\bullet,A)\big/C_c(\G'_\bullet,A)\to C_c(\Hh_\bullet,A)\big/C_c(\Hh'_\bullet,A).
+\end{aligned}
+\]
+By Proposition~\ref{prop:equivalence-chain-iso} these are chain isomorphisms.
+Moreover, $\Phi$ respects subgroupoids and complements, hence the induced chain maps satisfy
+\[
+(\Phi_\bullet)_*\circ (j^{\G}_\bullet)_* = (j^{\Hh}_\bullet)_*\circ (\Phi'_\bullet)_*,
+\qquad
+(q^{\Hh}_\bullet)_*\circ (\Phi_\bullet)_* = (\overline{\Phi}_\bullet)_*\circ (q^{\G}_\bullet)_*,
+\]
+so we obtain a commutative diagram of short exact sequences of chain complexes
+\[
+\begin{tikzcd}
+0 \arrow{r}
+  & C_c(\G'_\bullet,A)
+        \arrow{r}{j^{\G}_*}
+        \arrow{d}[swap]{(\Phi'_\bullet)_*}
+  & C_c(\G_\bullet,A)
+        \arrow{r}{q^{\G}_*}
+        \arrow{d}[swap]{(\Phi_\bullet)_*}
+  & C_c(\G_\bullet,A)\big/C_c(\G'_\bullet,A)
+        \arrow{r}
+        \arrow{d}[swap]{(\overline{\Phi}_\bullet)_*}
+  & 0 \\
+0 \arrow{r}
+  & C_c(\Hh'_\bullet,A)
+        \arrow{r}{j^{\Hh}_*}
+  & C_c(\Hh_\bullet,A)
+        \arrow{r}{q^{\Hh}_*}
+  & C_c(\Hh_\bullet,A)\big/C_c(\Hh'_\bullet,A)
+        \arrow{r}
+  & 0.
+\end{tikzcd}
+\]
+
+\item \textbf{Passing to homology.}
+Applying the homology functor to the two short exact sequences yields long exact sequences with connecting morphisms $\partial_n^{\G}$ and $\partial_n^{\Hh}$.
+Naturality of the connecting morphism for morphisms of short exact sequences of chain complexes implies that the above commutative diagram induces the commutative diagram of long exact sequences in the statement.
+Since $(\Phi_\bullet)_*,(\Phi'_\bullet)_*,(\overline{\Phi}_\bullet)_*$ are chain isomorphisms, the induced maps
+\(
+H_n\bigl((\Phi_\bullet)_*\bigr),
+H_n\bigl((\Phi'_\bullet)_*\bigr),
+H_n\bigl((\overline{\Phi}_\bullet)_*\bigr)
+\)
+are isomorphisms for all $n\ge 0$.
+\end{itemize}
+\end{proof}
+
+\subsection{Quotient Groupoid Case}
+\label{sec:quotient-case}
+In this section we turn to the second source of long exact sequences for Moore homology, namely the quotient situation.
+In contrast to the subgroupoid case, the relevant maps on nerves come from quotient-type surjections and are therefore typically not local homeomorphisms.
+Since our chain groups are \(C_c(\G_n,A)\) and the Moore boundary is built from pushforward along local homeomorphisms, we need a substitute for pushforward along such quotient maps.
+Matui’s approach is to single out a class of proper surjections between locally compact metric spaces for which fibres vary in a controlled way.
+This control is needed to define fibrewise summation on compactly supported functions, to prove continuity of the resulting function, and to verify compatibility with composition and with the simplicial face maps.
+
+The metric input is phrased in terms of Hausdorff variation of compact fibres.
+For a metric space \((X,d)\) and a compact subset \(K\subseteq X\) we write
+\(
+\operatorname{diam}(K)\coloneqq \sup\{d(x,y)\mid x,y\in K\}.
+\)
+For compact \(K,L\subseteq X\) we use the Hausdorff distance
+\[
+d_H(K,L)\coloneqq
+\max\Bigl\{\sup_{x\in K}\inf_{y\in L} d(x,y),\ \sup_{y\in L}\inf_{x\in K} d(x,y)\Bigr\},
+\]
+and we record the estimate
+\(
+\bigl|\operatorname{diam}(K)-\operatorname{diam}(L)\bigr|\le 2\,d_H(K,L).
+\)
+Intuitively, regularity says that near a point of the target, either the fibre varies continuously in Hausdorff distance, or it becomes uniformly small.
+This is the precise hypothesis that makes fibrewise constructions compatible with compact supports.
+
+After collecting the required consequences for such surjections, we apply them degreewise to simplicial spaces arising from an \'etale groupoid \(\G\) together with a suitable normal wide subgroupoid of isotropy \(\mathcal N\), so that the factor groupoid \(\G/\mathcal N\) is defined and the quotient map behaves well on compactly supported chains.
+This yields a chain-level short exact sequence adapted to the quotient setting and, via Matui’s explicit connecting morphism, a long exact sequence in Moore homology.
+Together with the subgroupoid long exact sequence, this provides the basic cut-and-paste technology used later for computations.
+
+For a set \(S\) we write \(\#S\) for its cardinality.
+
+\begin{definition}[Regular proper surjections {\cite[Def.~7.6, Def.~7.7]{putnam2020excision}}]\label{def:regular-map}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces, and let \(\pi:X\to X'\) be a continuous proper surjection.
+\begin{enumerate}[noitemsep,nolistsep]
+\item
+We call \(\pi\) regular if for every \(x'\in X'\) and every \(\varepsilon>0\) there exists an open neighbourhood \(U'\subseteq X'\) of \(x'\) such that for every \(y'\in U'\) one has
+\[
+d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)<\varepsilon
+\quad\text{or}\quad
+\operatorname{diam}\bigl(\pi^{-1}(y')\bigr)<\varepsilon.
+\]
+\item
+Set \(X'_{\pi}\coloneqq\{x'\in X'\mid \#\pi^{-1}(x')>1\}\) and \(X_{\pi}\coloneqq \pi^{-1}(X'_{\pi})\).
+Define metrics
+\[
+\begin{aligned}
+d'_{\pi}(x',y') &\coloneqq d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)\qquad \text{for } x',y'\in X'_{\pi},\\
+d_{\pi}(x,y) &\coloneqq d(x,y)+d'_{\pi}\bigl(\pi(x),\pi(y)\bigr)\qquad \text{for } x,y\in X_{\pi}.
+\end{aligned}
+\]
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[{\cite[Proposition~7.8]{putnam2020excision}}]\label{lem:inclusions-continuous}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces and let \(\pi:X\to X'\) be a continuous proper surjection.
+With \(X'_{\pi}\subseteq X'\), \(X_{\pi}\coloneqq \pi^{-1}(X'_{\pi})\), and the metrics \(d'_{\pi}\) on \(X'_{\pi}\) and \(d_{\pi}\) on \(X_{\pi}\) as in Definition~\ref{def:regular-map}, the inclusions
+\(
+(X_{\pi},d_{\pi})\hookrightarrow (X,d),
+(X'_{\pi},d'_{\pi})\hookrightarrow (X',d')
+\)
+are continuous.
+\end{lemma}
+
+\begin{proof}
+Write \(\iota:X_{\pi}\hookrightarrow X\) and \(\iota':X'_{\pi}\hookrightarrow X'\) for the inclusions.
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Continuity of \(\iota\).}
+For \(x,y\in X_{\pi}\) one has \(d_{\pi}(x,y)=d(x,y)+d'_{\pi}(\pi(x),\pi(y))\), hence \(d(x,y)\le d_{\pi}(x,y)\).
+Thus \(\iota\) is \(1\)-Lipschitz and therefore continuous.
+
+\item \textbf{Continuity of \(\iota'\).}
+Fix \(x'\in X'_{\pi}\) and let \(U\subseteq X'\) be an open neighbourhood of \(x'\).
+Pick \(x\in \pi^{-1}(x')\).
+By continuity of \(\pi\) there exists an open neighbourhood \(V\subseteq X\) of \(x\) with \(\pi(V)\subseteq U\).
+Choose \(\varepsilon>0\) such that \(B_d(x,\varepsilon)\subseteq V\).
+
+Let \(y'\in X'_{\pi}\) with \(d'_{\pi}(x',y')<\varepsilon\), i.e.
+\(d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)<\varepsilon\).
+By the definition of \(d_H\), there exists \(y\in \pi^{-1}(y')\) with \(d(x,y)<\varepsilon\).
+Then \(y\in B_d(x,\varepsilon)\subseteq V\), hence \(y'=\pi(y)\in \pi(V)\subseteq U\).
+Since \(U\) was arbitrary, \(\iota'\) is continuous at \(x'\), hence continuous.
+\item \textbf{Well-definedness.} Properness makes each fibre \(\pi^{-1}(x')\) compact, so the Hausdorff distance \(d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)\) is well defined.
+\end{itemize}
+\end{proof}
+
+\begin{lemma}[{\cite[Lemma~4.4]{putnam2020excision}}]\label{lem:Kdelta-compact}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces and let \(\pi:X\to X'\) be a continuous regular proper surjection.
+For every compact \(K\subseteq X'\) and every \(\delta>0\), the set
+\(
+K_\delta \coloneqq K\cap \bigl\{x'\in X'_\pi \mid \operatorname{diam}\pi^{-1}(x')\ge\delta\bigr\}
+\)
+is compact in \((X'_\pi,d'_\pi)\).
+\end{lemma}
+
+\begin{proof}
+Since \((X'_\pi,d'_\pi)\) is metric, it suffices to prove sequential compactness.
+Let \((x'_k)_{k\ge 1}\) be a sequence in \(K_\delta\).
+Compactness of \(K\) in \((X',d')\) yields a subsequence, still denoted \((x'_k)_k\), with \(x'_k\to x'\) in \((X',d')\) for some \(x'\in K\).
+Fix \(\varepsilon>0\) with \(\varepsilon<\delta\).
+By regularity of \(\pi\) at \(x'\) there exists an open neighbourhood \(U'\subseteq X'\) of \(x'\) such that for every \(y'\in U'\) one has
+\[
+d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)<\varepsilon
+\quad\text{or}\quad
+\operatorname{diam}\pi^{-1}(y')<\varepsilon.
+\]
+For \(k\) large we have \(x'_k\in U'\).
+Since \(x'_k\in K_\delta\), we have \(\operatorname{diam}\pi^{-1}(x'_k)\ge\delta>\varepsilon\), so the second alternative is impossible.
+Hence \(d_H\bigl(\pi^{-1}(x'),\pi^{-1}(x'_k)\bigr)<\varepsilon\) for all large \(k\), and therefore
+\(d_H\bigl(\pi^{-1}(x'),\pi^{-1}(x'_k)\bigr)\to 0\).
+
+For compact subsets \(A,B\subseteq X\) one has \(|\operatorname{diam}(A)-\operatorname{diam}(B)|\le 2d_H(A,B)\).
+Thus, for all large \(k\),
+\[
+\operatorname{diam}\pi^{-1}(x')\ge \operatorname{diam}\pi^{-1}(x'_k)-2d_H\bigl(\pi^{-1}(x'),\pi^{-1}(x'_k)\bigr)\ge \delta-2\varepsilon.
+\]
+Since this holds for every \(\varepsilon\in(0,\delta)\), it follows that \(\operatorname{diam}\pi^{-1}(x')\ge\delta\).
+In particular \(\pi^{-1}(x')\) contains at least two points, so \(x'\in X'_\pi\), hence \(x'\in K_\delta\).
+
+Finally, for large \(k\) both \(x',x'_k\) lie in \(X'_\pi\), and then
+\(
+d'_\pi(x',x'_k)=d_H\bigl(\pi^{-1}(x'),\pi^{-1}(x'_k)\bigr)\to 0.
+\)
+Hence \(x'_k\to x'\) in \((X'_\pi,d'_\pi)\).
+\end{proof}
+
+Lemma~\ref{lem:Kdelta-compact} isolates the part of \(X'\) where the fibres have uniformly positive diameter.
+This is the key compactness input for proving local compactness of \(X'_\pi\) in the Hausdorff fibre metric \(d'_\pi\).
+Once local compactness is available, the metric definition of \(d_\pi\) gives continuity and properness of \(\pi:X_\pi\to X'_\pi\), and regularity provides openness.
+
+\begin{proposition}[{\cite[Theorem~7.9]{putnam2020excision}}]\label{prop:regular-implies-locally-compact}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces and let \(\pi:X\to X'\) be a continuous proper surjection.
+Assume that \(\pi\) is regular.
+Then \((X_\pi,d_\pi)\) and \((X'_\pi,d'_\pi)\) are locally compact metric spaces, and
+\(\pi:(X_\pi,d_\pi)\to (X'_\pi,d'_\pi)\) is continuous, proper, and open.
+\end{proposition}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{\(X'_\pi\) is locally compact.}
+Fix \(x'\in X'_\pi\).
+Choose a compact neighbourhood \(K\subseteq X'\) of \(x'\) with \(x'\in \mathring K\).
+Set \(\delta\coloneqq \operatorname{diam}\pi^{-1}(x')>0\) and
+\[
+K_{\delta/2}\coloneqq K\cap \bigl\{y'\in X'_\pi \mid \operatorname{diam}\pi^{-1}(y')\ge \delta/2\bigr\}.
+\]
+By Lemma~\ref{lem:Kdelta-compact}, \(K_{\delta/2}\) is compact in \((X'_\pi,d'_\pi)\).
+
+We show that \(x'\) is an interior point of \(K_{\delta/2}\) in \((X'_\pi,d'_\pi)\).
+Since the inclusion \((X'_\pi,d'_\pi)\hookrightarrow (X',d')\) is continuous by Lemma~\ref{lem:inclusions-continuous}, there exists \(\varepsilon_0>0\) such that \(d'_\pi(x',y')<\varepsilon_0\) implies \(y'\in \mathring K\).
+Let \(\varepsilon\coloneqq \min\{\varepsilon_0,\delta/4\}\) and assume \(d'_\pi(x',y')<\varepsilon\).
+Then \(y'\in K\).
+Moreover,
+\[
+\operatorname{diam}\pi^{-1}(y')\ge \operatorname{diam}\pi^{-1}(x')-2d_H\bigl(\pi^{-1}(x'),\pi^{-1}(y')\bigr)
+= \delta-2d'_\pi(x',y')\ge \delta/2,
+\]
+so \(y'\in K_{\delta/2}\).
+Thus \(B_{d'_\pi}(x',\varepsilon)\subseteq K_{\delta/2}\), and \(X'_\pi\) is locally compact.
+
+\item \textbf{Continuity of \(\pi:X_\pi\to X'_\pi\).}
+For \(x,y\in X_\pi\),
+\[
+d'_\pi(\pi(x),\pi(y))\le d(x,y)+d'_\pi(\pi(x),\pi(y))=d_\pi(x,y),
+\]
+so \(\pi\) is \(1\)-Lipschitz.
+
+\item \textbf{Properness of \(\pi:X_\pi\to X'_\pi\).}
+Let \(K\subseteq X'_\pi\) be compact.
+By Lemma~\ref{lem:inclusions-continuous}, \(K\) is compact in \(X'\).
+Properness of \(\pi:X\to X'\) gives compactness of \(\pi^{-1}(K)\) in \(X\).
+To show compactness in \((X_\pi,d_\pi)\), let \((x_k)_k\) be a sequence in \(\pi^{-1}(K)\).
+After passing to a subsequence, \(x_k\to x\) in \((X,d)\).
+Since \(K\) is compact in \((X'_\pi,d'_\pi)\), after passing to a subsequence we have \(\pi(x_k)\to z'\) in \((X'_\pi,d'_\pi)\).
+By Lemma~\ref{lem:inclusions-continuous} we also have \(\pi(x_k)\to z'\) in \((X',d')\).
+Continuity of \(\pi:(X,d)\to (X',d')\) yields \(\pi(x_k)\to \pi(x)\) in \((X',d')\), hence \(z'=\pi(x)\).
+
+Therefore \(d'_\pi(\pi(x_k),\pi(x))\to 0\), and
+\[
+d_\pi(x_k,x)=d(x_k,x)+d'_\pi(\pi(x_k),\pi(x))\to 0.
+\]
+Thus \(\pi^{-1}(K)\) is compact in \(X_\pi\), so \(\pi\) is proper.
+
+\item \textbf{\(X_\pi\) is locally compact.}
+Fix \(x\in X_\pi\).
+Choose a compact neighbourhood \(K\subseteq X'_\pi\) of \(\pi(x)\).
+Then \(\pi^{-1}(K)\) is compact in \(X_\pi\) by properness, and it is a neighbourhood of \(x\).
+Hence \(X_\pi\) is locally compact.
+
+\item \textbf{Openness of \(\pi:X_\pi\to X'_\pi\).}
+Let \(V\subseteq X_\pi\) be open and let \(x\in V\).
+Choose \(\varepsilon>0\) such that \(B_{d_\pi}(x,\varepsilon)\subseteq V\).
+Let \(z'\in X'_\pi\) with \(d'_\pi(\pi(x),z')<\varepsilon/2\), that is
+\(d_H\bigl(\pi^{-1}(\pi(x)),\pi^{-1}(z')\bigr)<\varepsilon/2\).
+Pick \(y\in \pi^{-1}(z')\) with \(d(x,y)<\varepsilon/2\).
+Then
+\[
+d_\pi(x,y)=d(x,y)+d'_\pi(\pi(x),\pi(y))<\varepsilon/2+\varepsilon/2=\varepsilon,
+\]
+so \(y\in V\) and \(z'=\pi(y)\in \pi(V)\).
+Hence \(B_{d'_\pi}(\pi(x),\varepsilon/2)\subseteq \pi(V)\), so \(\pi(V)\) is open.
+\end{itemize}
+\end{proof}
+
+\begin{proposition}[{\cite[Section~7]{putnam2020excision}}]\label{prop:regularity-preserved}
+For \(i=1,2\), let \((X_i,d_i)\) and \((X_i',d_i')\) be locally compact metric spaces and let \(\pi_i:X_i\to X_i'\) be a continuous proper surjection.
+Let \(\varphi:X_1\to X_2\) and \(\varphi':X_1'\to X_2'\) be surjective local homeomorphisms such that \(\pi_2\circ\varphi=\varphi'\circ\pi_1\).
+Assume moreover that for every \(x'\in X_1'\) the restriction
+\(
+\varphi:\pi_1^{-1}(x')\rightarrow \pi_2^{-1}(\varphi'(x'))
+\)
+is bijective.
+Then \(\pi_1\) is regular if and only if \(\pi_2\) is regular.
+
+If \(\pi_1\) and \(\pi_2\) are regular, then the restrictions
+\(
+\varphi':(X_1')_{\pi_1}\rightarrow (X_2')_{\pi_2},
+\varphi:(X_1)_{\pi_1}\rightarrow (X_2)_{\pi_2}
+\)
+are local homeomorphisms, where \((X_i')_{\pi_i}=\{x'\in X_i'\mid \#\pi_i^{-1}(x')>1\}\) and \((X_i)_{\pi_i}=\pi_i^{-1}((X_i')_{\pi_i})\), endowed with the metrics \(d'_{\pi_i}\) and \(d_{\pi_i}\) from Definition~\ref{def:regular-map}.
+\end{proposition}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{A Hausdorff estimate under uniform continuity.}
+Let \((Y,\rho)\), \((Z,\sigma)\) be metric spaces, let \(K\subseteq Y\) be compact, and let \(F:K\to Z\) be continuous.
+Then \(F\) is uniformly continuous, so for every \(\varepsilon>0\) there exists \(\delta>0\) such that \(\rho(x,y)<\delta\) implies \(\sigma(F(x),F(y))<\varepsilon\) for all \(x,y\in K\).
+Consequently, for nonempty compact \(A,B\subseteq K\),
+\[
+d_{H,\rho}(A,B)<\delta \ \Rightarrow\ d_{H,\sigma}(F(A),F(B))<\varepsilon,
+\qquad
+\operatorname{diam}_\rho(A)<\delta \ \Rightarrow\ \operatorname{diam}_\sigma(F(A))<\varepsilon.
+\]
+Indeed, if \(d_{H,\rho}(A,B)<\delta\), then for every \(a\in A\) there exists \(b\in B\) with \(\rho(a,b)<\delta\), hence \(\sigma(F(a),F(b))<\varepsilon\), and taking suprema gives
+\(\sup_{a\in A}\inf_{b\in B}\sigma(F(a),F(b))\le \varepsilon\); the other half is symmetric.
+The diameter implication is immediate.
+
+\item \textbf{\(\pi_1\) regular implies \(\pi_2\) regular.}
+Fix \(x_2'\in X_2'\) and \(\varepsilon>0\).
+Choose \(x_1'\in X_1'\) with \(\varphi'(x_1')=x_2'\).
+Let \(K_1'\subseteq X_1'\) be a compact neighbourhood of \(x_1'\) and set \(K_1\coloneqq \pi_1^{-1}(K_1')\), compact by properness of \(\pi_1\).
+Apply the estimate above to \(F=\varphi|_{K_1}\) to obtain \(\delta>0\) such that for compact \(A,B\subseteq K_1\),
+\[
+d_{H,1}(A,B)<\delta \Rightarrow d_{H,2}(\varphi(A),\varphi(B))<\varepsilon,
+\qquad
+\operatorname{diam}_1(A)<\delta \Rightarrow \operatorname{diam}_2(\varphi(A))<\varepsilon.
+\]
+By regularity of \(\pi_1\) at \(x_1'\) with parameter \(\delta\), choose an open neighbourhood \(U_1'\subseteq K_1'\) of \(x_1'\) such that for every \(y_1'\in U_1'\),
+\[
+d_{H,1}\bigl(\pi_1^{-1}(x_1'),\pi_1^{-1}(y_1')\bigr)<\delta
+\quad\text{or}\quad
+\operatorname{diam}_1\bigl(\pi_1^{-1}(y_1')\bigr)<\delta.
+\]
+Set \(U_2'\coloneqq \varphi'(U_1')\), open since \(\varphi'\) is open.
+Fix \(y_2'\in U_2'\) and choose \(y_1'\in U_1'\) with \(\varphi'(y_1')=y_2'\).
+
+The following square commutes:
+\[
+\begin{tikzcd}
+X_1 \arrow{r}{\varphi} \arrow{d}[swap]{\pi_1}
+  & X_2 \arrow{d}{\pi_2} \\
+X_1' \arrow{r}{\varphi'}
+  & X_2'.
+\end{tikzcd}
+\]
+The commutative square and fibrewise bijectivity give
+\[
+\varphi\bigl(\pi_1^{-1}(x_1')\bigr)=\pi_2^{-1}(x_2'),
+\qquad
+\varphi\bigl(\pi_1^{-1}(y_1')\bigr)=\pi_2^{-1}(y_2').
+\]
+If the first alternative holds, then
+\(d_{H,2}(\pi_2^{-1}(x_2'),\pi_2^{-1}(y_2'))<\varepsilon\).
+If the second alternative holds, then
+\(\operatorname{diam}_2(\pi_2^{-1}(y_2'))<\varepsilon\).
+Thus \(\pi_2\) is regular at \(x_2'\).
+
+\item \textbf{\(\pi_2\) regular implies \(\pi_1\) regular.}
+Fix \(x_1'\in X_1'\) and \(\varepsilon>0\), and set \(x_2'\coloneqq \varphi'(x_1')\).
+Choose an open neighbourhood \(V_1'\subseteq X_1'\) of \(x_1'\) such that \(\varphi'|_{V_1'}:V_1'\to V_2'\) is a homeomorphism onto an open set \(V_2'\subseteq X_2'\).
+Shrink \(V_1'\) so that \(\overline{V_1'}\) is compact, and set \(K_1'\coloneqq \overline{V_1'}\), \(K_2'\coloneqq \varphi'(K_1')\), \(K_2\coloneqq \pi_2^{-1}(K_2')\), compact by properness of \(\pi_2\).
+
+We claim that \(\varphi:\pi_1^{-1}(V_1')\to \pi_2^{-1}(V_2')\) is a homeomorphism.
+It is bijective by fibrewise bijectivity and the fact that \(\varphi'|_{V_1'}\) is bijective: given \(z\in \pi_2^{-1}(V_2')\), put \(z_2'=\pi_2(z)\in V_2'\) and \(z_1'=(\varphi'|_{V_1'})^{-1}(z_2')\in V_1'\), then there is a unique \(x\in \pi_1^{-1}(z_1')\) with \(\varphi(x)=z\).
+Since \(\varphi\) is a local homeomorphism, a bijective restriction is a homeomorphism.
+
+Apply the estimate above to \(F=(\varphi|_{\pi_1^{-1}(K_1')})^{-1}:K_2\to X_1\).
+Thus there exists \(\delta>0\) such that for compact \(A,B\subseteq K_2\),
+\[
+d_{H,2}(A,B)<\delta \Rightarrow d_{H,1}(F(A),F(B))<\varepsilon,
+\qquad
+\operatorname{diam}_2(A)<\delta \Rightarrow \operatorname{diam}_1(F(A))<\varepsilon.
+\]
+By regularity of \(\pi_2\) at \(x_2'\) with parameter \(\delta\), choose an open neighbourhood \(U_2'\subseteq V_2'\) of \(x_2'\) such that for every \(y_2'\in U_2'\),
+\[
+d_{H,2}\bigl(\pi_2^{-1}(x_2'),\pi_2^{-1}(y_2')\bigr)<\delta
+\quad\text{or}\quad
+\operatorname{diam}_2\bigl(\pi_2^{-1}(y_2')\bigr)<\delta.
+\]
+Put \(U_1'\coloneqq (\varphi'|_{V_1'})^{-1}(U_2')\), an open neighbourhood of \(x_1'\).
+Fix \(y_1'\in U_1'\) and set \(y_2'=\varphi'(y_1')\).
+Using
+\[
+\pi_2^{-1}(x_2')=\varphi\bigl(\pi_1^{-1}(x_1')\bigr),
+\qquad
+\pi_2^{-1}(y_2')=\varphi\bigl(\pi_1^{-1}(y_1')\bigr),
+\]
+the two alternatives imply, after applying \(F\),
+\[
+d_{H,1}\bigl(\pi_1^{-1}(x_1'),\pi_1^{-1}(y_1')\bigr)<\varepsilon
+\quad\text{or}\quad
+\operatorname{diam}_1\bigl(\pi_1^{-1}(y_1')\bigr)<\varepsilon.
+\]
+Thus \(\pi_1\) is regular at \(x_1'\).
+
+\item \textbf{Local homeomorphisms on the nontrivial-fibre.}
+Fibrewise bijectivity implies \(\#\pi_1^{-1}(x')=\#\pi_2^{-1}(\varphi'(x'))\) for all \(x'\in X_1'\), hence
+\[
+\varphi'\bigl((X_1')_{\pi_1}\bigr)=(X_2')_{\pi_2},
+\qquad
+\varphi\bigl((X_1)_{\pi_1}\bigr)=(X_2)_{\pi_2}.
+\]
+Fix \(x_1'\in (X_1')_{\pi_1}\) and choose \(V_1'\) as in the previous item, with \(\overline{V_1'}\) compact and \(\varphi'|_{V_1'}\) a homeomorphism onto \(V_2'\).
+Then \(\varphi:\pi_1^{-1}(V_1')\to \pi_2^{-1}(V_2')\) is a homeomorphism, so both \(\varphi\) and \(\varphi^{-1}\) are uniformly continuous on the compact sets \(\pi_1^{-1}(\overline{V_1'})\) and \(\pi_2^{-1}(\overline{V_2'})\).
+Applying the Hausdorff estimate to \(\varphi\) and \(\varphi^{-1}\) shows that the restriction
+\[
+\varphi':V_1'\cap (X_1')_{\pi_1}\rightarrow V_2'\cap (X_2')_{\pi_2}
+\]
+is a homeomorphism for the metrics \(d'_{\pi_1}\) and \(d'_{\pi_2}\).
+Hence \(\varphi':(X_1')_{\pi_1}\to (X_2')_{\pi_2}\) is a local homeomorphism.
+Finally, since \(d_{\pi_i}(x,y)=d_i(x,y)+d'_{\pi_i}(\pi_i(x),\pi_i(y))\) and \(\pi_2\circ\varphi=\varphi'\circ\pi_1\), the same neighbourhoods yield that \(\varphi:(X_1)_{\pi_1}\to (X_2)_{\pi_2}\) is a local homeomorphism.
+\end{itemize}
+\end{proof}
+
+We now introduce the notion of reduction maps.
+Throughout this subsection we fix the following standing assumptions.
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces and let \(\pi:X\to X'\) be a continuous proper surjection.
+Assume that \(\pi\) is regular and fix a discrete abelian group \(A\).
+By Proposition~\ref{prop:regular-implies-locally-compact}, the metric spaces \((X_\pi,d_\pi)\) and \((X'_\pi,d'_\pi)\) are locally compact, and the restricted map \(\pi:X_\pi\to X'_\pi\) is continuous, proper, and open.
+If \(X\) and \(X'\) are totally disconnected, then \(X_\pi\subseteq X\) and \(X'_\pi\subseteq X'\) are totally disconnected as well.
+
+\begin{lemma}[{\cite[Lemma~4.8]{matui2022long}}]\label{lem:factorization-outside-compact-open}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces which are totally disconnected, let \(A\) be a discrete abelian group, and let \(\pi:X\to X'\) be a continuous proper surjection which is regular in the sense of Definition~\ref{def:regular-map}.
+Write \(X_\pi\subseteq X\) and \(X'_\pi\subseteq X'\) as in Definition~\ref{def:regular-map}, and regard \(\pi\) as a map \(X_\pi\to X'_\pi\).
+Then for every \(f\in C_c(X,A)\) there exist a compact open subset \(L'\subseteq X'_\pi\) and a continuous map \(g:X'_\pi\to A\) such that
+\(f(x)=g(\pi(x))\) for all \(x\in X_\pi\setminus \pi^{-1}(L')\).
+\end{lemma}
+
+\begin{proof}
+Let \(K\coloneqq \operatorname{supp}(f)\), which is compact.
+Since \(A\) is discrete, \(f\) is locally constant, hence \(K=\{x\in X\mid f(x)\neq 0\}\) and \(K\) is compact open in \(X\).
+Choose \(\delta_1>0\) such that \(d(x,y)<\delta_1\) implies \(f(x)=f(y)\) for all \(x,y\in K\).
+Since \(K\) is compact and \(X\setminus K\) is closed and disjoint from \(K\), the number
+\(
+\delta_0\coloneqq \inf\{d(x,y)\mid x\in K,\ y\in X\setminus K\}
+\)
+is strictly positive.
+Set \(\delta\coloneqq \min\{\delta_0,\delta_1\}\).
+Then \(d(x,y)<\delta\) implies \(f(x)=f(y)\) for all \(x,y\in X\).
+
+Define
+\(
+K'\coloneqq \pi(K)\cap\{x'\in X'_\pi\mid \operatorname{diam}(\pi^{-1}(x'))\ge \delta\}.
+\)
+Since \(\pi\) is proper and \(K\) is compact, \(\pi(K)\) is compact in \(X'\), and Lemma~\ref{lem:Kdelta-compact} shows that \(K'\) is compact in \((X'_\pi,d'_\pi)\).
+Because \(X'_\pi\) is locally compact and totally disconnected, it has a basis of compact open sets, so choose a compact open neighbourhood \(L'\subseteq X'_\pi\) of \(K'\).
+Since \(X'_\pi\) is Hausdorff, \(L'\) is clopen.
+
+Put \(B\coloneqq X'_\pi\setminus L'\) and \(E\coloneqq \pi^{-1}(B)\subseteq X_\pi\).
+We claim that \(f|_E\) is constant on each fibre of \(\pi|_E:E\to B\).
+Fix \(x'\in B\) and \(x,y\in \pi^{-1}(x')\).
+If \(x'\notin \pi(K)\), then \(x,y\notin K\), hence \(f(x)=f(y)=0\).
+If \(x'\in \pi(K)\), then \(x'\notin K'\) because \(K'\subseteq L'\), hence \(\operatorname{diam}(\pi^{-1}(x'))<\delta\), so \(d(x,y)<\delta\) and therefore \(f(x)=f(y)\).
+By Proposition~\ref{prop:regular-implies-locally-compact}, the map \(\pi:X_\pi\to X'_\pi\) is open.
+Hence \(\pi|_E:E\to B\) is an open surjection and therefore a quotient map.
+Since \(f|_E\) is constant on fibres, there exists a unique continuous map \(g_B:B\to A\) such that \(f|_E=g_B\circ(\pi|_E)\).
+Define \(g:X'_\pi\to A\) by \(g|_B\coloneqq g_B\) and \(g|_{L'}\coloneqq 0\).
+Because \(B\) and \(L'\) are clopen and \(A\) is discrete, \(g\) is continuous.
+For \(x\in X_\pi\setminus \pi^{-1}(L')=E\) we then have \(f(x)=g(\pi(x))\), as required.
+\end{proof}
+
+The goal of this subsection is to isolate, from a compactly supported function \(f\in C_c(X,A)\), the part which is genuinely transverse to a regular quotient map \(\pi:X\to X'\).
+Regularity controls the variation of fibres in the Hausdorff metric and forces the region of large fibres to live in a compact open subset of \(X'_\pi\).
+As a consequence, outside the preimage of a suitable compact open set in \(X'_\pi\), the function \(f\) becomes constant along fibres of \(\pi\), hence factors through \(\pi\).
+This is the key input for the reduction maps constructed below, and it is the point where regularity replaces excision in the factor groupoid situation, compare \cite[Lemma~4.8, Definition~4.10]{matui2022long}.
+
+\begin{lemma}[{\cite[Lemma~4.8]{matui2022long}}]\label{lem:factor-through-outside-compact}
+Let \((X,d)\) and \((X',d')\) be locally compact metric spaces which are totally disconnected, let \(A\) be a discrete abelian group, and let \(\pi:X\to X'\) be a continuous proper surjection which is regular in the sense of Definition~\ref{def:regular-map}.
+Write \(X_\pi\subseteq X\) and \(X'_\pi\subseteq X'\) as in Definition~\ref{def:regular-map}, and regard \(\pi\) as a map \(X_\pi\to X'_\pi\).
+Then for every \(f\in C_c(X,A)\) there exist a compact open subset \(L'\subseteq X'_\pi\) and a continuous map \(g:X'_\pi\to A\) such that
+\(f(x)=g(\pi(x))\) for all \(x\in X_\pi\setminus \pi^{-1}(L')\).
+\end{lemma}
+
+\begin{proof}
+Let \(K\coloneqq \operatorname{supp}(f)\), which is compact.
+Since \(A\) is discrete, \(f\) is locally constant, hence \(K=\{x\in X\mid f(x)\neq 0\}\) and \(K\) is compact open in \(X\).
+Choose \(\delta_1>0\) such that \(d(x,y)<\delta_1\) implies \(f(x)=f(y)\) for all \(x,y\in K\).
+Since \(K\) is compact and \(X\setminus K\) is closed and disjoint from \(K\), the number
+\[
+\delta_0\coloneqq \inf\{d(x,y)\mid x\in K,\ y\in X\setminus K\}
+\]
+is strictly positive.
+Set \(\delta\coloneqq \min\{\delta_0,\delta_1\}\).
+Then \(d(x,y)<\delta\) implies \(f(x)=f(y)\) for all \(x,y\in X\).
+
+Define
+\[
+K'\coloneqq \pi(K)\cap\{x'\in X'_\pi\mid \operatorname{diam}(\pi^{-1}(x'))\ge \delta\}.
+\]
+Since \(\pi\) is proper and \(K\) is compact, \(\pi(K)\) is compact in \(X'\), and Lemma~\ref{lem:Kdelta-compact} shows that \(K'\) is compact in \((X'_\pi,d'_\pi)\).
+Because \(X'_\pi\) is locally compact and totally disconnected, choose a compact open neighbourhood \(L'\subseteq X'_\pi\) of \(K'\).
+Since \(X'_\pi\) is Hausdorff, \(L'\) is clopen.
+
+Put \(B\coloneqq X'_\pi\setminus L'\) and \(E\coloneqq \pi^{-1}(B)\subseteq X_\pi\).
+We claim that \(f|_E\) is constant on each fibre of \(\pi|_E:E\to B\).
+Fix \(x'\in B\) and \(x,y\in \pi^{-1}(x')\).
+If \(x'\notin \pi(K)\), then \(x,y\notin K\), hence \(f(x)=f(y)=0\).
+If \(x'\in \pi(K)\), then \(x'\notin K'\) because \(K'\subseteq L'\), hence \(\operatorname{diam}(\pi^{-1}(x'))<\delta\), so \(d(x,y)<\delta\) and therefore \(f(x)=f(y)\).
+
+By Proposition~\ref{prop:regular-implies-locally-compact}, the map \(\pi:X_\pi\to X'_\pi\) is open.
+Hence \(\pi|_E:E\to B\) is an open surjection and therefore a quotient map.
+Since \(f|_E\) is constant on fibres, there exists a unique continuous map \(g_B:B\to A\) such that \(f|_E=g_B\circ(\pi|_E)\).
+Define \(g:X'_\pi\to A\) by \(g|_B\coloneqq g_B\) and \(g|_{L'}\coloneqq 0\).
+Because \(B\) and \(L'\) are clopen and \(A\) is discrete, \(g\) is continuous.
+For \(x\in X_\pi\setminus \pi^{-1}(L')=E\) we then have \(f(x)=g(\pi(x))\), as required.
+\end{proof}
+
+For \(f\in C_c(X,A)\) and a compact open subset \(K'\subseteq X'_\pi\) define \(f_{K'}\in C_c(X_\pi,A)\) by
+\[
+f_{K'}(x)\coloneqq
+\begin{cases}
+f(x), & x\in \pi^{-1}(K'),\\
+0, & x\notin \pi^{-1}(K').
+\end{cases}
+\]
+
+\begin{corollary}[{\cite[Corollary~4.9]{matui2022long}}]\label{cor:reduction-stability}
+Let \(f\in C_c(X,A)\), and let \(L'\subseteq X'_\pi\) be as in Lemma~\ref{lem:factor-through-outside-compact}.
+If \(K_1',K_2'\subseteq X'_\pi\) are compact open subsets with \(L'\subseteq K_1'\) and \(L'\subseteq K_2'\), then \(f_{K_1'}-f_{K_2'}\) lies in the subgroup \(\pi^*C_c(X'_\pi,A)\subseteq C_c(X_\pi,A)\), where \(\pi^*(h)\coloneqq h\circ \pi\).
+In particular, the class of \(f_{K'}\) in \(C_c(X_\pi,A)/\pi^*C_c(X'_\pi,A)\) is independent of the choice of compact open \(K'\supseteq L'\).
+\end{corollary}
+
+\begin{proof}
+By Lemma~\ref{lem:factor-through-outside-compact} there exists a continuous \(g:X'_\pi\to A\) such that \(f=g\circ\pi\) on \(X_\pi\setminus \pi^{-1}(L')\).
+Set \(D\coloneqq (K_1'\setminus K_2')\sqcup (K_2'\setminus K_1')\subseteq X'_\pi\setminus L'\).
+Define \(h:X'_\pi\to A\) by
+\[
+h(x')\coloneqq
+\begin{cases}
+g(x'), & x'\in K_1'\setminus K_2',\\
+-g(x'), & x'\in K_2'\setminus K_1',\\
+0, & x'\notin D.
+\end{cases}
+\]
+The sets \(K_1'\setminus K_2'\) and \(K_2'\setminus K_1'\) are compact open, hence \(h\in C_c(X'_\pi,A)\).
+
+For \(x\in X_\pi\), if \(\pi(x)\in K_1'\cap K_2'\) or \(\pi(x)\notin K_1'\cup K_2'\), then \((f_{K_1'}-f_{K_2'})(x)=0=h(\pi(x))\).
+If \(\pi(x)\in K_1'\setminus K_2'\), then \(x\notin \pi^{-1}(L')\) and
+\[
+(f_{K_1'}-f_{K_2'})(x)=f(x)=g(\pi(x))=h(\pi(x)).
+\]
+If \(\pi(x)\in K_2'\setminus K_1'\), then \(x\notin \pi^{-1}(L')\) and
+\[
+(f_{K_1'}-f_{K_2'})(x)=-f(x)=-g(\pi(x))=h(\pi(x)).
+\]
+Thus \(f_{K_1'}-f_{K_2'}=h\circ\pi=\pi^*(h)\in \pi^*C_c(X'_\pi,A)\).
+\end{proof}
+
+Our goal is to construct, from a regular proper surjection \(\pi:X\to X'\) between totally disconnected locally compact metric spaces, a canonical reduction of compactly supported \(A\)-valued functions on \(X\) modulo pullbacks from \(X'_\pi\).
+The key input is Lemma~\ref{lem:factor-through-outside-compact}: outside the preimage of a suitable compact open subset \(L'\subseteq X'_\pi\), every \(f\in C_c(X,A)\) is constant along the fibres of \(\pi\) and hence factors through \(\pi\).
+Therefore one may truncate \(f\) to \(\pi^{-1}(K')\subseteq X_\pi\) for any compact open \(K'\supseteq L'\), and the resulting class in
+\(C_c(X_\pi,A)\big/\pi^*C_c(X'_\pi,A)\)
+is independent of the choice of \(K'\).
+This is the reduction map \(\Pi\) used later in the long exact sequence.
+
+For \(f\in C_c(X,A)\) and a compact open subset \(K'\subseteq X'_\pi\), define \(f_{K'}\in C_c(X_\pi,A)\) by
+\[
+f_{K'}(x)\coloneqq
+\begin{cases}
+f(x), & x\in \pi^{-1}(K'),\\
+0, & x\in X_\pi\setminus \pi^{-1}(K').
+\end{cases}
+\]
+
+\begin{lemma}\label{lem:Pi-well-defined}
+Let \(A\) be a discrete abelian group.
+Fix \(f\in C_c(X,A)\), and choose \(L'\subseteq X'_\pi\) and \(g:X'_\pi\to A\) as in Lemma~\ref{lem:factor-through-outside-compact}, so that \(L'\) is compact open and
+\(f(x)=g(\pi(x))\) for all \(x\in X_\pi\setminus \pi^{-1}(L')\).
+If \(K_1',K_2'\subseteq X'_\pi\) are compact open with \(L'\subseteq K_1'\cap K_2'\), then
+\[
+f_{K_1'}-f_{K_2'}\in \pi^*C_c(X'_\pi,A)\subseteq C_c(X_\pi,A),
+\]
+where \(\pi^*(h)\coloneqq h\circ\pi\).
+In particular, the coset \(f_{K'}+\pi^*C_c(X'_\pi,A)\) is independent of the choice of compact open \(K'\supseteq L'\).
+\end{lemma}
+
+\begin{proof}
+Set \(D\coloneqq (K_1'\setminus K_2')\sqcup (K_2'\setminus K_1')\), a compact open subset of \(X'_\pi\).
+Define \(h:X'_\pi\to A\) by
+\[
+h(x')\coloneqq
+\begin{cases}
+g(x'), & x'\in K_1'\setminus K_2',\\
+-g(x'), & x'\in K_2'\setminus K_1',\\
+0, & x'\notin D.
+\end{cases}
+\]
+Then \(h\in C_c(X'_\pi,A)\).
+If \(\pi(x)\in D\), then \(\pi(x)\notin L'\) since \(L'\subseteq K_1'\cap K_2'\), hence \(f(x)=g(\pi(x))\).
+If \(\pi(x)\notin D\), then \(\pi(x)\in K_1'\cap K_2'\) or \(\pi(x)\notin K_1'\cup K_2'\), so \(f_{K_1'}(x)-f_{K_2'}(x)=0\).
+Therefore \(f_{K_1'}-f_{K_2'}=h\circ\pi\in \pi^*C_c(X'_\pi,A)\).
+\end{proof}
+
+\begin{definition}[Reduction map {\cite[Section~4.2]{matui2022long}}]\label{def:reduction-map}
+Let \(A\) be a discrete abelian group.
+For \(f\in C_c(X,A)\) choose \(L'\subseteq X'_\pi\) as in Lemma~\ref{lem:factor-through-outside-compact} and pick any compact open \(K'\subseteq X'_\pi\) with \(L'\subseteq K'\).
+Define
+\[
+\Pi(f)\coloneqq f_{K'}+\pi^*C_c(X'_\pi,A)\in C_c(X_\pi,A)\big/\pi^*C_c(X'_\pi,A),
+\]
+where \(\pi^*(h)\coloneqq h\circ\pi\).
+By Lemma~\ref{lem:Pi-well-defined} this is independent of the choices and hence defines a well-defined homomorphism
+\[
+\Pi:C_c(X,A)\rightarrow C_c(X_\pi,A)\big/\pi^*C_c(X'_\pi,A).
+\]
+\end{definition}
+
+\begin{proposition}[{\cite[Proposition~4.11]{matui2022long}}]\label{prop:Pi-surj-kernel}
+The reduction map \(\Pi\) is a surjective homomorphism and
+\(
+\ker(\Pi)=\pi^*C_c(X',A)\subseteq C_c(X,A).
+\)
+\end{proposition}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Homomorphism.}
+Fix \(f_1,f_2\in C_c(X,A)\).
+Choose compact open sets \(L_1',L_2'\subseteq X'_\pi\) as in Lemma~\ref{lem:factor-through-outside-compact} for \(f_1,f_2\), and choose a compact open \(K'\subseteq X'_\pi\) with \(L_1'\cup L_2'\subseteq K'\).
+Then \((f_1+f_2)_{K'}=(f_1)_{K'}+(f_2)_{K'}\), hence \(\Pi(f_1+f_2)=\Pi(f_1)+\Pi(f_2)\).
+
+\item \textbf{Surjectivity.}
+Let \(u\in C_c(X_\pi,A)\).
+Since \(A\) is discrete and \(X_\pi\) is totally disconnected, \(u\) is locally constant with compact support, so
+\(u=\sum_{j=1}^m a_j \chi_{C_j}\)
+for some \(a_j\in A\) and pairwise disjoint compact open sets \(C_j\subseteq X_\pi\).
+It suffices to lift \(a\chi_C\) for a compact open \(C\subseteq X_\pi\) and \(a\in A\).
+Put \(K'\coloneqq \pi(C)\subseteq X'_\pi\).
+By Proposition~\ref{prop:regular-implies-locally-compact}, the map \(\pi:X_\pi\to X'_\pi\) is open and proper, hence \(K'\) is compact open.
+The sets \(C\) and \(\pi^{-1}(K')\setminus C\) are compact and disjoint in the totally disconnected locally compact space \(X\), so there exists a compact open set \(U\subseteq X\) with
+\(C\subseteq U\) and \(U\cap(\pi^{-1}(K')\setminus C)=\varnothing\).
+Let \(f\coloneqq a\chi_U\in C_c(X,A)\).
+Then on \(X_\pi\) one has \(f_{K'}=a\chi_{U\cap\pi^{-1}(K')}=a\chi_C\), so \(\Pi(f)=a\chi_C+\pi^*C_c(X'_\pi,A)\).
+By additivity, \(\Pi\) is surjective.
+
+\item \textbf{Kernel.}
+If \(h\in C_c(X',A)\), then for any compact open \(K'\subseteq X'_\pi\),
+\((h\circ\pi)_{K'}=(h|_{K'})\circ\pi\in \pi^*C_c(X'_\pi,A)\),
+so \(\Pi(h\circ\pi)=0\) and \(\pi^*C_c(X',A)\subseteq \ker(\Pi)\).
+
+Conversely, let \(f\in \ker(\Pi)\).
+Choose \(L'\subseteq X'_\pi\) and \(g:X'_\pi\to A\) as in Lemma~\ref{lem:factor-through-outside-compact}.
+Since \(\Pi(f)=0\), we may take \(K'=L'\) and obtain \(f_{L'}\in \pi^*C_c(X'_\pi,A)\).
+Hence \(f\) is constant on each fibre of \(\pi\) over \(L'\).
+On \(X_\pi\setminus \pi^{-1}(L')\) we have \(f=g\circ\pi\), so \(f\) is constant on fibres there as well.
+If \(x'\in X'\setminus X'_\pi\), then \(\#\pi^{-1}(x')=1\) by definition of \(X'_\pi\), so \(f\) is trivially constant on that fibre.
+Therefore \(f\) is constant on every fibre of \(\pi\).
+
+Define \(\bar f:X'\to A\) by \(\bar f(x')\coloneqq f(x)\) for any \(x\in \pi^{-1}(x')\).
+Then \(f=\bar f\circ\pi\).
+Since \(\pi\) is continuous, surjective, and open, it is a quotient map, hence \(\bar f\) is continuous because \(\bar f\circ\pi=f\) is continuous.
+Moreover, \(\operatorname{supp}(\bar f)\subseteq \pi(\operatorname{supp}(f))\), which is compact since \(\pi\) is proper.
+Thus \(\bar f\in C_c(X',A)\) and \(f\in \pi^*C_c(X',A)\).
+\end{itemize}
+\end{proof}
+
+The role of the spaces \(X_\pi\) and \(X'_\pi\) is to isolate the place where a proper surjection \(\pi:X\to X'\) has nontrivial fibres.
+Under regularity, Proposition~\ref{prop:regular-implies-locally-compact} shows that \((X_\pi,d_\pi)\) and \((X'_\pi,d'_\pi)\) are locally compact and that \(\pi:X_\pi\to X'_\pi\) remains continuous, proper, and open.
+This is the input needed to form quotients of compactly supported functions in a controlled way.
+Lemma~\ref{lem:factor-through-outside-compact} is the key mechanism: for every \(f\in C_c(X,A)\) the obstruction to factoring \(f\) through \(\pi\) is supported over a compact open region in \(X'_\pi\).
+This motivates two steps.
+\begin{itemize}[noitemsep,nolistsep]
+\item For a compact open \(K'\subseteq X'_\pi\) one truncates \(f\) to \(f_{K'}\), keeping support over \(\pi^{-1}(K')\subseteq X_\pi\).
+\item One then passes to the quotient by \(\pi^*C_c(X'_\pi,A)\), which kills the fibrewise constant part.
+The reduction map \(\Pi:C_c(X,A)\to C_c(X_\pi,A)\big/\pi^*C_c(X'_\pi,A)\) records the remaining fibrewise variation and is independent of auxiliary choices once \(K'\) is large enough, see Definition~\ref{def:reduction-map} and Proposition~\ref{prop:Pi-surj-kernel}.
+\end{itemize}
+In particular, Proposition~\ref{prop:Pi-surj-kernel} gives a canonical identification
+\[
+C_c(X,A)\big/\pi^*C_c(X',A)\ \cong\ C_c(X_\pi,A)\big/\pi^*C_c(X'_\pi,A).
+\]
+For later applications it is essential that this reduction procedure is natural with respect to local homeomorphisms.
+The next proposition records the compatibility needed when the construction is applied degreewise to nerves in the factor groupoid situation.
+
+\begin{proposition}[{\cite[Proposition~4.12]{matui2022long}}]\label{prop:reduction-commutes-loc-homeo}
+For \(i=1,2\), let \((X_i,d_i)\) and \((X_i',d_i')\) be locally compact metric spaces which are totally disconnected, and let \(\pi_i:X_i\to X_i'\) be continuous regular proper surjections.
+Let \(\varphi:X_1\to X_2\) and \(\varphi':X_1'\to X_2'\) be surjective local homeomorphisms such that
+\(
+\pi_2\circ\varphi=\varphi'\circ\pi_1,
+\)
+and assume that for every \(x_1'\in X_1'\) the restriction
+\(
+\varphi:\pi_1^{-1}(x_1')\to \pi_2^{-1}\bigl(\varphi'(x_1')\bigr)
+\)
+is bijective.
+Put \(Y_i\coloneqq (X_i)_{\pi_i}\) and \(Y_i'\coloneqq (X_i')_{\pi_i}\).
+Let \(\sigma\) be the map induced by \(\varphi_*\),
+\[
+\sigma: C_c(X_1,A)\big/\pi_1^*C_c(X_1',A)\rightarrow C_c(X_2,A)\big/\pi_2^*C_c(X_2',A),
+\]
+and let \(\tau\) be the map induced by \(\varphi_*\vert_{C_c(Y_1,A)}\),
+\[
+\tau: C_c(Y_1,A)\big/\pi_1^*C_c(Y_1',A)\rightarrow C_c(Y_2,A)\big/\pi_2^*C_c(Y_2',A).
+\]
+Then the reduction maps \(\Pi_i\) satisfy
+\(
+\tau\circ \Pi_1=\Pi_2\circ \sigma
+\)
+as maps
+\(C_c(X_1,A)\big/\pi_1^*C_c(X_1',A)\to C_c(Y_2,A)\big/\pi_2^*C_c(Y_2',A)\).
+\end{proposition}
+
+\begin{proof}
+We first record that \(\sigma\) and \(\tau\) are well defined.
+For \(g\in C_c(X_1',A)\) and \(y\in X_2\), using \(\pi_2\circ\varphi=\varphi'\circ\pi_1\) and the fibrewise bijectivity assumption, we have
+\[
+\varphi_*(\pi_1^*g)(y)
+=\sum_{x\in \varphi^{-1}(y)} g\bigl(\pi_1(x)\bigr)
+=\sum_{x_1'\in (\varphi')^{-1}(\pi_2(y))} g(x_1')
+=(\varphi')_*g\bigl(\pi_2(y)\bigr)
+=\pi_2^*\bigl((\varphi')_*g\bigr)(y).
+\]
+Hence \(\varphi_*\bigl(\pi_1^*C_c(X_1',A)\bigr)\subseteq \pi_2^*C_c(X_2',A)\), and similarly
+\(\varphi_*\bigl(\pi_1^*C_c(Y_1',A)\bigr)\subseteq \pi_2^*C_c(Y_2',A)\),
+so \(\sigma\) and \(\tau\) are induced by \(\varphi_*\).
+
+Let \(f\in C_c(X_1,A)\) and set \(S\coloneqq \{x\in X_1\mid f(x)\neq 0\}\), so \(S\) is compact.
+Choose a compact open set \(D'\subseteq X_1'\) with \(\pi_1(S)\subseteq D'\).
+By Proposition~\ref{prop:regularity-preserved}, the restrictions
+\[
+\varphi\vert_{Y_1}:Y_1\to Y_2,
+\qquad
+\varphi'\vert_{Y_1'}:Y_1'\to Y_2'
+\]
+are local homeomorphisms and satisfy \(\pi_2\circ \varphi=\varphi'\circ \pi_1\) on \(Y_1\).
+Choose compact open sets \(L_1'\subseteq Y_1'\) and \(L_2'\subseteq Y_2'\) as in Lemma~\ref{lem:factor-through-outside-compact} for \(f\) and \(\varphi_*f\), respectively.
+Choose a compact open set \(C'\subseteq Y_2'\) with \(L_2'\subseteq C'\), and define
+\(
+E'\coloneqq (\varphi')^{-1}(C')\cap D'\cap Y_1'.
+\)
+Since \(Y_1'\) is totally disconnected and locally compact, choose a compact open \(K'\subseteq Y_1'\) with \(L_1'\cup E'\subseteq K'\).
+
+Enlarging cut-offs does not change reduction classes by Corollary~\ref{cor:reduction-stability}, hence
+\[
+\begin{aligned}
+\Pi_1\bigl(f+\pi_1^*C_c(X_1',A)\bigr)&= f_{K'}+\pi_1^*C_c(Y_1',A),\\
+\Pi_2\bigl(\varphi_*f+\pi_2^*C_c(X_2',A)\bigr)&= (\varphi_*f)_{C'}+\pi_2^*C_c(Y_2',A).
+\end{aligned}
+\]
+It suffices to prove
+\(
+\varphi_*(f_{K'})-(\varphi_*f)_{C'}\in \pi_2^*C_c(Y_2',A).
+\)
+We prove the stronger identity
+\(
+\varphi_*(f_{E'})=(\varphi_*f)_{C'}
+\)
+in \(C_c(Y_2,A)\).
+Since \(f_{K'}-f_{E'}\in \pi_1^*C_c(Y_1',A)\), applying \(\varphi_*\) and using the well-definedness computation above yields
+\(
+\varphi_*(f_{K'})-\varphi_*(f_{E'})\in \pi_2^*C_c(Y_2',A),
+\)
+so the claim follows.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Compactness device.}
+Let \(C'\subseteq Y_2'\) be compact and let \(D'\subseteq X_1'\) be compact.
+Then \(E'\coloneqq (\varphi')^{-1}(C')\cap D'\cap Y_1'\) is compact in \(Y_1'\).
+Let \((y_k')_k\) be a sequence in \(E'\).
+Since \(D'\) is compact in \(X_1'\), after passing to a subsequence we may assume \(y_k'\to y'\) in \(X_1'\).
+Since \(\varphi'(y_k')\in C'\) and \(C'\) is compact in \(Y_2'\), after passing to a further subsequence we may assume \(\varphi'(y_k')\to z'\) in \(Y_2'\).
+By Lemma~\ref{lem:inclusions-continuous}, convergence in \(Y_2'\) implies convergence in \(X_2'\), hence \(\varphi'(y_k')\to z'\) in \(X_2'\).
+Continuity of \(\varphi'\) gives \(\varphi'(y_k')\to \varphi'(y')\) in \(X_2'\), hence \(z'=\varphi'(y')\).
+Thus \(\varphi'(y')\in C'\subseteq Y_2'\).
+By Proposition~\ref{prop:regularity-preserved}, this implies \(y'\in Y_1'\).
+Moreover \(y'\in D'\) since \(D'\) is closed in \(X_1'\), and \(y'\in (\varphi')^{-1}(C')\).
+Hence \(y'\in E'\).
+
+Since \(\varphi'\vert_{Y_1'}:Y_1'\to Y_2'\) is a local homeomorphism, there exists an open neighbourhood \(U'\subseteq Y_1'\) of \(y'\) such that \(\varphi'\vert_{U'}\) is a homeomorphism onto the open set \(\varphi'(U')\subseteq Y_2'\).
+As \(\varphi'(y_k')\to \varphi'(y')\) in \(Y_2'\), we have \(\varphi'(y_k')\in \varphi'(U')\) for \(k\gg 0\), hence \(y_k'\in U'\) for \(k\gg 0\).
+Therefore \(y_k'\to y'\) in \(Y_1'\).
+Thus \(E'\) is sequentially compact, hence compact.
+
+\item \textbf{Identify the representatives.}
+Fix \(y\in Y_2\).
+If \(\pi_2(y)\notin C'\), then for every \(x\in \varphi^{-1}(y)\) one has
+\[
+\varphi'(\pi_1(x))=\pi_2(\varphi(x))=\pi_2(y)\notin C',
+\]
+so \(\pi_1(x)\notin (\varphi')^{-1}(C')\) and hence \(\pi_1(x)\notin E'\).
+Thus \(f_{E'}(x)=0\) for all \(x\in \varphi^{-1}(y)\), so \(\varphi_*(f_{E'})(y)=0=(\varphi_*f)_{C'}(y)\).
+If \(\pi_2(y)\in C'\), then for every \(x\in \varphi^{-1}(y)\) one has \(\pi_1(x)\in (\varphi')^{-1}(C')\).
+Moreover \(f(x)=0\) whenever \(\pi_1(x)\notin D'\), since \(\pi_1(S)\subseteq D'\).
+Hence the fibrewise sum defining \(\varphi_*f(y)\) only receives contributions from \(x\in \varphi^{-1}(y)\) with \(\pi_1(x)\in D'\).
+For such \(x\) we have \(\pi_1(x)\in E'\) and \(f_{E'}(x)=f(x)\).
+Therefore
+\(
+\varphi_*(f_{E'})(y)=\varphi_*f(y)=(\varphi_*f)_{C'}(y).
+\)
+Thus \(\varphi_*(f_{E'})=(\varphi_*f)_{C'}\) in \(C_c(Y_2,A)\).
+\end{itemize}
+
+Combining the reductions and the definitions of \(\sigma\) and \(\tau\), we obtain
+\[
+\begin{aligned}
+\tau\Bigl(\Pi_1\bigl(f+\pi_1^*C_c(X_1',A)\bigr)\Bigr)
+&=\varphi_*(f_{K'})+\pi_2^*C_c(Y_2',A)\\
+&=(\varphi_*f)_{C'}+\pi_2^*C_c(Y_2',A)\\
+&=\Pi_2\Bigl(\sigma\bigl(f+\pi_1^*C_c(X_1',A)\bigr)\Bigr).
+\end{aligned}
+\]
+This proves \(\tau\circ \Pi_1=\Pi_2\circ \sigma\).
+\end{proof}
+
+\subsection{From regularity on units to regularity on nerves}\label{subsec:regularity-nerves}
+
+We record the groupoid-level setting and its consequences following \cite[Setting~4.13]{matui2022long}.
+
+\begin{setting}[{\cite[Setting~4.13]{matui2022long}}]\label{setting:factor-groupoid}
+Let \(\G\) and \(\G'\) be étale groupoids and let \(\pi:\G\to\G'\) be a continuous homomorphism such that:
+\begin{enumerate}[noitemsep,nolistsep]
+\item \(\pi\) is surjective,
+\item \(\pi\) is proper,
+\item for every \(x\in \G_0\), the restriction \(\pi:r^{-1}(x)\to r^{-1}(\pi(x))\) is bijective,
+\item \(\G\) and \(\G'\) are totally disconnected.
+\end{enumerate}
+\end{setting}
+
+\begin{lemma}[{\cite[Lemma~4.15]{matui2022long}}]\label{lem:regularity-levels}
+Let \(\pi:\G\to\G'\) be as in Setting~\ref{setting:factor-groupoid}.
+
+The following are equivalent:
+\begin{enumerate}[noitemsep,nolistsep]
+\item \(\pi:\G_0\to \G_0'\) is regular,
+\item \(\pi:\G\to \G'\) is regular,
+\item there exists \(n\in\mathbb N\setminus\{1\}\) such that \(\pi_{n}:\G_{n}\to (\G')_{n}\) is regular.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{\textup{1.}\(\Leftrightarrow\)\textup{2.}} Write \(\pi_{0}:\G_0\to\G_0'\) for the map on units.
+Since \(\G\) and \(\G'\) are étale, the range maps \(r:\G\to\G_0\) and \(r:\G'\to\G_0'\) are local homeomorphisms.
+The commutative square
+\[
+\begin{tikzcd}
+\G \arrow{r}{\pi} \arrow{d}[swap]{r} & \G' \arrow{d}{r} \\
+\G_0 \arrow{r}{\pi_{0}} & \G_0'
+\end{tikzcd}
+\]
+satisfies the fibrewise bijectivity hypothesis along \(r\) by assumption \textup{3.}
+Therefore Proposition~\ref{prop:regularity-preserved} applied to this square yields \textup{1.}\(\Leftrightarrow\)\textup{2.}
+
+\item \textbf{\textup{2.}\(\Leftrightarrow\)\textup{3.}} For \(n\ge 2\), the projection \(p_1:\G_{n}\to\G\), \(p_1(g_1,\dots,g_n)=g_1\), is a local homeomorphism, and similarly \(p_1:\G'_{n}\to\G'\).
+Moreover, \(\pi_{n}\) is defined levelwise and satisfies
+\(p_1\circ \pi_{n}=\pi\circ p_1\),
+and the induced maps on fibres of \(p_1\) are bijections.
+Applying Proposition~\ref{prop:regularity-preserved} again to the following square gives \textup{2.}\(\Leftrightarrow\)\textup{3.}:
+\[
+\begin{tikzcd}
+\G_{n} \arrow{r}{\pi_{n}} \arrow{d}[swap]{p_1} & \G'_{n} \arrow{d}{p_1} \\
+\G \arrow{r}{\pi} & \G'.
+\end{tikzcd}
+\]
+\end{itemize}
+\end{proof}
+
+\begin{proposition}[{\cite[Proposition~4.17]{matui2022long}}]\label{prop:Gpi-Gpiprime-etale}
+Let \(\pi:\G\to\G'\) be as in Setting~\ref{setting:factor-groupoid} and assume \(\pi\) is regular.
+Then the groupoids \(\G_{\pi}\) and \(\G'_\pi\) are étale for the topologies induced by the metrics \(d_\pi\) and \(d'_\pi\) from Definition~\ref{def:regular-map}.
+\end{proposition}
+
+\begin{proof}
+Apply Proposition~\ref{prop:regular-implies-locally-compact} to the regular proper surjection
+\(\pi:\G\to\G'\).
+This yields that \(\G_\pi\) and \(\G'_\pi\) are locally compact Hausdorff and that the restricted map \(\pi:\G_\pi\to \G'_\pi\) is continuous, proper, and open.
+By Lemma~\ref{lem:regularity-levels}, regularity of \(\pi\) implies regularity of \(\pi_{0}:\G_0\to\G_0'\).
+Applying Proposition~\ref{prop:regular-implies-locally-compact} again to \(\pi_{0}\) shows that \((\G_0)_\pi\) and \((\G_0')_\pi\) are locally compact and that \(\pi:(\G_0)_\pi\to(\G_0')_\pi\) is open.
+The range map \(r:\G\to\G_0\) is a local homeomorphism.
+Restricting to \(\G_\pi\subseteq \G\) and \((\G_0)_\pi\subseteq \G_0\) gives a continuous map
+\(r:\G_\pi\to (\G_0)_\pi\).
+To see that \(r\) is a local homeomorphism for the \(d_\pi\)-topology, fix \(g\in \G_\pi\) and choose an open bisection \(U\subseteq \G\) with \(g\in U\).
+Then \(r|_{U}:U\to r(U)\) is a homeomorphism.
+Since \(\pi|_{r(U)}\) is a homeomorphism onto \(\pi(r(U))\) by assumption \textup{3.} and étaleness, the set \(U\cap \G_\pi\) is open in \(\G_\pi\) and \(r(U\cap \G_\pi)=r(U)\cap (\G_0)_\pi\) is open in \((\G_0)_\pi\).
+Hence \(r:U\cap \G_\pi\to r(U)\cap (\G_0)_\pi\) is a homeomorphism.
+Thus \(r:\G_\pi\to(\G_0)_\pi\) is a local homeomorphism.
+The same argument applies to \(r:\G'_\pi\to(\G_0')_\pi\).
+Therefore \(\G_\pi\) and \(\G'_\pi\) are étale.
+\end{proof}
+
+\begin{lemma}[{\cite[Lemma~4.18]{matui2022long}}]\label{lem:nerves-identify}
+Let \(\pi:\G\to\G'\) be as in Setting~\ref{setting:factor-groupoid} and assume \(\pi\) is regular.
+For any \(n\in\mathbb N\setminus\{1\}\), the spaces \((\G'_\pi)_{n}\) and \((\G'_{n})_{\pi_{n}}\) are canonically homeomorphic, and similarly \((\G_\pi)_{n}\cong (\G_{n})_{\pi_{n}}\).
+\end{lemma}
+
+\begin{proof}
+Fix \(n\ge 2\).
+By definition,
+\[
+\begin{aligned}
+(\G'_\pi)_{n}
+&=\{(g_1',\dots,g_n')\in (\G'_\pi)^n \mid s(g_i')=r(g_{i+1}')\},\\
+(\G'_{n})_{\pi_{n}}
+&=\{h'\in \G'_{n} \mid \#(\pi_{n})^{-1}(h')>1\}.
+\end{aligned}
+\]
+We claim that these subsets of \((\G')^n\) coincide.
+
+Let \((g_1',\dots,g_n')\in \G'_n\).
+Then \((g_1',\dots,g_n')\in (\G'_n)_{\pi_n}\) if and only if there exist two distinct elements of \(\G_n\) mapping to \((g_1',\dots,g_n')\) under \(\pi_n\).
+Since \(\pi_n\) is defined componentwise,
+\[
+\pi_n(g_1,\dots,g_n)=(\pi(g_1),\dots,\pi(g_n)),
+\]
+and since \(\pi\) is fibrewise bijective along the range map in Setting~\ref{setting:factor-groupoid}, the fibre \(\pi_n^{-1}(g_1',\dots,g_n')\) is in bijection with \(\pi^{-1}(g_1')\) via projection to the first coordinate.
+In particular,
+\[
+\#\pi_n^{-1}(g_1',\dots,g_n')>1
+\Leftrightarrow
+\#\pi^{-1}(g_1')>1.
+\]
+On the other hand,
+\((g_1',\dots,g_n')\in (\G'_\pi)_n\) if and only if \(g_1'\in \G'_\pi\), equivalently \(\#\pi^{-1}(g_1')>1\).
+Thus
+\(
+(\G'_\pi)_{n}=(\G'_{n})_{\pi_{n}}
+\)
+as subsets of \((\G')^n\).
+It remains to check that the induced topologies agree.
+Consider the map
+\(
+\varphi:\G'_n\to \G_0',
+(g_1',\dots,g_n')\mapsto r(g_1').
+\)
+Since \(\G'\) is \'etale, \(\varphi\) is a local homeomorphism.
+Moreover, by Proposition~\ref{prop:regularity-preserved} applied to \(\varphi\) and its induced map on the base, the restriction
+\(
+\varphi:(\G'_n)_{\pi_n}\to (\G_0')_{\pi_0}
+\)
+is a local homeomorphism.
+
+On the other hand, \((\G'_\pi)_n\) carries the relative product topology induced from \((\G'_\pi)^n\), and the same map \(\varphi\) is a local homeomorphism
+\(
+\varphi:(\G'_\pi)_n\to (\G_0')_{\pi_0},
+\)
+since \(r:\G'_\pi\to (\G_0')_{\pi_0}\) is a local homeomorphism by Proposition~\ref{prop:Gpi-Gpiprime-etale}.
+Hence both subspace topologies on the common subset \((\G')^n\) are characterised by the requirement that \(\varphi\) be a local homeomorphism to \((\G_0')_{\pi_0}\).
+Therefore they agree, and the identification is canonical.
+
+The statement for \(\G\) is identical.
+\end{proof}
+
+\begin{proposition}[{\cite[Proposition~4.19]{matui2022long}}]\label{prop:Pi-n-chain-iso}
+Let \(\pi:\G\to\G'\) be as in Setting~\ref{setting:factor-groupoid} and assume \(\pi\) is regular.
+Let \(A\) be a discrete abelian group.
+For each \(n\ge 0\), let \(\Pi_n\) be the reduction map associated to \(\pi_{n}:\G_{n}\to \G'_{n}\) as in Definition~\ref{def:reduction-map}.
+Then:
+\begin{enumerate}[noitemsep,nolistsep]
+\item
+\(\Pi_n\) induces an isomorphism
+\[
+C_c(\G_{n},A)\big/\pi_n^{*}C_c(\G'_{n},A)
+\ \xrightarrow{\ \cong\ }\
+C_c((\G_\pi)_{n},A)\big/\pi_n^{*}C_c((\G'_\pi)_{n},A),
+\]
+\item
+the family \((\Pi_n)_{n\ge 0}\) defines an isomorphism of chain complexes
+\[
+C_c(\G_\bullet,A)\big/\pi_\bullet^{*}C_c(\G'_\bullet,A)
+\ \xrightarrow{\ \cong\ }\
+C_c((\G_\pi)_\bullet,A)\big/\pi_\bullet^{*}C_c((\G'_\pi)_\bullet,A),
+\]
+where the differentials are the Moore differentials on the respective nerves.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Degreewise isomorphism.}
+Fix \(n\ge 0\).
+By Lemma~\ref{lem:regularity-levels}, the map \(\pi_{n}:\G_{n}\to\G'_{n}\) is a regular proper surjection between totally disconnected locally compact metric spaces.
+Apply Proposition~\ref{prop:Pi-surj-kernel} to \(\pi_{n}\).
+Then \(\Pi_n\) is surjective with kernel \(\pi_n^{*}C_c(\G'_{n},A)\), hence it induces an isomorphism
+\[
+C_c(\G_{n},A)\big/\pi_n^{*}C_c(\G'_{n},A)
+\ \xrightarrow{\ \cong\ }\
+C_c((\G_{n})_{\pi_{n}},A)\big/\pi_n^{*}C_c((\G'_{n})_{\pi_{n}},A).
+\]
+By Lemma~\ref{lem:nerves-identify}, there are canonical homeomorphisms
+\(
+(\G_{n})_{\pi_{n}}\cong (\G_\pi)_{n},
+(\G'_{n})_{\pi_{n}}\cong (\G'_\pi)_{n},
+\)
+so the claim follows.
+
+\item \textbf{Compatibility with Moore differentials.}
+Fix \(n\ge 1\) and \(0\le i\le n\).
+The face maps \(d_i:\G_{n}\to \G_{n-1}\) and \(d_i:\G'_{n}\to \G'_{n-1}\) are local homeomorphisms since \(\G\) and \(\G'\) are \'etale, and the squares with \(\pi_n\) commute.
+Apply Proposition~\ref{prop:reduction-commutes-loc-homeo} to the commutative square
+\[
+\begin{tikzcd}
+\G_{n} \arrow[r,"d_i"] \arrow[d,"\pi_{n}"'] & \G_{n-1} \arrow[d,"\pi_{n-1}"]\\
+\G'_{n} \arrow[r,"d_i"'] & \G'_{n-1}.
+\end{tikzcd}
+\]
+This yields
+\(
+(d_i)_*\circ \Pi_n=\Pi_{n-1}\circ (d_i)_*.
+\)
+Taking the alternating sum over \(i\) gives
+\(\partial_n\circ \Pi_n=\Pi_{n-1}\circ \partial_n\)
+Therefore \((\Pi_n)_{n\ge 0}\) is a chain map.
+By the first item it is degreewise an isomorphism, hence a chain isomorphism.
+\end{itemize}
+\end{proof}
+
+\begin{theorem}[{\cite[Theorem~4.20]{matui2022long}}]\label{thm:factor-LES}
+Let \(\pi:\G\to\G'\) be as in Setting~\ref{setting:factor-groupoid} and assume \(\pi\) is regular.
+Let \(A\) be a discrete abelian group.
+Then there is a commutative diagram whose two rows are long exact sequences in Moore homology:
+\[
+\begin{tikzcd}[column sep=2.7em]
+\cdots \arrow{r}
+  & H_n(\G',A) \arrow{r}{H_n(\pi^*)}
+        \arrow{d}[swap]{H_n(\iota')}
+  & H_n(\G,A) \arrow{r}{H_n(q)}
+        \arrow{d}[swap]{H_n(\iota)}
+  & H_n\bigl(Q_\bullet\bigr)
+        \arrow{r}{\partial_n}
+        \arrow{d}[swap]{H_n(\Pi_\bullet)}
+  & H_{n-1}(\G',A) \arrow{r}
+        \arrow{d}[swap]{H_{n-1}(\iota')}
+  & \cdots \\
+\cdots \arrow{r}
+  & H_n(\G'_\pi,A) \arrow{r}{H_n(\pi^*)}
+  & H_n(\G_\pi,A) \arrow{r}{H_n(q_\pi)}
+  & H_n\bigl(Q^\pi_\bullet\bigr)
+        \arrow{r}{\partial_n^\pi}
+  & H_{n-1}(\G'_\pi,A) \arrow{r}
+  & \cdots
+\end{tikzcd}
+\]
+Here
+\begin{itemize}[noitemsep,nolistsep]
+\item \(\pi^*\) denotes pullback along \(\pi_{n}:\G_{n}\to\G'_{n}\) in each degree, hence a chain map
+\(C_c(\G'_\bullet,A)\to C_c(\G_\bullet,A)\) and likewise
+\(C_c((\G'_\pi)_\bullet,A)\to C_c((\G_\pi)_\bullet,A)\),
+\item \(q\) and \(q_\pi\) are the quotient maps of chain complexes,
+\item \(\iota, \iota'\) are induced by inclusions
+\(C_c((\G_\pi)_\bullet,A)\hookrightarrow C_c(\G_\bullet,A), C_c((\G'_\pi)_\bullet,A)\hookrightarrow C_c(\G'_\bullet,A)\),
+\item \(H_n(\Pi_\bullet)\) is the isomorphism induced by Proposition~\ref{prop:Pi-n-chain-iso},
+\item \(\partial_n\) and \(\partial_n^\pi\) are the connecting morphisms,
+\item \(Q_\bullet\coloneqq C_c(\G_\bullet,A)\big/\pi^*C_c(\G'_\bullet,A)\) and
+\(Q^\pi_\bullet\coloneqq C_c((\G_\pi)_\bullet,A)\big/\pi^*C_c((\G'_\pi)_\bullet,A)\).
+\end{itemize}
+In particular, the vertical map on the quotient term is an isomorphism.
+\end{theorem}
+
+\begin{proof}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Short exact sequence and connecting morphisms for \(\G\).}
+For each \(n\ge 0\), pullback along \(\pi_{n}\) defines a homomorphism
+\[
+\pi_n^{*}:C_c(\G'_{n},A)\rightarrow C_c(\G_{n},A),
+\qquad
+(\pi_n^{*}f)(g)\coloneqq f\bigl(\pi_{n}(g)\bigr).
+\]
+Since \(\pi_n\) is surjective, \(\pi_n^{*}\) is injective.
+Since \(\pi_n\circ d_i=d_i\circ \pi_{n+1}\) for all face maps \(d_i\), these maps assemble to a chain map
+\(
+\pi^*:C_c(\G'_\bullet,A)\to C_c(\G_\bullet,A).
+\)
+By definition of \(Q_\bullet\), for each \(n\ge 0\) there is a short exact sequence
+\[
+0\to C_c(\G'_n,A)\xrightarrow{\pi_n^{*}} C_c(\G_n,A)\xrightarrow{q_n} Q_n\to 0,
+\]
+hence a short exact sequence of chain complexes
+\[
+0\to C_c(\G'_\bullet,A)\xrightarrow{\pi^*} C_c(\G_\bullet,A)\xrightarrow{q} Q_\bullet\to 0.
+\]
+This yields a long exact sequence in homology with connecting morphisms \(\partial_n\).
+Concretely, writing the Moore differential on all complexes as \(d_n\), the connecting morphism
+\[
+\partial_n:H_n(Q_\bullet)\to H_{n-1}(\G',A)
+\]
+is defined by the following lift and boundary procedure.
+Choose a cycle \(c\in Q_n\) representing a class in \(H_n(Q_\bullet)\).
+Choose \(b\in C_c(\G_n,A)\) with \(q_n(b)=c\).
+Then \(0=d_{n-1}(c)=q_{n-1}(d_{n-1}(b))\), so \(d_{n-1}(b)\in \pi_{n-1}^*C_c(\G'_{n-1},A)\).
+Since \(\pi_{n-1}^*\) is injective, there is a unique \(a\in C_c(\G'_{n-1},A)\) such that
+\(
+\pi_{n-1}^*(a)=d_{n-1}(b).
+\)
+Set \(\partial_n([c])\coloneqq [a]\).
+
+This is well defined and gives exactness.
+
+\item \textbf{Short exact sequence and connecting morphisms for \(\G_\pi\).}
+Assume \(\pi\) is regular.
+Applying the same construction degreewise to \(\pi_n:(\G_\pi)_n\to (\G'_\pi)_n\) gives a short exact sequence
+\[
+0\to C_c((\G'_\pi)_\bullet,A)\xrightarrow{\pi^*} C_c((\G_\pi)_\bullet,A)\xrightarrow{q_\pi} Q^\pi_\bullet\to 0,
+\]
+hence a long exact sequence with connecting morphisms \(\partial_n^\pi\), by the same lift.
+
+\item \textbf{Vertical maps and commutativity.}
+Since the topology on \((\G_\pi)_n\) and \((\G'_\pi)_n\) is finer than the subspace topology from \(\G_n\) and \(\G'_n\), every element of
+\(C_c((\G_\pi)_n,A)\) and \(C_c((\G'_\pi)_n,A)\) is also an element of \(C_c(\G_n,A)\) and \(C_c(\G'_n,A)\).
+Thus the inclusions of chain complexes
+\[
+C_c((\G_\pi)_\bullet,A)\hookrightarrow C_c(\G_\bullet,A),
+\qquad
+C_c((\G'_\pi)_\bullet,A)\hookrightarrow C_c(\G'_\bullet,A)
+\]
+induce homology maps \(H_n(\iota)\) and \(H_n(\iota')\).
+By Proposition~\ref{prop:Pi-n-chain-iso}, the reduction maps \(\Pi_n\) assemble to a chain isomorphism
+\(
+\Pi_\bullet:Q_\bullet\xrightarrow{\ \cong\ } Q^\pi_\bullet,
+\)
+hence induce isomorphisms \(H_n(\Pi_\bullet)\) on homology.
+The long exact sequence construction is natural with respect to morphisms of short exact sequences of chain complexes.
+Finally, apply naturality and homology to
+\[
+\begin{tikzcd}
+0 \arrow{r}
+  & C_c(\G'_\bullet,A) \arrow{r}{\pi^*} \arrow{d}[swap]{\iota'}
+  & C_c(\G_\bullet,A) \arrow{r}{q} \arrow{d}[swap]{\iota}
+  & Q_\bullet \arrow{r} \arrow{d}[swap]{\Pi_\bullet}
+  & 0 \\
+0 \arrow{r}
+  & C_c((\G'_\pi)_\bullet,A) \arrow{r}{\pi^*}
+  & C_c((\G_\pi)_\bullet,A) \arrow{r}{q_\pi}
+  & Q^\pi_\bullet \arrow{r}
+  & 0.
+\end{tikzcd}
+\]
+\end{itemize}
+\end{proof}
+
+\section{The Universal Coefficient Theorem}
+\label{sec:UCT}
+The UCT is purely algebraic and applies to
+chain complexes of free abelian groups with coefficients introduced via
+tensor products. In order to bring our groupoid homology with
+coefficients in a topological group $A$ into this framework, we now identify it with the
+homology of $C_c(\G_\bullet,\mathbb{Z})\otimes_{\mathbb Z} A$
+by constructing an explicit chain isomorphism $C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z} A \cong C_c(\G_n,A)$ in each degree. We will restrict the hypothesis to discrete topological groups. As it turns out, homology using Moore complexes does not yield a UCT for general topological abelian groups.
+
+\begin{proposition}\label{prop:coefficients-tensor}
+Let \(\G\) be an ample groupoid and \(A\) a discrete abelian group. For \(n\ge 0\) write
+\[
+\begin{aligned}
+C_n(\G;\mathbb Z)&\coloneqq C_c(\G_n,\mathbb Z),\quad
+C_n(\G;A)\coloneqq C_c(\G_n,A),\\
+\partial_n &\coloneqq \sum_{i=0}^n (-1)^i (d_i)_*:C_n(\G;\mathbb Z)\to C_{n-1}(\G;\mathbb Z),\\
+\partial_n^A &\coloneqq \sum_{i=0}^n (-1)^i (d_i)_*:C_n(\G;A)\to C_{n-1}(\G;A)
+\end{aligned}
+\]
+be the Moore differentials.
+Then for each \(n\ge 0\) there is a natural isomorphism in $\mathbf{Ab}$
+\[
+\Phi_n:C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z} A \xrightarrow{\ \cong\ } C_c(\G_n,A),
+\qquad
+\Phi_n(f\otimes a)(x)\coloneqq f(x)\cdot a,
+\]
+and the family \(\Phi_\bullet=(\Phi_n)_{n\ge 0}\) is a chain isomorphism
+\[
+\Phi_\bullet:\bigl(C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A,\ \partial_\bullet\otimes \mathrm{id}_A\bigr)
+\xrightarrow{\ \cong\ }
+\bigl(C_c(\G_\bullet,A),\ \partial_\bullet^A\bigr).
+\]
+In particular,
+\(
+H_n(\G;A)\ \cong\ H_n\bigl(C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A\bigr)\ \text{for all }n\ge 0.
+\)
+\end{proposition}
+
+\begin{proof}
+Fix \(n\ge 0\).
+Since \(\G\) is ample, \(\G_n\) is locally compact Hausdorff totally disconnected, hence has a basis of compact open sets.
+Because \(A\) is discrete, every \(\xi\in C_c(\G_n,A)\) is locally constant and \(\{x\mid \xi(x)\neq 0\}\) is compact open in \(\G_n\).
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Definition of \(\Phi_n\).}
+Define \(\beta_n:C_c(\G_n,\mathbb Z)\times A\to C_c(\G_n,A)\) by
+\(\beta_n(f,a)(x)\coloneqq f(x)\cdot a\).
+This is biadditive and \(\supp(\beta_n(f,a))\subseteq \supp(f)\), hence \(\beta_n(f,a)\in C_c(\G_n,A)\).
+By the universal property of \(\otimes_{\mathbb Z}\) there is a unique homomorphism
+\(
+\Phi_n:C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z} A\to C_c(\G_n,A)
+\)
+with \(\Phi_n(f\otimes a)=\beta_n(f,a)\).
+
+\item \textbf{Explicit inverse.}
+Let \(\xi\in C_c(\G_n,A)\).
+Since \(\xi\) is locally constant with compact open support, we can write
+\[
+\xi=\sum_{j=1}^m a_j\,\chi_{U_j},
+\]
+with \(a_j\in A\) and pairwise disjoint compact open \(U_j\subseteq \G_n\).
+Define
+\[
+\Psi_n(\xi)\coloneqq \sum_{j=1}^m \chi_{U_j}\otimes a_j\in C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A.
+\]
+If \(\xi=\sum_j a_j\chi_{U_j}=\sum_k b_k\chi_{V_k}\) are two such decompositions, refine by
+\(W_{jk}\coloneqq U_j\cap V_k\), still pairwise disjoint compact open.
+On \(W_{jk}\neq \varnothing\) one has \(a_j=b_k\), and bilinearity gives
+\[
+\sum_j \chi_{U_j}\otimes a_j
+=\sum_{j,k}\chi_{W_{jk}}\otimes a_j
+=\sum_{j,k}\chi_{W_{jk}}\otimes b_k
+=\sum_k \chi_{V_k}\otimes b_k,
+\]
+so \(\Psi_n\) is well defined.
+Then \(\Phi_n(\Psi_n(\xi))=\xi\) is immediate.
+Conversely, for a pure tensor \(f\otimes a\) write \(f=\sum_{j=1}^m m_j \chi_{U_j}\) with pairwise disjoint compact open \(U_j\), and compute
+\[
+\Psi_n(\Phi_n(f\otimes a))
+=\Psi_n\Bigl(\sum_j (m_j\cdot a)\,\chi_{U_j}\Bigr)
+=\sum_j \chi_{U_j}\otimes (m_j\cdot a)
+=\sum_j (m_j\chi_{U_j})\otimes a
+=f\otimes a.
+\]
+Hence \(\Psi_n\circ\Phi_n=\mathrm{id}_{C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A}\) and \(\Phi_n\) is an isomorphism with inverse \(\Psi_n\).
+
+\item \textbf{Compatibility with pushforward.}
+Let \(p:Y\to Z\) be a local homeomorphism between locally compact Hausdorff spaces.
+For \(f\in C_c(Y,\mathbb Z)\) and \(z\in Z\), the set \(p^{-1}(z)\cap \supp(f)\) is finite because it is compact and discrete.
+Thus \(p_*\) is defined by finite sums on both \(\mathbb Z\)- and \(A\)-valued chains.
+For \(a\in A\) and \(z\in Z\),
+\[
+\bigl(\Phi_Z(p_*f\otimes a)\bigr)(z)
+=(p_*f)(z)\cdot a
+=\Bigl(\sum_{p(y)=z} f(y)\Bigr)\cdot a
+=\sum_{p(y)=z} f(y)\cdot a
+=\bigl(p_*\Phi_Y(f\otimes a)\bigr)(z).
+\]
+Hence \(\Phi_Z\circ(p_*\otimes \mathrm{id}_A)=p_*\circ \Phi_Y\).
+Applying this with \(p=d_i:\G_n\to \G_{n-1}\) and summing with signs yields
+\(\Phi_{n-1}\circ(\partial_n\otimes \mathrm{id}_A)=\partial_n^A\circ \Phi_n\) for all \(n\ge 1\).
+\end{itemize}
+
+Therefore \(\Phi_\bullet\) is a chain isomorphism, and the claimed identification on homology follows.
+\end{proof}
+
+We now define the cohomology theory that pairs naturally with the integral Moore complex and hence fits the classical cohomological universal coefficient formalism. 
+Throughout, \(\partial_\bullet\) denotes the Moore differential on the integral chain complex \(\bigl(C_c(\G_\bullet,\ZZ),\partial_\bullet\bigr)\), constructed earlier from push-forwards along the face maps of the nerve.
+
+\begin{proposition}\label{prop:cochain-hom}
+Let \(A\) be an abelian group.
+For \(n\ge 0\) set
+\(
+C^n(\G;A)\coloneqq \Hom_{\ZZ}\bigl(C_c(\G_n,\ZZ),A\bigr).
+\)
+Define \(\delta^n:C^n(\G;A)\to C^{n+1}(\G;A)\) by
+\(
+\delta^n(\varphi)\coloneqq \varphi\circ \partial_{n+1},
+\ \text{for} \ \varphi\in C^n(\G;A).
+\)
+Then \(\delta^{n+1}\circ \delta^n=0\) for all \(n\ge 0\), so \(\bigl(C^\bullet(\G;A),\delta^\bullet\bigr)\) is a cochain complex.
+Its cohomology groups are
+\(
+H^n(\G;A)\coloneqq \ker(\delta^n)\big/\operatorname{im}(\delta^{n-1}),
+\ \text{for} \ n\ge 0,
+\)
+where \(\operatorname{im}(\delta^{-1}) \coloneqq 0\).
+Equivalently,
+\[
+H^n(\G;A)=H^n\Bigl(\Hom_{\ZZ}\bigl(C_c(\G_\bullet,\ZZ),A\bigr)\Bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+For \(n\ge 0\) the map \(\delta^n\) is well-defined since it is the composition of group homomorphisms.
+For \(\varphi\in C^n(\G;A)\) one has
+\[
+\delta^{n+1}\bigl(\delta^n(\varphi)\bigr)
+= (\varphi\circ \partial_{n+1})\circ \partial_{n+2}
+= \varphi\circ (\partial_{n+1}\circ \partial_{n+2})
+=0,
+\]
+because \(\partial_{n+1}\circ \partial_{n+2}=0\) in the chain complex \(\bigl(C_c(\G_\bullet,\ZZ),\partial_\bullet\bigr)\).
+\end{proof}
+
+\subsection{UCT for Moore Homology}
+\label{sec:UCT-Homology}
+We have homology with coefficients as the homology of $C_c(\G_\bullet,\mathbb{Z})\otimes_{\mathbb Z} A$ and cohomology with coefficients as the cohomology of the dual complex $\operatorname{Hom}_{\mathbb Z}(C_c(\G_\bullet,\mathbb{Z}),A)$. Since each $C_c(\G_n,\mathbb Z)$ is a free abelian group, the chain complex $C_c(\G_\bullet,\mathbb{Z})$ lies exactly in the algebraic setting where the classical UCT applies. In the next step we recall these UCT statements for an arbitrary chain complex of free abelian groups. We will then modify to $C_c(\G_\bullet,\mathbb{Z})$ to obtain the UCT-sequences for $H_n(\G;A)$ and $H^n(\G;A)$.
+
+\begin{theorem}\label{thm:UCT-homology-G}
+Let $\G$ be an ample \'etale groupoid and let $A$ be a discrete abelian group.
+Write $H_n(\G)\coloneqq H_n(\G;\ZZ)=H_n\bigl(C_c(\G_\bullet,\ZZ),\partial_\bullet\bigr)$.
+Then for each $n\ge 0$ there is a natural short exact sequence of abelian groups
+\[
+0
+\to H_n(\G)\otimes_{\ZZ} A
+\xrightarrow{\ \iota_n^{\G}\ }
+H_n(\G;A)
+\xrightarrow{\ \kappa_n^{\G}\ }
+\operatorname{Tor}^{\ZZ}_1\bigl(H_{n-1}(\G),A\bigr)
+\to 0.
+\]
+\end{theorem}
+
+\begin{proof}
+For each $n\ge 0$, ampleness of $\G$ implies that $\G_n$ is locally compact, Hausdorff, totally disconnected, and has a basis of compact open subsets.
+By Lemma~\ref{lem:locally-constant-generators}, every $f\in C_c(\G_n,\ZZ)$ is a finite $\ZZ$-linear combination of characteristic functions $\chi_U$ of compact open subsets $U\subseteq \G_n$.
+In particular, $C_c(\G_n,\ZZ)$ is a free abelian group, hence $C_c(\G_\bullet,\ZZ)$ is a chain complex of free $\ZZ$-modules.
+Since $A$ is discrete, Proposition~\ref{prop:coefficients-tensor} provides a natural chain isomorphism
+\[
+\Phi_\bullet \colon \bigl(C_c(\G_\bullet,\ZZ)\otimes_{\ZZ} A,\ \partial_\bullet\otimes \operatorname{id}_A\bigr)
+\xrightarrow{\ \cong\ }
+\bigl(C_c(\G_\bullet,A),\ \partial_\bullet^A\bigr),
+\qquad
+\Phi_n(f\otimes a)=\bigl[g\mapsto f(g)\cdot a\bigr].
+\]
+Hence $\alpha_n^{\G}\coloneqq H_n(\Phi_\bullet)$ is a natural isomorphism
+\(
+\alpha_n^{\G}\colon
+H_n\bigl(C_c(\G_\bullet,\ZZ)\otimes_{\ZZ} A\bigr)
+\xrightarrow{\ \cong\ }
+H_n(\G;A).
+\)
+
+Now apply the classical homological universal coefficient theorem for chain complexes of free abelian groups
+to the chain complex $C_c(\G_\bullet,\ZZ)$ and the $\ZZ$-module $A$:
+for each $n\ge 0$ there is a natural short exact sequence
+\[
+0
+\to H_n(\G)\otimes_{\ZZ} A
+\xrightarrow{\ \iota_n\ }
+H_n\bigl(C_c(\G_\bullet,\ZZ)\otimes_{\ZZ} A\bigr)
+\xrightarrow{\ \kappa_n\ }
+\operatorname{Tor}^{\ZZ}_1\bigl(H_{n-1}(\G),A\bigr)
+\to 0,
+\]
+see \cite[Theorem~3.6.2]{weibel1994introduction}.
+Transporting this sequence along the isomorphism $\alpha_n^{\G}$ yields the claimed short exact sequence, with
+\(
+\iota_n^{\G}\coloneqq \alpha_n^{\G}\circ \iota_n,
+\kappa_n^{\G}\coloneqq \kappa_n\circ (\alpha_n^{\G})^{-1}.
+\)
+Naturality in $A$ follows from naturality of the UCT sequence and functoriality of $\Phi_\bullet$ with respect to homomorphisms $A\to B$ via postcomposition on $C_c(\G_n,A)$.
+\end{proof}
+
+The UCT for ample \'etale groupoids established above is, in general, a discrete-coefficients result: its proof relies on the identification
+\[
+C_c(\G_n,A)\cong C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A,
+\]
+which holds whenever every continuous compactly supported \(A\)-valued function on \(\G_n\) is locally constant. This is automatic if \(A\) is discrete, but it may also hold for certain non-discrete \(A\) when \(\G_n\) is discrete. In contrast, for non-discrete \(\G_n\) and non-discrete \(A\) one should not expect such an identification, and therefore no general UCT for the homology defined via \(C_c(\G_\bullet,A)\).
+
+\begin{corollary}\label{cor:discrete-necessity}
+Let \(X\) be a locally compact, totally disconnected Hausdorff space with a basis of compact open sets, and let \(A\) be a topological abelian group. Consider the homomorphism
+\[
+\Phi:\ C_c(X,\mathbb Z)\otimes_{\mathbb Z} A \to C_c(X,A),
+\qquad
+f\otimes a \mapsto \bigl(x\mapsto f(x)\cdot a\bigr),
+\]
+where \(f(x)\in \mathbb Z\) acts on \(a\in A\) by repeated addition. In particular, for compact open \(U\subseteq X\),
+\(\Phi(\chi_U\otimes a)=a\cdot \chi_U\).
+Then the following are equivalent:
+\begin{enumerate}[noitemsep,nolistsep]
+  \item every \(\xi\in C_c(X,A)\) is locally constant,
+  \item \(\Phi\) is surjective,
+  \item \(\Phi\) is an isomorphism of abelian groups.
+\end{enumerate}
+In particular, if \(A\) is discrete, then \(\Phi\) is an isomorphism.
+The converse need not hold.
+\end{corollary}
+
+\begin{proof}
+Define the \(\mathbb Z\)-bilinear map
+\[
+\beta:\ C_c(X,\mathbb Z)\times A \to C_c(X,A),
+\qquad
+\beta(f,a)(x)\coloneqq f(x)\cdot a.
+\]
+Since \(f\) is \(\mathbb Z\)-valued and locally constant, \(\beta(f,a)\) is locally constant for every \(a\in A\), hence continuous for any topology on \(A\).
+Moreover \(\supp(\beta(f,a))\subseteq\supp(f)\), so \(\beta(f,a)\) is compactly supported.
+Thus \(\beta\) induces a unique group homomorphism
+\[
+\Phi:\ C_c(X,\mathbb Z)\otimes_{\mathbb Z} A \to C_c(X,A),
+\qquad
+\Phi(f\otimes a)=\beta(f,a).
+\]
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Every element of \(\operatorname{im}(\Phi)\) is locally constant.}
+Write \(h=\Phi\bigl(\sum_{j=1}^m f_j\otimes a_j\bigr)=\sum_{j=1}^m \beta(f_j,a_j)\).
+Each \(f_j:X\to\mathbb Z\) is locally constant because \(\mathbb Z\) is discrete, hence
+\[
+F:\ X\to \mathbb Z^m,\qquad x\mapsto \bigl(f_1(x),\dots,f_m(x)\bigr),
+\]
+is locally constant. Define
+\[
+\lambda:\ \mathbb Z^m\to A,\qquad (n_1,\dots,n_m)\mapsto \sum_{j=1}^m n_j\cdot a_j.
+\]
+Then \(h=\lambda\circ F\), so \(h\) is locally constant.
+
+\item \textbf{1.\(\Rightarrow\)2.}
+Let \(\xi\in C_c(X,A)\).
+Assume \(\xi\) is locally constant. Its support
+\(\supp(\xi)=\{x\in X\mid \xi(x)\neq 0\}\)
+is compact.
+For each \(x\in\supp(\xi)\) choose an open neighbourhood \(O_x\) on which \(\xi\) is constant.
+Using the basis of compact open sets, choose compact open \(U_x\subseteq O_x\) with \(x\in U_x\).
+By compactness, pick \(x_1,\dots,x_N\in\supp(\xi)\) such that
+\(\supp(\xi)\subseteq U_{x_1}\cup\cdots\cup U_{x_N}\).
+Set \(K\coloneqq \bigcup_{i=1}^N U_{x_i}\), which is compact open.
+
+Since \(X\) is Hausdorff, every compact open set is clopen. Hence we can refine the finite cover \((U_{x_i})_{i=1}^N\) to a finite family of pairwise disjoint compact open sets \((V_\ell)_{\ell=1}^L\) with \(\bigcup_{\ell=1}^L V_\ell=K\).
+Because \(\xi\) is constant on each \(U_{x_i}\), it is constant on each \(V_\ell\); write \(\xi|_{V_\ell}\equiv a_\ell\in A\).
+Then \(\xi=0\) on \(X\setminus K\), and therefore
+\[
+\xi=\sum_{\ell=1}^L a_\ell\,\chi_{V_\ell}
+=\Phi\Bigl(\sum_{\ell=1}^L \chi_{V_\ell}\otimes a_\ell\Bigr).
+\]
+Thus \(\Phi\) is surjective.
+
+\item \textbf{2.\(\Rightarrow\)1.}
+If \(\Phi\) is surjective, then every \(\xi\in C_c(X,A)\) lies in \(\operatorname{im}(\Phi)\), hence is locally constant.
+
+\item \textbf{2.\(\Rightarrow\)3.}
+Assume \(\Phi\) is surjective. By 2.\(\Rightarrow\)1., every \(\xi\in C_c(X,A)\) is locally constant.
+As in 1.\(\Rightarrow\)2., every \(\xi\in C_c(X,A)\) admits a decomposition
+\[
+\xi=\sum_{i=1}^n a_i\,\chi_{U_i},
+\]
+where \(U_1,\dots,U_n\subseteq X\) are pairwise disjoint compact open sets and \(a_i\in A\).
+Define
+\[
+\Psi:\ C_c(X,A)\to C_c(X,\mathbb Z)\otimes_{\mathbb Z}A,
+\qquad
+\Psi\Bigl(\sum_{i=1}^n a_i\,\chi_{U_i}\Bigr)\coloneqq \sum_{i=1}^n \chi_{U_i}\otimes a_i.
+\]
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Well-definedness of \(\Psi\).}
+Suppose also
+\(\xi=\sum_{j=1}^m b_j\,\chi_{V_j}\)
+with pairwise disjoint compact open \(V_j\).
+Put \(W_{ij}\coloneqq U_i\cap V_j\), which are pairwise disjoint compact open sets, and note that in \(C_c(X,\mathbb Z)\),
+\[
+\chi_{U_i}=\sum_{j=1}^m \chi_{W_{ij}},
+\qquad
+\chi_{V_j}=\sum_{i=1}^n \chi_{W_{ij}}.
+\]
+On each \(W_{ij}\neq\varnothing\), the function \(\xi\) is constant with value \(a_i=b_j\), hence
+\[
+\sum_{i=1}^n \chi_{U_i}\otimes a_i
+=\sum_{i,j}\chi_{W_{ij}}\otimes a_i
+=\sum_{i,j}\chi_{W_{ij}}\otimes b_j
+=\sum_{j=1}^m \chi_{V_j}\otimes b_j.
+\]
+Thus \(\Psi\) is well-defined.
+
+\item \textbf{Inverse property.}
+For \(\xi=\sum_i a_i\chi_{U_i}\),
+\[
+\Phi(\Psi(\xi))=\sum_i \Phi(\chi_{U_i}\otimes a_i)=\sum_i a_i\chi_{U_i}=\xi,
+\]
+so \(\Phi\circ\Psi=\mathrm{id}_{C_c(X,A)}\).
+\end{itemize}
+
+Conversely, by the standard compact-open partition argument for totally disconnected locally compact Hausdorff spaces, every \(f\in C_c(X,\mathbb Z)\) is a finite \(\mathbb Z\)-linear combination of characteristic functions of pairwise disjoint compact open subsets. Hence elements of \(C_c(X,\mathbb Z)\otimes_{\mathbb Z}A\) are finite sums of tensors \(\chi_U\otimes a\) with \(U\) compact open.
+For such a tensor,
+\[
+\Psi(\Phi(\chi_U\otimes a))=\Psi(a\,\chi_U)=\chi_U\otimes a.
+\]
+By additivity, \(\Psi\circ\Phi=\mathrm{id}_{C_c(X,\mathbb Z)\otimes_{\mathbb Z}A}\).
+Thus \(\Phi\) is an isomorphism with inverse \(\Psi\).
+
+\item \textbf{(3)\(\Rightarrow\)(2).}
+Trivial.
+\end{itemize}
+
+Finally, if \(A\) is discrete then every continuous \(X\to A\) is locally constant, so 1. holds.
+\end{proof}
+
+\begin{example}\label{ex:phi-iso-and-fails}~
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Non-discrete \(A\), still \(\Phi\) an isomorphism because \(X\) is discrete.}
+Let \(X\coloneqq \mathbb N\) with the discrete topology and let \(A\coloneqq (\mathbb R,+)\) with its usual topology.
+Then every \(\xi\in C_c(X,A)\) has finite support because compact subsets of \(X\) are finite.
+Hence \(\xi\) is locally constant.
+By Corollary~\ref{cor:discrete-necessity}, \(\Phi\) is an isomorphism although \(A\) is not discrete.
+
+\item \textbf{Non-discrete \(X\) and non-discrete \(A\), \(\Phi\) not surjective.}
+Let \(X\coloneqq \{0,1\}^{\mathbb N}\) be the Cantor space with the product topology, and let
+\(A\coloneqq (\mathbb R,+)\) with its usual topology.
+For \(n\in\mathbb N\) and \(\varepsilon=(\varepsilon_1,\dots,\varepsilon_n)\in\{0,1\}^n\) set
+\[
+Z(\varepsilon)\coloneqq\{x=(x_k)_{k\ge 1}\in X\mid x_1=\varepsilon_1,\dots,x_n=\varepsilon_n\}
+=\prod_{k=1}^n\{\varepsilon_k\}\times\prod_{k=n+1}^\infty\{0,1\}.
+\]
+Then \(\mathcal B\coloneqq\{Z(\varepsilon)\mid n\in\mathbb N,\ \varepsilon\in\{0,1\}^n\}\cup\{\varnothing\}\) is a basis of compact open subsets of \(X\).
+Define
+\[
+\xi:\ X\to \mathbb R,\qquad \xi(x)\coloneqq \sum_{n=1}^\infty 2^{-n}x_n.
+\]
+Then \(\xi\in C_c(X,\mathbb R)\) but \(\xi\) is not locally constant. Consequently,
+condition \textup{1.} of Corollary~\ref{cor:discrete-necessity} fails for \((X,A)\), and hence the canonical map
+\[
+\Phi:\ C_c(X,\mathbb Z)\otimes_{\mathbb Z}\mathbb R\to C_c(X,\mathbb R),
+\qquad \chi_U\otimes a\mapsto a\,\chi_U,
+\]
+is not surjective.
+Since \(X\) is compact, every continuous map \(X\to \mathbb R\) has compact support equal to \(X\), so it suffices to show that \(\xi\) is continuous and not locally constant.
+For \(N\in\mathbb N\) define the partial sums
+\[
+\xi_N(x)\coloneqq \sum_{n=1}^N 2^{-n}x_n.
+\]
+Each \(\xi_N\) depends only on the first \(N\) coordinates, hence is continuous in the product topology.
+Moreover, for all \(x\in X\),
+\[
+\bigl|\xi(x)-\xi_N(x)\bigr|
+=\sum_{n>N}2^{-n}x_n
+\le \sum_{n>N}2^{-n}
+=2^{-N}.
+\]
+Thus \(\xi_N\to \xi\) uniformly on \(X\), and \(\xi\) is continuous.
+Hence \(\xi\in C(X,\mathbb R)=C_c(X,\mathbb R)\).
+
+Fix \(x=(x_n)_{n\ge 1}\in X\) and let \(U\) be any neighbourhood of \(x\).
+Since \(\mathcal B\) is a basis, there exist \(N\in\mathbb N\) and \(\varepsilon=(x_1,\dots,x_N)\in\{0,1\}^N\) such that
+\(x\in Z(\varepsilon)\subseteq U\).
+Define \(y,z\in X\) by
+\[
+\begin{aligned}
+&y_n\coloneqq x_n \ \text{for } 1\le n\le N,\quad y_{N+1}\coloneqq 0,\quad y_n\coloneqq 0 \ \text{for } n\ge N+2,\\
+&z_n\coloneqq x_n \ \text{for } 1\le n\le N,\quad z_{N+1}\coloneqq 1,\quad z_n\coloneqq 0 \ \text{for } n\ge N+2.
+\end{aligned}
+\]
+Then \(y,z\in Z(\varepsilon)\subseteq U\), and
+\[
+\xi(z)-\xi(y)=2^{-(N+1)}(z_{N+1}-y_{N+1})=2^{-(N+1)}\neq 0,
+\]
+so \(\xi(z)\neq \xi(y)\). Hence \(\xi\) is not constant on \(U\).
+Since \(U\) was arbitrary, \(\xi\) is not locally constant.
+
+Every element of \(\operatorname{im}(\Phi)\) is locally constant by Corollary~\ref{cor:discrete-necessity}.
+Since \(\xi\in C_c(X,\mathbb R)\) is not locally constant, \(\xi\notin \operatorname{im}(\Phi)\).
+Thus \(\Phi\) is not surjective.
+\end{itemize}
+\end{example}
+In our coefficient discussion the homomorphism
+\[
+\Phi_X:\ C_c(X,\ZZ)\otimes_{\ZZ}A \to C_c(X,A),
+\qquad
+\chi_U\otimes a \mapsto a\,\chi_U,
+\]
+is the conceptual bridge that would allow us to transport the classical algebraic universal coefficient theorem to the chain complexes arising from locally compact, totally disconnected spaces.
+Indeed, if $\Phi_X$ were an isomorphism, then homology with coefficients in $A$ could be computed purely algebraically from the free $\ZZ$-complex $C_c(X,\ZZ)$ by tensoring with $A$.
+
+The point of the next results is that this bridge typically collapses as soon as $A$ carries a non-discrete topology, and the obstruction is already visible on the level of values.
+Every element of $C_c(X,\ZZ)\otimes_{\ZZ}A$ is a finite sum of pure tensors.
+Expanding each $f\in C_c(X,\ZZ)$ as a finite $\ZZ$-linear combination of characteristic functions of compact open sets, one may assume that an arbitrary tensor has the form
+\[
+z=\sum_{j=1}^m \chi_{K_j}\otimes b_j,
+\qquad
+K_j\subseteq X \text{ compact open},\ b_j\in A.
+\]
+Then
+\[
+\Phi_X(z)=\sum_{j=1}^m b_j\,\chi_{K_j},
+\qquad
+\Phi_X(z)(x)=\sum_{\{j\,:\,x\in K_j\}} b_j,
+\]
+so $\Phi_X(z)(x)$ is a sum over a subset of the finite set $\{b_1,\dots,b_m\}$.
+Consequently, every function in $\operatorname{im}(\Phi_X)$ has finite image, contained in
+\[
+\Bigl\{\ \sum_{j\in J} b_j\ \Bigm|\ J\subseteq\{1,\dots,m\}\ \Bigr\}\subseteq A.
+\]
+This finiteness constraint is purely algebraic.
+It does not depend on finer topological properties of $A$ such as total disconnectedness or first countability.
+
+In contrast, once $A$ admits a nontrivial sequence $a_n\to 0$, any non-discrete zero-dimensional space $X$ supports continuous compactly supported $A$-valued functions with infinitely many distinct values.
+One concentrates the $a_n$ on a clopen partition shrinking to a non-isolated point and uses $a_n\to 0$ to enforce continuity at the limit point.
+Such a function cannot lie in $\operatorname{im}(\Phi_X)$ by the finite-image obstruction, and therefore $\Phi_X$ fails to be surjective.
+The Cantor-space example makes this failure completely explicit and shows that even for the most regular $X$, non-discrete coefficients already break the tensor-product model.
+This is exactly why the UCT for ample \'etale groupoids obtained below is intrinsically a discrete-coefficients statement when homology is defined using compactly supported continuous $A$-valued chains.
+
+\begin{lemma}\label{lem:PhiX-finite-image}
+Let $X$ be a locally compact Hausdorff space and let $A$ be an abelian group.
+Consider the homomorphism
+\[
+\Phi_X:\ C_c(X,\mathbb Z)\otimes_{\mathbb Z} A \to C_c(X,A),
+\qquad
+f\otimes a \mapsto \bigl(x\mapsto f(x)\cdot a\bigr),
+\]
+where $f(x)\in\mathbb Z$ acts on $a\in A$ by repeated addition. Then $\xi\in \operatorname{im}(\Phi_X)$ has finite image $\xi(X)$.
+\end{lemma}
+
+\begin{proof}
+Let $z=\sum_{j=1}^m f_j\otimes a_j\in C_c(X,\mathbb Z)\otimes_{\mathbb Z} A$.
+For each $x\in X$ we have
+\[
+\Phi_X(z)(x)=\sum_{j=1}^m f_j(x)\cdot a_j.
+\]
+Fix $j$.
+Since $f_j\in C_c(X,\mathbb Z)$, the support $\supp(f_j)$ is compact and $f_j$ is continuous into the discrete space $\mathbb Z$.
+Hence $f_j(\supp(f_j))$ is compact in $\mathbb Z$, therefore finite.
+Because $f_j$ vanishes on $X\setminus\supp(f_j)$, it follows that $f_j(X)$ is finite.
+Consequently,
+\[
+\Phi_X(z)(X)\subseteq
+\Bigl\{\sum_{j=1}^m n_j\cdot a_j \ \Bigm|\ n_j\in f_j(X)\Bigr\},
+\]
+and the right-hand side is finite since each $f_j(X)$ is finite.
+Thus $\Phi_X(z)$ has finite image.
+\end{proof}
+
+\begin{corollary}\label{cor:PhiX-nonsurj-countable}
+Let $X$ be a locally compact, totally disconnected Hausdorff space with a basis of compact open sets.
+Assume that $X$ is non-discrete.
+Assume that there exists a non-isolated point $x\in X$ and a decreasing sequence $(U_n)_{n\ge 1}$ of compact open neighbourhoods of $x$ such that
+\[
+U_{n+1}\subseteq U_n\quad\text{for all }n\ge 1,
+\qquad
+\bigcap_{n\ge 1} U_n=\{x\}.
+\]
+Let $A$ be a topological abelian group.
+Assume that there exists a sequence $(a_n)_{n\ge 1}$ in $A\setminus\{0\}$ with $a_n\to 0$.
+Then the homomorphism
+\[
+\Phi_X:\ C_c(X,\mathbb Z)\otimes_{\mathbb Z} A \to C_c(X,A),
+\qquad
+\chi_U\otimes a \mapsto a\cdot \chi_U,
+\]
+is not surjective.
+\end{corollary}
+
+\begin{proof}
+For $n\ge 1$ set
+\(
+V_n\coloneqq U_n\setminus U_{n+1}.
+\)
+Since each $U_n$ is compact open, it is clopen, hence each $V_n$ is compact open.
+The sets $(V_n)_{n\ge 1}$ are pairwise disjoint and satisfy
+\(
+U_1\setminus\{x\}=\bigsqcup_{n\ge 1} V_n,
+\
+X\setminus U_1\ \text{is open}.
+\)
+
+Define $\xi:X\to A$ by
+\[
+\xi(y)\coloneqq
+\begin{cases}
+a_n, & y\in V_n \text{ for some } n\ge 1,\\
+0,   & y\notin \bigsqcup_{n\ge 1} V_n.
+\end{cases}
+\]
+Then $\xi$ is continuous on $X\setminus\{x\}$ since it is constant on each clopen set $V_n$ and on $X\setminus U_1$.
+It remains to check continuity at $x$.
+Let $W\subseteq A$ be an open neighbourhood of $0$.
+Choose $n_0\ge 1$ such that $a_n\in W$ for all $n\ge n_0$.
+We claim that $\xi(U_{n_0})\subseteq W$.
+Indeed, if $y\in U_{n_0}$ and $y\neq x$, then $y\in U_1\setminus\{x\}=\bigsqcup_{n\ge 1} V_n$, hence $y\in V_n$ for a unique $n\ge 1$.
+Since $y\in U_{n_0}$ and $V_n\subseteq U_n$, this forces $n\ge n_0$, and therefore $\xi(y)=a_n\in W$.
+Also $\xi(x)=0\in W$.
+Thus $U_{n_0}\subseteq \xi^{-1}(W)$ and $\xi$ is continuous at $x$.
+Moreover, $\xi$ has compact support since $\xi=0$ on $X\setminus U_1$, hence $\supp(\xi)\subseteq U_1$ and $U_1$ is compact.
+Finally, $\xi(X)$ contains the infinite set $\{a_n\mid n\ge 1\}$, hence $\xi$ has infinite image.
+By Lemma~\ref{lem:PhiX-finite-image}, every element in $\operatorname{im}(\Phi_X)$ has finite image.
+Therefore $\xi\notin \operatorname{im}(\Phi_X)$.
+\end{proof}
+
+\begin{remark}\label{rem:PhiX-nonsurj-hypotheses}~
+\begin{enumerate}[noitemsep,nolistsep]
+\item \textbf{On the space $X$.}
+Corollary~\ref{cor:PhiX-nonsurj-countable} assumes the existence of a non-isolated point $x\in X$ admitting a countable neighbourhood basis consisting of compact open sets.
+This holds, for example, if $X$ is non-discrete, locally compact, Hausdorff, totally disconnected, and second countable.
+Indeed, in a second countable locally compact Hausdorff space every point has a countable neighbourhood basis.
+If, moreover, $X$ is totally disconnected, then every neighbourhood of $x$ contains a compact open neighbourhood of $x$, so the neighbourhood basis can be chosen to consist of compact open sets.
+
+\item \textbf{On the coefficient group $A$.}
+The hypothesis on $A$ used in Corollary~\ref{cor:PhiX-nonsurj-countable} is the existence of a sequence $(a_n)_{n\in\mathbb{N}}\subset A\setminus\{0\}$ with $a_n\to 0$.
+This is strictly weaker than first countability at $0$.
+It is also stronger than the purely closure-theoretic statement $0\in\overline{A\setminus\{0\}}$, and stronger than the existence of a countable subset $S\subseteq A\setminus\{0\}$ with $0\in\overline{S}$.
+In general, even if such a countable $S$ exists, it need not contain a sequence converging to $0$.
+
+A sufficient topological condition ensuring equivalence is the Fr\'echet--Urysohn property at $0$: if $A$ is Fr\'echet--Urysohn at $0$ then $0\in\overline{A\setminus\{0\}}$ implies the existence of a sequence in $A\setminus\{0\}$ converging to $0$.
+In particular, if $A$ is first countable at $0$, then $0$ is non-isolated if and only if there exists a sequence in $A\setminus\{0\}$ converging to $0$.
+\end{enumerate}
+\end{remark}
+
+% ============================================================
+% Chapter end: UCT splitting and compatibility with Matui LES
+% Camera-ready, corrected per review
+% ============================================================
+
+\begin{corollary}\label{cor:UCT-homology-splitting}
+The short exact sequence of Theorem~\ref{thm:UCT-homology-G}
+\[
+0\to H_n(\G)\otimes_{\mathbb Z} A
+\xrightarrow{\ \iota_n^{\G}\ }
+H_n(\G;A)
+\xrightarrow{\ \kappa_n^{\G}\ }
+\operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
+\to 0
+\]
+splits in $\mathbf{Ab}$.
+In general, such a splitting is not natural and hence not canonical.
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:coefficients-tensor} there is a chain isomorphism
+\(
+\Phi_\bullet:C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A\to C_c(\G_\bullet,A)
+\),
+hence an isomorphism
+\(
+H_n(\Phi_\bullet):H_n\bigl(C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A\bigr)\xrightarrow{\cong} H_n(\G;A)
+\).
+The algebraic UCT for the chain complex of free abelian groups
+\(C_c(\G_\bullet,\mathbb Z)\) yields a split short exact sequence
+\[
+0 \xrightarrow{}
+H_n(\G,\mathbb Z)\otimes_{\mathbb Z}A
+\xrightarrow{\iota_n}
+H_n\bigl(C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A\bigr)
+\xrightarrow{\kappa_n}
+\operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G,\mathbb Z),A\bigr)
+\xrightarrow{}
+0
+\]
+whose splitting is in general non-natural.
+Transporting this splitting along \(H_n(\Phi_\bullet)\) yields a splitting of the displayed sequence.
+\end{proof}
+
+\smallskip
+
+Corollary~\ref{cor:discrete-necessity} shows that the tensor-product model
+\(C_c(X,\mathbb Z)\otimes_{\mathbb Z}A\) captures \(C_c(X,A)\) automatically for discrete coefficient groups \(A\),
+but fails for many natural non-discrete coefficients as soon as \(X\) supports continuous compactly supported functions that are not locally constant.
+Thus, for ample \'etale groupoids \(\G\), the universal coefficient theorem in the form of Theorem~\ref{thm:UCT-homology-G}
+is intrinsically a discrete-coefficients statement when homology is defined via the Moore complexes \(C_c(\G_\bullet,A)\).
+In particular, for discrete \(A\), the abelian groups \(H_n(\G;A)\) are controlled by the integral homology \(H_\bullet(\G)\)
+through the functors \(-\otimes_{\mathbb Z}A\) and \(\operatorname{Tor}_1^{\mathbb Z}(-,A)\).
+This rigidity is the mechanism by which the UCT short exact sequences can be compared to Matui's long exact sequences
+arising from short exact sequences of Moore complexes.
+
+\begin{theorem}\label{thm:UCT-vs-Matui}
+Let \(\G,\G',\G''\) be ample \'etale groupoids.
+Assume that there is a short exact sequence of chain complexes of free abelian groups
+\[
+0\to C_c(\G'_\bullet,\mathbb Z)
+  \xrightarrow{\ i_\bullet\ }
+  C_c(\G_\bullet,\mathbb Z)
+  \xrightarrow{\ p_\bullet\ }
+  C_c(\G''_\bullet,\mathbb Z)
+\to 0.
+\]
+Let \(A\) be a discrete abelian group.
+Then for each \(n\ge 0\) the universal coefficient sequences of Theorem~\ref{thm:UCT-homology-G} fit into a commutative diagram with exact rows
+\[
+\begin{tikzcd}[column sep=2.6em, row sep=2.0em]
+0 \arrow{r}
+  & H_n(\G')\otimes_{\mathbb Z} A
+        \arrow{r}{\iota_n^{\G'}}
+        \arrow{d}[swap]{H_n(i)\otimes\operatorname{id}_A}
+  & H_n(\G';A)
+        \arrow{r}{\kappa_n^{\G'}}
+        \arrow{d}[swap]{H_n(i;A)}
+  & \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G'),A\bigr)
+        \arrow{r}
+        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(i),A)}
+  & 0
+\\
+0 \arrow{r}
+  & H_n(\G)\otimes_{\mathbb Z} A
+        \arrow{r}{\iota_n^{\G}}
+        \arrow{d}[swap]{H_n(p)\otimes\operatorname{id}_A}
+  & H_n(\G;A)
+        \arrow{r}{\kappa_n^{\G}}
+        \arrow{d}[swap]{H_n(p;A)}
+  & \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
+        \arrow{r}
+        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(p),A)}
+  & 0
+\\
+0 \arrow{r}
+  & H_n(\G'')\otimes_{\mathbb Z} A
+        \arrow{r}{\iota_n^{\G''}}
+  & H_n(\G'';A)
+        \arrow{r}{\kappa_n^{\G''}}
+  & \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G''),A\bigr)
+        \arrow{r}
+  & 0.
+\end{tikzcd}
+\]
+Here \(H_n(i)\) and \(H_n(p)\) are induced by \(i_\bullet\) and \(p_\bullet\) on integral Moore homology.
+The maps \(H_n(i;A)\) and \(H_n(p;A)\) are induced on homology by the chain maps
+\[
+i_\bullet^A:C_c(\G'_\bullet,A)\to C_c(\G_\bullet,A),
+\qquad
+p_\bullet^A:C_c(\G_\bullet,A)\to C_c(\G''_\bullet,A),
+\]
+obtained by tensoring \(i_\bullet,p_\bullet\) with \(\operatorname{id}_A\) and conjugating by the chain isomorphisms
+\(\Phi_\bullet\) from Proposition~\ref{prop:coefficients-tensor}.
+The right vertical maps are the functorial maps induced on \(\operatorname{Tor}_1^{\mathbb Z}(-,A)\).
+\end{theorem}
+
+\begin{proof}
+Since \(\G,\G',\G''\) are ample, Lemma~\ref{lem:locally-constant-generators} implies that each group
+\(C_c(\G_n,\mathbb Z)\), \(C_c(\G'_n,\mathbb Z)\), \(C_c(\G''_n,\mathbb Z)\) is free abelian, hence the algebraic UCT applies to these chain complexes.
+Applying the algebraic UCT to the chain maps \(i_\bullet\) and \(p_\bullet\) yields a commutative diagram of short exact sequences
+for the integral complexes.
+
+Next, Proposition~\ref{prop:coefficients-tensor} provides chain isomorphisms
+\[
+\begin{aligned}
+&\Phi_\bullet^{\G'}:C_c(\G'_\bullet,\mathbb Z)\otimes_{\mathbb Z}A \xrightarrow{\ \cong\ } C_c(\G'_\bullet,A),\\
+&\Phi_\bullet^{\G}:C_c(\G_\bullet,\mathbb Z)\otimes_{\mathbb Z}A \xrightarrow{\ \cong\ } C_c(\G_\bullet,A),\\
+&\Phi_\bullet^{\G''}:C_c(\G''_\bullet,\mathbb Z)\otimes_{\mathbb Z}A \xrightarrow{\ \cong\ } C_c(\G''_\bullet,A).
+\end{aligned}
+\]
+By construction these satisfy the chain-level commutation relations
+\[
+\Phi_\bullet^{\G}\circ (i_\bullet\otimes\operatorname{id}_A)= i_\bullet^A\circ \Phi_\bullet^{\G'},
+\qquad
+\Phi_\bullet^{\G''}\circ (p_\bullet\otimes\operatorname{id}_A)= p_\bullet^A\circ \Phi_\bullet^{\G}.
+\]
+Passing to homology identifies the middle terms in the algebraic UCT diagram with
+\(H_n(\G';A),H_n(\G;A),H_n(\G'';A)\) and identifies the induced maps with \(H_n(i;A)\) and \(H_n(p;A)\).
+The remaining vertical maps are those induced functorially on tensor products and on \(\operatorname{Tor}_1^{\mathbb Z}(-,A)\).
+This yields the displayed commutative \(3\times 3\) diagram with exact rows.
+\end{proof}
+
+We have thus obtained a homological universal coefficient theorem for ample \'etale groupoids with discrete coefficients.
+In particular, for a discrete abelian group \(A\) the short exact sequence
+\[
+0
+\to H_n(\G)\otimes_{\mathbb Z} A
+\xrightarrow{\ \iota_n^{\G}\ }
+H_n(\G;A)
+\xrightarrow{\ \kappa_n^{\G}\ }
+\operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
+\to 0
+\]
+shows that \(H_n(\G;A)\) is determined, up to the \(\operatorname{Tor}\)-term, by the integral homology groups \(H_\bullet(\G)\).
+
+\subsection{UCT for Cohomology}
+\label{sec:UCT-Cohomology}
+
+On the cohomological side, coefficients enter via the contravariant functor
+\(\operatorname{Hom}_{\mathbb Z}(-,A)\) applied to the integral Moore chain complex
+\(C_c(\G_\bullet,\mathbb Z)\).
+This yields the standard cohomological universal coefficient short exact sequence
+with \(\operatorname{Ext}^1_{\mathbb Z}\) and \(\operatorname{Hom}_{\mathbb Z}\) in place of
+\(\operatorname{Tor}^{\mathbb Z}_1\) and \(\otimes_{\mathbb Z}\).
+
+\begin{theorem}[Cohomological UCT]
+\label{thm:UCT-cohomology}
+Assume that each \(C_c(\G_n,\mathbb Z)\) is a free abelian group.
+Then for every \(n\ge 0\) there is a natural short exact sequence of abelian groups
+\[
+0\to \operatorname{Ext}^1_{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
+\xrightarrow{\ \kappa^n_{\G}\ }
+H^n(\G;A)
+\xrightarrow{\ \rho^n_{\G}\ }
+\operatorname{Hom}_{\mathbb Z}\bigl(H_n(\G),A\bigr)
+\to 0,
+\]
+where \(H_{-1}(\G)=0\) and \(H^{-1}(\G;A)=0\) by convention.
+The sequence splits in general, but the splitting is not canonical.
+\end{theorem}
+
+\begin{proof}
+Write \(C_n\coloneqq C_c(\G_n,\mathbb Z)\) with differential \(\partial_n\).
+Set \(Z_n\coloneqq \ker(\partial_n)\) and \(B_n\coloneqq \operatorname{im}(\partial_{n+1})\), so
+\(H_n(\G)=Z_n/B_n\).
+Let \(C^n(\G;A)\coloneqq \operatorname{Hom}_{\mathbb Z}(C_n,A)\) and define the coboundary by
+\(
+\delta^n(\xi)\coloneqq \xi\circ \partial_{n+1}.
+\)
+Then \(\delta^{n+1}\circ \delta^n=0\) since \(\partial_{n+1}\circ \partial_{n+2}=0\), and
+\(H^n(\G;A)=H^n(C^\bullet(\G;A),\delta^\bullet)\).
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Definition of \(\rho^n_{\G}\).}
+Let \([\xi]\in H^n(\G;A)\) be represented by a cocycle \(\xi\in \operatorname{Hom}_{\mathbb Z}(C_n,A)\),
+so \(\xi\circ \partial_{n+1}=0\).
+Then \(\xi\) vanishes on \(B_n=\operatorname{im}(\partial_{n+1})\), hence factors uniquely through
+\(Z_n/B_n=H_n(\G)\).
+Define \(\rho^n_{\G}([\xi])\in \operatorname{Hom}_{\mathbb Z}(H_n(\G),A)\) by
+\[
+\rho^n_{\G}([\xi])\colon z+B_n\mapsto \xi(z)\qquad \text{for } z\in Z_n.
+\]
+This is well defined and depends only on the cohomology class \([\xi]\).
+
+\item \textbf{Surjectivity of \(\rho^n_{\G}\).}
+Since \(C_{n-1}\) is free, the subgroup \(B_{n-1}\subseteq C_{n-1}\) is free.
+Hence \(B_{n-1}\) is projective and the short exact sequence
+\[
+0\to Z_n \to C_n \xrightarrow{\ \partial_n\ } B_{n-1}\to 0
+\]
+splits.
+Fix a splitting \(C_n=Z_n\oplus S_n\) such that \(\partial_n|_{S_n}\colon S_n\xrightarrow{\cong} B_{n-1}\).
+Let \(\phi\in \operatorname{Hom}_{\mathbb Z}(H_n(\G),A)\).
+Let \(\widetilde\phi\colon Z_n\to A\) be the composite
+\(Z_n\to Z_n/B_n=H_n(\G)\xrightarrow{\phi} A\),
+and extend \(\widetilde\phi\) to \(\xi\in \operatorname{Hom}_{\mathbb Z}(C_n,A)\) by \(\xi|_{S_n}=0\).
+Then \(\delta^n(\xi)=\xi\circ \partial_{n+1}=0\) because
+\(\partial_{n+1}(C_{n+1})=B_n\subseteq Z_n\) and \(\widetilde\phi(B_n)=0\).
+Thus \([\xi]\in H^n(\G;A)\) and \(\rho^n_{\G}([\xi])=\phi\), proving surjectivity.
+
+\item \textbf{Identification of \(\ker(\rho^n_{\G})\).}
+A class \([\xi]\in H^n(\G;A)\) lies in \(\ker(\rho^n_{\G})\) if and only if it has a cocycle representative
+\(\xi\) with \(\xi|_{Z_n}=0\).
+With the fixed splitting \(C_n=Z_n\oplus S_n\), such a cocycle is uniquely determined by its restriction
+\(\xi|_{S_n}\in \operatorname{Hom}_{\mathbb Z}(S_n,A)\).
+Using \(\partial_n|_{S_n}\colon S_n\xrightarrow{\cong} B_{n-1}\), we identify
+\(\operatorname{Hom}_{\mathbb Z}(S_n,A)\cong \operatorname{Hom}_{\mathbb Z}(B_{n-1},A)\).
+If we change \(\xi\) by a coboundary \(\delta^{n-1}(\eta)=\eta\circ \partial_n\),
+then under this identification the restriction \(\xi|_{S_n}\) changes by
+\(\eta|_{B_{n-1}}\) viewed as an element of \(\operatorname{Hom}_{\mathbb Z}(B_{n-1},A)\).
+Therefore
+\[
+\ker(\rho^n_{\G})
+\cong
+\operatorname{Hom}_{\mathbb Z}(B_{n-1},A)\Big/\operatorname{im}\Bigl(
+\operatorname{Hom}_{\mathbb Z}(C_{n-1},A)\to \operatorname{Hom}_{\mathbb Z}(B_{n-1},A)
+\Bigr).
+\]
+
+Apply \(\operatorname{Hom}_{\mathbb Z}(-,A)\) to the short exact sequence
+\(0\to B_{n-1}\to C_{n-1}\to C_{n-1}/B_{n-1}\to 0\).
+Since \(C_{n-1}\) is free, \(\operatorname{Ext}^1_{\mathbb Z}(C_{n-1},A)=0\), and the long exact
+\(\operatorname{Hom}\)–\(\operatorname{Ext}\) sequence identifies the above quotient with
+\(
+\operatorname{Ext}^1_{\mathbb Z}(C_{n-1}/B_{n-1},A).
+\)
+Next, since \(C_{n-2}\) is free, the subgroup \(B_{n-2}\subseteq C_{n-2}\) is free.
+Hence the short exact sequence \(0\to Z_{n-1}\to C_{n-1}\to B_{n-2}\to 0\) splits.
+Quotienting by \(B_{n-1}\subseteq Z_{n-1}\) yields a split short exact sequence
+\[
+0\to H_{n-1}(\G)=Z_{n-1}/B_{n-1}\to C_{n-1}/B_{n-1}\to B_{n-2}\to 0,
+\]
+hence \(C_{n-1}/B_{n-1}\cong H_{n-1}(\G)\oplus B_{n-2}\).
+Since \(B_{n-2}\) is free, \(\operatorname{Ext}^1_{\mathbb Z}(B_{n-2},A)=0\), so
+\[
+\operatorname{Ext}^1_{\mathbb Z}(C_{n-1}/B_{n-1},A)
+\cong
+\operatorname{Ext}^1_{\mathbb Z}(H_{n-1}(\G),A).
+\]
+Composing the identifications yields a natural injection
+\(\kappa^n_{\G}\colon \operatorname{Ext}^1_{\mathbb Z}(H_{n-1}(\G),A)\hookrightarrow H^n(\G;A)\)
+with image \(\ker(\rho^n_{\G})\), proving exactness.
+
+\item \textbf{Naturality.}
+Let \(f_\bullet\colon C_\bullet\to D_\bullet\) be a chain map between chain complexes of free abelian groups.
+Then precomposition induces a cochain map
+\(f^\bullet\colon \operatorname{Hom}_{\mathbb Z}(D_\bullet,A)\to \operatorname{Hom}_{\mathbb Z}(C_\bullet,A)\),
+and the constructions of \(\rho\) and \(\kappa\) are functorial with respect to \(f_\bullet\).
+Hence the short exact sequence is natural in \(\G\) and in \(A\).
+
+\item \textbf{Splitting.}
+Choosing splittings \(C_n=Z_n\oplus S_n\) for all \(n\) yields a splitting of the short exact sequence.
+These choices are not canonical, hence neither is the resulting splitting.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}[UCT criteria in the Moore framework]
+\label{cor:uct-criteria}
+Let \(\G\) be an ample \'{e}tale groupoid and write
+\(C_c(\G_\bullet,\mathbb Z)=\bigl(C_c(\G_n,\mathbb Z),\partial_n\bigr)_{n\ge 0}\)
+for the integral Moore chain complex.
+
+\begin{enumerate}[noitemsep,nolistsep]
+\item \textbf{Discreteness obstruction for tensor comparison.}
+Let \(A\) be a topological abelian group.
+Assume that there exists a sequence \((a_n)_{n\ge 1}\) in \(A\setminus\{0\}\) with \(a_n\to 0\).
+Then for the Cantor space \(X=\{0,1\}^{\mathbb N}\) the canonical map
+\[
+\Phi_X:C_c(X,\mathbb Z)\otimes_{\mathbb Z}A\to C_c(X,A),
+\qquad
+\chi_U\otimes a\mapsto a\cdot \chi_U,
+\]
+is not surjective.
+In particular, there is no functorial identification
+\(C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A\cong C_c(\G_n,A)\) for all ample \(\G\),
+and hence no functorial \(\otimes\)–\(\operatorname{Tor}\) UCT of the classical form for Moore homology
+with such non-discrete coefficients.
+
+\item \textbf{Algebraic input for UCT.}
+If \(A\) is a discrete abelian group, then the chain-level identification
+\(C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A\cong C_c(\G_n,A)\) holds for all \(n\),
+so the homological UCT of Theorem~\ref{thm:UCT-homology-G} applies.
+Moreover, if each \(C_c(\G_n,\mathbb Z)\) is free, then the cohomological UCT of
+Theorem~\ref{thm:UCT-cohomology} applies as well.
+In both cases the UCT sequences split in general non-canonically.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}~
+\begin{enumerate}[noitemsep,nolistsep]
+\item This is the failure mechanism established in Corollary~\ref{cor:discrete-necessity} and made explicit in the Cantor-space example:
+one constructs \(\xi\in C_c(X,A)\) with infinite image using a clopen partition shrinking to a non-isolated point and the convergence \(a_n\to 0\).
+Every element in \(\operatorname{im}(\Phi_X)\) has finite image, hence \(\xi\notin \operatorname{im}(\Phi_X)\).
+
+\item Discreteness of \(A\) is exactly what makes the tensor maps
+\(C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z}A\to C_c(\G_n,A)\) isomorphisms in each degree,
+so Theorem~\ref{thm:UCT-homology-G} applies.
+If each \(C_c(\G_n,\mathbb Z)\) is free, then Theorem~\ref{thm:UCT-cohomology} applies to the dual complex
+\(\operatorname{Hom}_{\mathbb Z}(C_c(\G_\bullet,\mathbb Z),A)\).
+\end{enumerate}
+\end{proof}
+
+In the Moore-complex approach, the classical \(\otimes\)–\(\operatorname{Tor}\) and
+\(\operatorname{Ext}\)–\(\operatorname{Hom}\) universal coefficient sequences rest on two independent inputs.
+
+\begin{enumerate}[noitemsep,nolistsep]
+\item \textbf{Topological.}
+Coefficients must be discrete in order that compactly supported \(A\)-valued chains are finite sums of characteristic functions with coefficients in \(A\),
+so that the canonical tensor comparison map is available as in Corollary~\ref{cor:discrete-necessity}.
+
+\item \textbf{Algebraic.}
+Degreewise freeness of the integral Moore chain complex \(C_c(\G_\bullet,\mathbb Z)\) is the hypothesis that yields the short exact UCT sequences
+of Theorems~\ref{thm:UCT-homology-G} and \ref{thm:UCT-cohomology}.
+\end{enumerate}
+
+\section{Moore--Mayer--Vietoris Sequence}
+\label{sec:moore-mayer-vietoris}
+The Moore--Mayer--Vietoris sequence for groupoid homology is the homological analogue of gluing along a cover.
+In the ample setting, the gluing data live on the unit space.
+An admissible cover $U_1,U_2\subseteq \G_0$ determines the reductions $\G|_{U_1}$, $\G|_{U_2}$, and $\G|_{U_1\cap U_2}$.
+The Moore--Mayer--Vietoris long exact sequence expresses $H_\bullet(\G;A)$ in terms of the homology of these three reduced ample groupoids.
+
+\begin{definition}[Admissible Mayer--Vietoris cover]\label{def:MV-cover}
+Let $\G$ be an ample groupoid.
+An admissible Mayer--Vietoris cover of $\G$ is a pair of clopen subsets $U_1,U_2\subseteq \G_0$ such that
+\begin{enumerate}[noitemsep,nolistsep]
+\item $U_1\cup U_2=\G_0$,
+\item each $U_i$ is saturated for $i=1,2$: for $x\in U_i$ and $y\in \G_0$,
+if $x\sim_{\G} y$ then $y\in U_i$.
+\end{enumerate}
+Here $x\sim_{\G} y$ means that there exists $g\in \G$ with $s(g)=y$ and $r(g)=x$.
+For such $U_1,U_2$ we consider the reductions
+\[
+\begin{aligned}
+\G|_{U_1}&\coloneqq \{g\in \G \mid r(g)\in U_1,\ s(g)\in U_1\},\\
+\G|_{U_2}&\coloneqq \{g\in \G \mid r(g)\in U_2,\ s(g)\in U_2\},\\
+\G|_{U_1\cap U_2}&\coloneqq \{g\in \G \mid r(g)\in U_1\cap U_2,\ s(g)\in U_1\cap U_2\},
+\end{aligned}
+\]
+each endowed with the groupoid structure obtained by restricting the range, source, unit, inverse, and multiplication maps of $\G$.
+\end{definition}
+
+\begin{lemma}\label{lem:reductions-ample}
+Let $\G$ be an ample groupoid and let $U\subseteq \G_0$ be open.
+Then $\G|_U$ is an ample groupoid with unit space $U$, and the inclusion $\G|_U\hookrightarrow \G$ is an open embedding of topological groupoids.
+If moreover $U$ is clopen, then $\G|_U$ is clopen in $\G$.
+In particular, if $\G$ is locally compact and Hausdorff, then $\G|_U$ is locally compact and Hausdorff, and if $\G$ is totally disconnected then $\G|_U$ is totally disconnected.
+\end{lemma}
+
+\begin{proof}
+Since $\G$ is ample, it is \'etale, locally compact, Hausdorff, and totally disconnected.
+By definition $\G|_U=r^{-1}(U)\cap s^{-1}(U)$, hence $\G|_U$ is open in $\G$.
+All structure maps of $\G|_U$ are restrictions of those of $\G$, hence are continuous and satisfy the groupoid axioms.
+Since $r,s$ are local homeomorphisms and $U$ is open in $\G_0$, the restrictions
+$r|_{\G|_U},s|_{\G|_U}\colon \G|_U\to U$ are again local homeomorphisms.
+Thus $\G|_U$ is \'etale.
+As an open subspace of a locally compact Hausdorff totally disconnected space, $\G|_U$ is locally compact, Hausdorff, and totally disconnected.
+Therefore $\G|_U$ is ample.
+The inclusion $\G|_U\hookrightarrow \G$ is the inclusion of an open subspace, hence an open embedding of topological groupoids.
+If $U$ is clopen, then $r^{-1}(U)$ and $s^{-1}(U)$ are clopen in $\G$, so $\G|_U=r^{-1}(U)\cap s^{-1}(U)$ is clopen.
+\end{proof}
+
+\begin{remark}\label{rem:reductions-compact-open-bisec}
+Let $\G$ be ample and let $U\subseteq \G_0$ be clopen.
+Then a compact open bisection of $\G|_U$ is precisely a set of the form $B\cap (\G|_U)$ with $B\subseteq \G$ a compact open bisection.
+\end{remark}
+
+\begin{definition}\label{def:nerves-reductions}
+Let $U_1,U_2\subseteq \G_0$ be an admissible Mayer--Vietoris cover.
+For $n\ge 0$ write
+\[
+\G_n^{(1)}\coloneqq (\G|_{U_1})_n,
+\qquad
+\G_n^{(2)}\coloneqq (\G|_{U_2})_n,
+\qquad
+\G_n^{(12)}\coloneqq (\G|_{U_1\cap U_2})_n
+\]
+for the $n$-simplices in the nerves of $\G|_{U_1}$, $\G|_{U_2}$, and $\G|_{U_1\cap U_2}$.
+\end{definition}
+
+\begin{lemma}\label{lem:nerve-clopen-cover}
+Let $U_1,U_2\subseteq \G_0$ be an admissible Mayer--Vietoris cover.
+
+Then for every $n\ge 0$ the following hold.
+\begin{enumerate}[noitemsep,nolistsep]
+\item The subsets $\G_n^{(1)}$ and $\G_n^{(2)}$ are clopen in $\G_n$, and $\G_n^{(12)}=\G_n^{(1)}\cap \G_n^{(2)}$.
+\item One has $\G_n^{(1)}\cup \G_n^{(2)}=\G_n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For $n=0$ the claims are immediate since $\G_0^{(1)}=U_1$, $\G_0^{(2)}=U_2$, and $\G_0^{(12)}=U_1\cap U_2$.
+
+Assume $n\ge 1$.
+Define continuous maps
+\[
+\begin{aligned}
+r_n&\colon \G_n\to \G_0, & &r_n(g_1,\dots,g_n)\coloneqq r(g_1),\\
+s_n&\colon \G_n\to \G_0, & &s_n(g_1,\dots,g_n)\coloneqq s(g_n).
+\end{aligned}
+\]
+Let $U\subseteq \G_0$ be saturated.
+We claim that
+\(
+(\G|_U)_n=r_n^{-1}(U)=s_n^{-1}(U)
+\ \text{as subsets of }\G_n.
+\)
+If $(g_1,\dots,g_n)\in (\G|_U)_n$, then $r(g_1)\in U$, hence $(g_1,\dots,g_n)\in r_n^{-1}(U)$.
+Conversely, if $(g_1,\dots,g_n)\in r_n^{-1}(U)$, then $r(g_1)\in U$.
+For each $k$, the units $r(g_k)$ and $s(g_k)$ lie in the $\G$-orbit of $r(g_1)$, hence belong to $U$ by saturation.
+Thus $g_k\in \G|_U$ for all $k$, so $(g_1,\dots,g_n)\in (\G|_U)_n$.
+The identity with $s_n^{-1}(U)$ is proved similarly.
+Applying this to $U_1$ and $U_2$ yields
+\[
+\G_n^{(i)}=(\G|_{U_i})_n=r_n^{-1}(U_i)=s_n^{-1}(U_i).
+\]
+Since each $U_i$ is clopen, each $\G_n^{(i)}$ is clopen in $\G_n$.
+Moreover,
+\[
+\G_n^{(12)}=(\G|_{U_1\cap U_2})_n=r_n^{-1}(U_1\cap U_2)
+=r_n^{-1}(U_1)\cap r_n^{-1}(U_2)=\G_n^{(1)}\cap \G_n^{(2)}.
+\]
+Finally,
+\(
+\G_n=r_n^{-1}(\G_0)=r_n^{-1}(U_1\cup U_2)
+=r_n^{-1}(U_1)\cup r_n^{-1}(U_2)=\G_n^{(1)}\cup \G_n^{(2)}.
+\)
+\end{proof}
+
+\begin{definition}\label{def:MV-chain-pieces}
+Let $U_1,U_2\subseteq \G_0$ be an admissible Mayer--Vietoris cover and let $A$ be a discrete abelian group.
+For $n\ge 0$ define
+\[
+C_n(\G|_{U_1};A)\coloneqq C_c(\G_n^{(1)},A),
+\quad
+C_n(\G|_{U_2};A)\coloneqq C_c(\G_n^{(2)},A),
+\quad
+C_n(\G|_{U_1\cap U_2};A)\coloneqq C_c(\G_n^{(12)},A),
+\]
+where compact support is taken with respect to the subspace topology on $\G_n^{(1)},\G_n^{(2)},\G_n^{(12)}\subseteq \G_n$.
+
+For $n\ge 1$ set
+\[
+\begin{aligned}
+\partial_n^{A,U_1}&\coloneqq \sum_{j=0}^n (-1)^j (d_j)_*\colon C_c(\G_n^{(1)},A)\to C_c(\G_{n-1}^{(1)},A),\\
+\partial_n^{A,U_2}&\coloneqq \sum_{j=0}^n (-1)^j (d_j)_*\colon C_c(\G_n^{(2)},A)\to C_c(\G_{n-1}^{(2)},A),\\
+\partial_n^{A,U_1\cap U_2}&\coloneqq \sum_{j=0}^n (-1)^j (d_j)_*\colon C_c(\G_n^{(12)},A)\to C_c(\G_{n-1}^{(12)},A),
+\end{aligned}
+\]
+where $d_j\colon \G_n\to \G_{n-1}$ are the face maps of the nerve of $\G$ and we use the restricted maps
+\[
+d_j\colon \G_n^{(1)}\to \G_{n-1}^{(1)},
+\qquad
+d_j\colon \G_n^{(2)}\to \G_{n-1}^{(2)},
+\qquad
+d_j\colon \G_n^{(12)}\to \G_{n-1}^{(12)}.
+\]
+For $n=0$ set $\partial_0^{A,U_1}=\partial_0^{A,U_2}=\partial_0^{A,U_1\cap U_2}\coloneqq 0$.
+The resulting homology groups are denoted by
+\[
+H_n(\G|_{U_1};A),
+\qquad
+H_n(\G|_{U_2};A),
+\qquad
+H_n(\G|_{U_1\cap U_2};A).
+\]
+\end{definition}
+
+\begin{lemma}\label{lem:MV-pieces-are-chain-complexes}
+With notation as above, the pairs
+\[
+\bigl(C_\bullet(\G|_{U_1};A),\partial_\bullet^{A,U_1}\bigr),
+\qquad
+\bigl(C_\bullet(\G|_{U_2};A),\partial_\bullet^{A,U_2}\bigr),
+\qquad
+\bigl(C_\bullet(\G|_{U_1\cap U_2};A),\partial_\bullet^{A,U_1\cap U_2}\bigr)
+\]
+are chain complexes.
+Equivalently, for all $n\ge 1$ one has
+\[
+\partial_{n-1}^{A,U_1}\circ \partial_n^{A,U_1}=0,
+\qquad
+\partial_{n-1}^{A,U_2}\circ \partial_n^{A,U_2}=0,
+\qquad
+\partial_{n-1}^{A,U_1\cap U_2}\circ \partial_n^{A,U_1\cap U_2}=0.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $\G$ is ample, it is \'etale.
+By Lemma~\ref{lem:reductions-ample}, each reduction $\G|_{U_1}$, $\G|_{U_2}$, and $\G|_{U_1\cap U_2}$ is ample, hence \'etale.
+Its nerve is obtained by applying the nerve construction to that reduced groupoid, and each face map is the restriction of the corresponding face map of $\G$.
+The simplicial identities among the face maps therefore restrict to the reduced nerves.
+Since pushforward along local homeomorphisms is functorial and respects composition, the Moore differential computation shows that the alternating sums of the restricted pushforwards square to zero.
+\end{proof}
+
+
+\subsection{Moore--Mayer--Vietoris at Chain Level}
+The Moore--Mayer--Vietoris construction starts from a purely chain-level observation.
+A clopen saturated cover $U_1,U_2\subseteq \G_0$ cuts every nerve space $\G_n$ into two clopen pieces
+\[
+\G_n^{(1)}=(\G|_{U_1})_n,\qquad \G_n^{(2)}=(\G|_{U_2})_n,
+\qquad \G_n=\G_n^{(1)}\cup \G_n^{(2)},
+\qquad \G_n^{(12)}=\G_n^{(1)}\cap \G_n^{(2)}.
+\]
+Because the pieces are clopen, compactly supported $A$-valued chains on each reduction extend by zero to
+compactly supported chains on $\G_n$.
+This makes it possible to regard chains on $\G|_{U_1}$ and $\G|_{U_2}$ as global chains that vanish
+off the corresponding clopen region. The overlap $\G|_{U_1\cap U_2}$ measures the compatibility of these extensions.
+A chain on the overlap can be inserted into the two pieces with opposite signs, and hence disappears after gluing.
+Conversely, if two chains on the pieces glue to zero, then each must vanish off the overlap and the remaining
+values on the overlap must cancel.
+This yields, in every degree, the short exact sequence
+\[
+0\to C_n(\G|_{U_1\cap U_2};A)\xrightarrow{\alpha_n}
+C_n(\G|_{U_1};A)\oplus C_n(\G|_{U_2};A)\xrightarrow{\beta_n} C_n(\G;A)\to 0,
+\]
+which is the only algebraic input needed to extract the Moore--Mayer--Vietoris long exact sequence in homology.
+The rest of the argument is then formal homological algebra, applied to this degreewise short exact sequence of
+chain complexes.
+
+\begin{lemma}[Clopen Mayer--Vietoris for compactly supported chains]
+\label{lem:clopen-MV-Cc}
+Let $X$ be a locally compact Hausdorff space and let $A$ be a topological abelian group.
+Let $X_1,X_2\subseteq X$ be clopen subsets with $X=X_1\cup X_2$ and set $X_{12}\coloneqq X_1\cap X_2$.
+For $i\in\{1,2,12\}$ write $C_c(X_i,A)$ for compactly supported continuous maps on $X_i$.
+Define group homomorphisms
+\[
+\begin{aligned}
+\alpha&\colon C_c(X_{12},A)\to C_c(X_1,A)\oplus C_c(X_2,A),
+& \xi&\mapsto \bigl(\xi^{(1)},-\xi^{(2)}\bigr),\\
+\beta&\colon C_c(X_1,A)\oplus C_c(X_2,A)\to C_c(X,A),& 
+(\xi_1,\xi_2)&\mapsto \widetilde{\xi_1}+\widetilde{\xi_2},
+\end{aligned}
+\]
+where $\xi^{(i)}\in C_c(X_i,A)$ denotes extension by zero of $\xi$ along the clopen inclusion
+$X_{12}\hookrightarrow X_i$, and $\widetilde{\xi_i}\in C_c(X,A)$ denotes extension by zero of $\xi_i$
+along the clopen inclusion $X_i\hookrightarrow X$.
+
+Then we have an exact sequence
+\[
+0\to C_c(X_{12},A)\xrightarrow{\alpha} C_c(X_1,A)\oplus C_c(X_2,A)\xrightarrow{\beta} C_c(X,A)\to 0.
+\]
+\end{lemma}
+
+\begin{proof}
+All extension-by-zero maps are well defined because the relevant inclusions are clopen.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Injectivity of $\alpha$.}
+If $\alpha(\xi)=0$, then $\xi^{(1)}=0$ in $C_c(X_1,A)$.
+Evaluating on $x\in X_{12}\subseteq X_1$ gives $\xi(x)=\xi^{(1)}(x)=0$, hence $\xi=0$.
+
+\item \textbf{Surjectivity of $\beta$.}
+Let $\eta\in C_c(X,A)$.
+Set $\xi_1\coloneqq \eta|_{X_1}\in C_c(X_1,A)$ and $\xi_2\coloneqq \eta|_{X_2\setminus X_1}\in C_c(X_2\setminus X_1,A)$.
+Since $X_2\setminus X_1$ is clopen in $X_2$, extending $\xi_2$ by zero to $X_2$ yields an element,
+still denoted $\xi_2\in C_c(X_2,A)$.
+Then pointwise on $X$ one has
+\(
+\eta = \widetilde{\xi_1}+\widetilde{\xi_2},
+\)
+because on $X_1\setminus X_2$ only $\widetilde{\xi_1}$ contributes, on $X_2\setminus X_1$ only
+$\widetilde{\xi_2}$ contributes, and on $X_{12}$ one has $\xi_2=0$ by construction.
+Thus $\beta(\xi_1,\xi_2)=\eta$.
+
+\item \textbf{Exactness at the middle term.}
+First, $\beta\circ\alpha=0$ holds pointwise because both components of $\alpha(\xi)$ extend $\xi$ by zero
+to $X$ with opposite signs.
+Conversely, suppose $(\xi_1,\xi_2)\in C_c(X_1,A)\oplus C_c(X_2,A)$ satisfies $\beta(\xi_1,\xi_2)=0$.
+Evaluating on $x\in X_1\setminus X_2$ yields $0=\widetilde{\xi_1}(x)=\xi_1(x)$, so $\xi_1$ vanishes on
+$X_1\setminus X_{12}$.
+Similarly, evaluating on $x\in X_2\setminus X_1$ yields $\xi_2(x)=0$, so $\xi_2$ vanishes on $X_2\setminus X_{12}$.
+Thus the restrictions $\xi_i|_{X_{12}}\in C_c(X_{12},A)$ are defined and satisfy
+\[
+0=\beta(\xi_1,\xi_2)(x)=\xi_1(x)+\xi_2(x)\quad\text{for all }x\in X_{12},
+\]
+hence $\xi_2|_{X_{12}}=-\xi_1|_{X_{12}}$.
+Set $\xi\coloneqq \xi_1|_{X_{12}}\in C_c(X_{12},A)$.
+Then by the vanishing outside $X_{12}$ one has $\xi^{(1)}=\xi_1$ and $\xi^{(2)}=\xi_2$.
+Therefore $\alpha(\xi)=(\xi_1,\xi_2)$, so $\ker(\beta)\subseteq \operatorname{im}(\alpha)$.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}
+\label{cor:MV-short-exact-chains}
+Let $\G$ be an ample groupoid and let $U_1,U_2\subseteq \G_0$ be a clopen saturated cover in the sense of
+Definition~\ref{def:MV-cover}.
+Let $A$ be a topological abelian group.
+For every $n\ge 0$ the sequence
+\[
+0\to C_n(\G|_{U_1\cap U_2};A)
+ \xrightarrow{\ \alpha_n\ }
+ C_n(\G|_{U_1};A)\oplus C_n(\G|_{U_2};A)
+ \xrightarrow{\ \beta_n\ }
+ C_n(\G;A)
+\to 0
+\]
+is exact, where $\alpha_n,\beta_n$ are the Mayer--Vietoris chain maps from Lemma~\ref{lem:clopen-MV-Cc}.
+\end{corollary}
+
+\begin{proof}
+Fix $n\ge 0$ and set
+\[
+X\coloneqq \G_n,\qquad
+X_1\coloneqq \G_n^{(1)}=(\G|_{U_1})_n,\qquad
+X_2\coloneqq \G_n^{(2)}=(\G|_{U_2})_n,\qquad
+X_{12}\coloneqq X_1\cap X_2=\G_n^{(12)}.
+\]
+Since $U_1,U_2$ are clopen and saturated, Lemma~\ref{lem:nerve-clopen-cover} implies that $X_1,X_2$ are clopen in $X$,
+that $X=X_1\cup X_2$, and that $X_{12}=X_1\cap X_2$.
+With the identifications
+\[
+C_n(\G;A)=C_c(X,A),\qquad
+C_n(\G|_{U_i};A)=C_c(X_i,A),\qquad
+C_n(\G|_{U_1\cap U_2};A)=C_c(X_{12},A),
+\]
+the maps $\alpha_n,\beta_n$ coincide with the canonical clopen Mayer--Vietoris maps
+\[
+\begin{aligned}
+&\alpha\colon C_c(X_{12},A)\to C_c(X_1,A)\oplus C_c(X_2,A),\qquad
+\xi\mapsto \bigl(\xi,-\xi\bigr),\\
+&\beta\colon C_c(X_1,A)\oplus C_c(X_2,A)\to C_c(X,A),\qquad
+(\xi_1,\xi_2)\mapsto \widetilde{\xi_1}+\widetilde{\xi_2},
+\end{aligned}
+\]
+where $\widetilde{\xi_i}$ denotes extension by zero from $X_i$ to $X$ along the clopen inclusion.
+Hence the displayed sequence is identified with the short exact sequence of Lemma~\ref{lem:clopen-MV-Cc}.
+\end{proof}
+
+\subsection{Moore--Mayer--Vietoris Long Exact Homology Sequence}
+\label{sec:mv-chain-level}
+% --- Moore--Mayer--Vietoris LES in the ample clopen cover setting ---
+% This snippet assumes your preamble already loads tikz-cd and defines the
+% tikzcd arrow style 'curarrow' used below.
+
+The Mayer--Vietoris principle reconstructs homology from two subobjects and their overlap.
+In the ample groupoid setting, the gluing data live on the unit space.
+A clopen saturated cover $\G_0=U_1\cup U_2$ yields three reduced groupoids
+$\G|_{U_1}$, $\G|_{U_2}$, and $\G|_{U_1\cap U_2}$ and three Moore complexes of compactly supported chains.
+The basic input is a short exact sequence of Moore complexes, obtained by support decompositions along clopen subsets.
+Once this short exact sequence is established, the long exact sequence is obtained from the connecting homomorphism construction for short exact sequences of chain complexes of abelian groups.
+
+Hausdorffness of $A$ is used only to ensure that $C_c(-,A)$ is well defined on locally compact Hausdorff spaces.
+After the Moore complexes are defined, the argument below takes place in the category of abelian groups.
+
+\begin{theorem}[Moore--Mayer--Vietoris LES]
+\label{thm:MV-long-exact}
+Let $\G$ be an ample groupoid, let $A$ be a Hausdorff topological abelian group, and let
+$U_1,U_2\subseteq \G_0$ be clopen saturated subsets with $U_1\cup U_2=\G_0$.
+Then the homology groups $H_n(\G;A)\coloneqq H_n\bigl(C_c(\G_\bullet,A)\bigr)$ fit into a natural long exact sequence
+\[
+\begin{tikzcd}[arrow style=math font,cells={nodes={text height=2ex,text depth=0.75ex}}]
+\cdots
+& H_{n-1}(\G|_{U_1};A)\oplus H_{n-1}(\G|_{U_2};A)
+  \arrow[l]
+  \arrow[draw=none]{d}[name=Y,shape=coordinate]{}
+& H_{n-1}(\G|_{U_1\cap U_2};A)
+  \arrow[l,"{H_{n-1}(\alpha_\bullet)}"']
+\\
+H_{n}(\G;A)
+  \arrow[curarrow={Y}{\partial_{n}}]{urr}
+& H_{n}(\G|_{U_1};A)\oplus H_{n}(\G|_{U_2};A)
+  \arrow[l,"{H_n(\beta_\bullet)}"']
+  \arrow[draw=none]{d}[name=Z,shape=coordinate]{}
+& H_{n}(\G|_{U_1\cap U_2};A)
+  \arrow[l,"{H_n(\alpha_\bullet)}"']
+\\
+H_{n+1}(\G;A)
+  \arrow[curarrow={Z}{\partial_{n+1}}]{urr}
+& H_{n+1}(\G|_{U_1};A)\oplus H_{n+1}(\G|_{U_2};A)
+  \arrow[l,"{H_{n+1}(\beta_\bullet)}"']
+& \cdots \arrow[l]
+\end{tikzcd}
+\]
+where $H_n(\alpha_\bullet)$ and $H_n(\beta_\bullet)$ are induced by the chain maps
+\begin{align*}
+\alpha_\bullet&\colon C_\bullet(\G|_{U_1\cap U_2};A)\to C_\bullet(\G|_{U_1};A)\oplus C_\bullet(\G|_{U_2};A),\\
+\beta_\bullet&\colon C_\bullet(\G|_{U_1};A)\oplus C_\bullet(\G|_{U_2};A)\to C_c(\G_\bullet,A)
+\end{align*}
+from Definition~\textup{\ref{def:MV-chain-pieces}}.
+The connecting homomorphisms $\partial_n\colon H_n(\G;A)\to H_{n-1}(\G|_{U_1\cap U_2};A)$ are defined explicitly in the proof.
+\end{theorem}
+
+\begin{proof}
+By Corollary~\ref{cor:MV-short-exact-chains} there is a short exact sequence of Moore chain complexes
+\begin{equation}\label{eq:MV-SES}
+0\to C_\bullet(\G|_{U_1\cap U_2};A)
+\xrightarrow{\ \alpha_\bullet\ }
+C_\bullet(\G|_{U_1};A)\oplus C_\bullet(\G|_{U_2};A)
+\xrightarrow{\ \beta_\bullet\ }
+C_c(\G_\bullet,A)\to 0.
+\end{equation}
+Write
+\[
+\begin{aligned}
+&C_\bullet^{12}\coloneqq C_\bullet(\G|_{U_1\cap U_2};A),&
+&C_\bullet^{1,2}\coloneqq C_\bullet(\G|_{U_1};A)\oplus C_\bullet(\G|_{U_2};A),&
+&C_\bullet\coloneqq C_c(\G_\bullet,A),\\
+&\partial_n^{12}\colon C_n^{12}\to C_{n-1}^{12},&
+&\partial_n^{1,2}\coloneqq \partial_n^{1}\oplus \partial_n^{2}\colon C_n^{1,2}\to C_{n-1}^{1,2},&
+&\partial_n^{\G}\colon C_n\to C_{n-1}.
+\end{aligned}
+\]
+The chain map identities are
+\(
+\alpha_{n-1}\circ \partial_n^{12}=\partial_n^{1,2}\circ \alpha_n,
+\beta_{n-1}\circ \partial_n^{1,2}=\partial_n^{\G}\circ \beta_n.
+\)
+Exactness of \eqref{eq:MV-SES} in each degree yields that $\alpha_n$ is injective and $\beta_n$ is surjective for every $n$.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item \textbf{Definition of the connecting homomorphism $\partial_n$.}
+Fix $n\ge 0$ and let $[c]\in H_n(\G;A)$ be represented by a cycle $c\in C_n$ with $\partial_n^{\G}(c)=0$.
+Choose $b\in C_n^{1,2}$ with $\beta_n(b)=c$, which exists since $\beta_n$ is surjective.
+Then
+\(
+\beta_{n-1}\bigl(\partial_n^{1,2}(b)\bigr)
+=
+\partial_n^{\G}\bigl(\beta_n(b)\bigr)
+=
+\partial_n^{\G}(c)
+=
+0,
+\)
+so $\partial_n^{1,2}(b)\in \ker(\beta_{n-1})$.
+Exactness in degree $n-1$ gives $\ker(\beta_{n-1})=\operatorname{im}(\alpha_{n-1})$, so there exists a unique $a\in C_{n-1}^{12}$ such that
+\begin{equation}\label{eq:MV-connecting-defining}
+\alpha_{n-1}(a)=\partial_n^{1,2}(b).
+\end{equation}
+We show that $a$ is a cycle.
+Using that $\alpha_\bullet$ is a chain map and that $\partial^{1,2}_{n-1}\circ \partial^{1,2}_n=0$,
+\(
+\alpha_{n-2}\bigl(\partial_{n-1}^{12}(a)\bigr)
+=
+\partial_{n-1}^{1,2}\bigl(\alpha_{n-1}(a)\bigr)
+=
+\partial_{n-1}^{1,2}\bigl(\partial_n^{1,2}(b)\bigr)
+=
+0.
+\)
+Injectivity of $\alpha_{n-2}$ implies $\partial_{n-1}^{12}(a)=0$.
+Define
+\(
+\partial_n([c])\coloneqq [a]\in H_{n-1}(\G|_{U_1\cap U_2};A).
+\)
+
+\item \textbf{Independence of the choice of $b$.}
+Let $b,b'\in C_n^{1,2}$ satisfy $\beta_n(b)=\beta_n(b')=c$.
+Then $b'-b\in \ker(\beta_n)=\operatorname{im}(\alpha_n)$, so choose $u\in C_n^{12}$ with $b'=b+\alpha_n(u)$.
+Let $a,a'\in C_{n-1}^{12}$ be defined by \eqref{eq:MV-connecting-defining} for $b$ and $b'$.
+Then
+\[
+\alpha_{n-1}(a')
+=
+\partial_n^{1,2}(b')
+=
+\partial_n^{1,2}(b)+\partial_n^{1,2}\bigl(\alpha_n(u)\bigr)
+=
+\alpha_{n-1}(a)+\alpha_{n-1}\bigl(\partial_n^{12}(u)\bigr),
+\]
+since $\alpha_\bullet$ is a chain map.
+Injectivity of $\alpha_{n-1}$ yields $a'=a+\partial_n^{12}(u)$, hence $[a']=[a]$.
+Thus $\partial_n([c])$ is independent of the lift $b$.
+
+\item \textbf{Independence of the representative of $[c]$.}
+Let $c,c'\in C_n$ be cycles with $[c]=[c']$ in $H_n(\G;A)$, so $c'-c=\partial_{n+1}^{\G}(d)$ for some $d\in C_{n+1}$.
+Choose $b,b'\in C_n^{1,2}$ with $\beta_n(b)=c$ and $\beta_n(b')=c'$.
+Choose $e\in C_{n+1}^{1,2}$ with $\beta_{n+1}(e)=d$, using surjectivity of $\beta_{n+1}$.
+Then
+\[
+\beta_n\bigl(b'-b-\partial_{n+1}^{1,2}(e)\bigr)
+=
+c'-c-\partial_{n+1}^{\G}(d)
+=
+0,
+\]
+so $b'-b-\partial_{n+1}^{1,2}(e)\in \ker(\beta_n)=\operatorname{im}(\alpha_n)$.
+Choose $u\in C_n^{12}$ with
+\(
+b'
+=
+b+\partial_{n+1}^{1,2}(e)+\alpha_n(u).
+\)
+Let $a,a'\in C_{n-1}^{12}$ be the elements defined from $b,b'$ by \eqref{eq:MV-connecting-defining}.
+Then
+\[
+\alpha_{n-1}(a')
+=
+\partial_n^{1,2}(b')
+=
+\partial_n^{1,2}(b)
++\partial_n^{1,2}\bigl(\partial_{n+1}^{1,2}(e)\bigr)
++\partial_n^{1,2}\bigl(\alpha_n(u)\bigr)
+=
+\alpha_{n-1}(a)+\alpha_{n-1}\bigl(\partial_n^{12}(u)\bigr),
+\]
+so $a'=a+\partial_n^{12}(u)$ and $[a']=[a]$.
+Hence $\partial_n$ depends only on $[c]$.
+
+\item \textbf{Exactness.}
+The equalities needed for exactness follow from the construction.
+
+\begin{itemize}[noitemsep,nolistsep]
+\item First, $\beta_\bullet\circ \alpha_\bullet=0$ implies
+$H_n(\beta_\bullet)\circ H_n(\alpha_\bullet)=0$ for all $n$.
+
+\item Second, $\operatorname{im}\bigl(H_n(\alpha_\bullet)\bigr)=\ker\bigl(H_n(\beta_\bullet)\bigr)$.
+Let $[b]\in H_n(C_\bullet^{1,2})$ with $H_n(\beta_\bullet)([b])=0$.
+Choose a cycle $b\in C_n^{1,2}$ representing $[b]$.
+Then $\beta_n(b)$ is a boundary in $C_\bullet$, so choose $d\in C_{n+1}$ with $\beta_n(b)=\partial_{n+1}^{\G}(d)$.
+Choose $e\in C_{n+1}^{1,2}$ with $\beta_{n+1}(e)=d$.
+Then $b-\partial_{n+1}^{1,2}(e)\in \ker(\beta_n)=\operatorname{im}(\alpha_n)$, so choose $u\in C_n^{12}$ with
+$b-\partial_{n+1}^{1,2}(e)=\alpha_n(u)$.
+A direct computation gives $\partial_n^{12}(u)=0$ since
+\[
+\alpha_{n-1}\bigl(\partial_n^{12}(u)\bigr)
+=
+\partial_n^{1,2}\bigl(\alpha_n(u)\bigr)
+=
+\partial_n^{1,2}(b)-\partial_n^{1,2}\bigl(\partial_{n+1}^{1,2}(e)\bigr)
+=
+0,
+\]
+and $\alpha_{n-1}$ is injective.
+Hence $[u]\in H_n(C_\bullet^{12})$ and $H_n(\alpha_\bullet)([u])=[b]$.
+The reverse inclusion follows from $H_n(\beta_\bullet)\circ H_n(\alpha_\bullet)=0$.
+
+\item Third, $\operatorname{im}\bigl(H_n(\beta_\bullet)\bigr)=\ker(\partial_n)$.
+If $[b]\in H_n(C_\bullet^{1,2})$ is represented by a cycle $b$, then $\partial_n([\,\beta_n(b)\,])=0$ because one may take this $b$ in the definition and obtain $a=0$ from \eqref{eq:MV-connecting-defining}.
+Conversely, let $[c]\in H_n(C_\bullet)$ with $\partial_n([c])=0$.
+Choose $c$ and a lift $b$ with $\beta_n(b)=c$.
+Let $a$ be defined by \eqref{eq:MV-connecting-defining}.
+The condition $\partial_n([c])=0$ means $[a]=0$, so choose $u\in C_n^{12}$ with $a=\partial_n^{12}(u)$.
+Then
+\[
+\partial_n^{1,2}\bigl(b-\alpha_n(u)\bigr)
+=
+\partial_n^{1,2}(b)-\alpha_{n-1}\bigl(\partial_n^{12}(u)\bigr)
+=
+\alpha_{n-1}(a)-\alpha_{n-1}(a)
+=
+0,
+\]
+so $b-\alpha_n(u)$ is a cycle in $C_n^{1,2}$ and $\beta_n\bigl(b-\alpha_n(u)\bigr)=c$.
+Thus $[c]\in \operatorname{im}\bigl(H_n(\beta_\bullet)\bigr)$.
+
+\item Fourth, $\operatorname{im}(\partial_n)=\ker\bigl(H_{n-1}(\alpha_\bullet)\bigr)$.
+If $\partial_n([c])=[a]$, then $\alpha_{n-1}(a)=\partial_n^{1,2}(b)$ is a boundary, hence $H_{n-1}(\alpha_\bullet)([a])=0$.
+Conversely, let $[a]\in H_{n-1}(C_\bullet^{12})$ with $H_{n-1}(\alpha_\bullet)([a])=0$.
+Choose a cycle $a\in C_{n-1}^{12}$ representing $[a]$.
+Then $\alpha_{n-1}(a)$ is a boundary in $C_\bullet^{1,2}$, so choose $b\in C_n^{1,2}$ with $\partial_n^{1,2}(b)=\alpha_{n-1}(a)$.
+Set $c\coloneqq \beta_n(b)$.
+Then $\partial_n^{\G}(c)=0$ since
+\[
+\partial_n^{\G}\bigl(\beta_n(b)\bigr)
+=
+\beta_{n-1}\bigl(\partial_n^{1,2}(b)\bigr)
+=
+\beta_{n-1}\bigl(\alpha_{n-1}(a)\bigr)
+=
+0.
+\]
+Using this $b$ in the definition of $\partial_n([c])$ yields the unique element $a$ again by injectivity of $\alpha_{n-1}$.
+Thus $[a]\in \operatorname{im}(\partial_n)$.
+\end{itemize}
+
+The displayed equalities give exactness at every term.
+Naturality follows because the connecting map construction is functorial for morphisms of short exact sequences of chain complexes of abelian groups.
+\end{itemize}
+\end{proof}
+
+\begin{remark}
+The connecting homomorphism $\partial_n$ is explicit.
+Let $c\in C_c(\G_n,A)$ be a cycle.
+Choose $b\in C_n(\G|_{U_1};A)\oplus C_n(\G|_{U_2};A)$ with $\beta_n(b)=c$.
+Compute $\partial_n^{1,2}(b)$.
+Exactness in degree $n-1$ implies $\partial_n^{1,2}(b)\in \operatorname{im}(\alpha_{n-1})$.
+Let $a\in C_{n-1}(\G|_{U_1\cap U_2};A)$ be the unique element with $\alpha_{n-1}(a)=\partial_n^{1,2}(b)$.
+Then $\partial_n([c])=[a]$.
+The class $\partial_n([c])$ vanishes precisely when $c$ admits a lift $b$ that is a cycle in the middle complex.
+\end{remark}
+
+In the Moore--Mayer--Vietoris construction above, the admissibility hypothesis requires the clopen pieces to be saturated.
+This hypothesis is used only to ensure that for every simplicial degree $n$ one has a global cover
+\(
+\mathcal G_n = (\mathcal G\vert_{U_1})_n \cup (\mathcal G\vert_{U_2})_n,
+\)
+so that the standard clopen Mayer--Vietoris argument produces a short exact sequence of Moore chain complexes and hence a long exact sequence in homology. In many applications, however, the relevant chains are compactly supported.
+Thus one does not need a global cover of all of $\mathcal G_n$.
+Instead, it suffices that a given cycle representative $c\in C_n(\mathcal G;A)$ is supported in the region where the cover behaves well, namely
+\(
+\operatorname{supp}(c)\subseteq (\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n.
+\)
+Under this support condition the Mayer--Vietoris splitting and extension by zero arguments apply verbatim on the clopen subspace
+\(
+(\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n\subseteq \mathcal G_n,
+\)
+even when $U_1$ and $U_2$ are not saturated.
+Corollary~\ref{cor:local-mv} records this support local replacement of saturation and yields a canonical long exact sequence controlling the homology classes represented by such compactly supported cycles.
+
+\begin{corollary}\label{cor:local-mv}
+Let $\mathcal G$ be an ample groupoid and let $U_1,U_2\subseteq \mathcal G_0$ be clopen with
+$U_1\cup U_2=\mathcal G_0$.
+Let $A$ be an abelian group.
+For every $n\ge 0$ set
+\(
+(\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n \subseteq \mathcal G_n
+\)
+and define
+\[
+C_n^{U_1,U_2}(\mathcal G;A)\coloneqq C_c((\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n,A),
+\qquad
+C_\bullet^{U_1,U_2}(\mathcal G;A)\coloneqq \bigl(C_n^{U_1,U_2}(\mathcal G;A),\partial_n\bigr)_{n\ge 0},
+\]
+where $\partial_\bullet$ is the Moore boundary of $C_\bullet(\mathcal G;A)$ restricted to $C_\bullet^{U_1,U_2}(\mathcal G;A)$.
+
+Then the following holds:
+\begin{enumerate}[noitemsep,nolistsep]
+\item For every $n\ge 0$ the sequence
+\[
+0 \to C_n(\mathcal G\vert_{U_1\cap U_2};A)\xrightarrow{\alpha_n}
+C_n(\mathcal G\vert_{U_1};A)\oplus C_n(\mathcal G\vert_{U_2};A)\xrightarrow{\beta_n}
+C_n^{U_1,U_2}(\mathcal G;A)\to 0
+\]
+is exact, where
+\(
+\alpha_n(\xi)\coloneqq (\xi,-\xi)
+\)
+and
+\(
+\beta_n(\xi_1,\xi_2)\coloneqq \widetilde{\xi}_1+\widetilde{\xi}_2,
+\)
+with $\widetilde{\xi}_i$ denoting extension by zero along the clopen inclusion
+$(\mathcal G\vert_{U_i})_n\hookrightarrow (\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n$.
+
+\item The maps $\alpha_\bullet,\beta_\bullet$ form a short exact sequence of Moore chain complexes
+\[
+0 \to C_\bullet(\mathcal G\vert_{U_1\cap U_2};A)\xrightarrow{\alpha_\bullet}
+C_\bullet(\mathcal G\vert_{U_1};A)\oplus C_\bullet(\mathcal G\vert_{U_2};A)\xrightarrow{\beta_\bullet}
+C_\bullet^{U_1,U_2}(\mathcal G;A)\to 0.
+\]
+
+\item Define \(C_\bullet^{U_1,U_2} \coloneq C_\bullet^{U_1,U_2}(\G;A)\). There is an induced long exact homology sequence
+\[
+\begin{tikzcd}[arrow style=math font,cells={nodes={text height=2ex,text depth=0.75ex}}]
+\cdots
+& H_{n-1}(\G|_{U_1};A)\oplus H_{n-1}(\G|_{U_2};A)
+  \arrow[l]
+  \arrow[draw=none]{d}[name=Y,shape=coordinate]{}
+& H_{n-1}(\G|_{U_1\cap U_2};A)
+  \arrow[l,"{H_{n-1}(\alpha_\bullet)}"']
+\\
+H_{n}\bigl(C_\bullet^{U_1,U_2}\bigr)
+  \arrow[curarrow={Y}{\partial_{n}}]{urr}
+& H_{n}(\G|_{U_1};A)\oplus H_{n}(\G|_{U_2};A)
+  \arrow[l,"{H_n(\beta_\bullet)}"']
+  \arrow[draw=none]{d}[name=Z,shape=coordinate]{}
+& H_{n}(\G|_{U_1\cap U_2};A)
+  \arrow[l,"{H_n(\alpha_\bullet)}"']
+\\
+H_{n+1}\bigl(C_\bullet^{U_1,U_2}\bigr)
+  \arrow[curarrow={Z}{\partial_{n+1}}]{urr}
+& H_{n+1}(\G|_{U_1};A)\oplus H_{n+1}(\G|_{U_2};A)
+  \arrow[l,"{H_{n+1}(\beta_\bullet)}"']
+& \cdots \arrow[l]
+\end{tikzcd}
+\]
+
+\item Let $c\in C_n(\mathcal G;A)$ be an $n$-cycle with $\operatorname{supp}(c)\subseteq (\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n$.
+Then $c\in C_n^{U_1,U_2}(\mathcal G;A)$ and the class $[c]\in H_n(\mathcal G;A)$ lies in the image of the map induced by the inclusion
+\[
+\iota_\bullet\colon C_\bullet^{U_1,U_2}(\mathcal G;A)\hookrightarrow C_\bullet(\mathcal G;A).
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Fix $n\ge 0$. $U_1,U_2$ are clopen in $\mathcal G_0$, $\mathcal G$ is ample, the subsets
+\(
+(\mathcal G\vert_{U_1})_n,\ (\mathcal G\vert_{U_2})_n,\ (\mathcal G\vert_{U_1\cap U_2})_n
+\)
+are clopen in $\mathcal G_n$.
+In particular, $(\mathcal G\vert_{U_1})_n$ and $(\mathcal G\vert_{U_2})_n$ are clopen in
+\(
+(\mathcal G\vert_{U_1})_n\cup(\mathcal G\vert_{U_2})_n,
+\)
+and
+\(
+(\mathcal G\vert_{U_1\cap U_2})_n=(\mathcal G\vert_{U_1})_n\cap(\mathcal G\vert_{U_2})_n.
+\)
+
+\begin{enumerate}[noitemsep,nolistsep]
+\item \textbf{Injectivity of $\alpha_n$.}
+Injectivity of $\alpha_n$ is immediate and $\beta_n\circ \alpha_n=0$.
+
+\item \textbf{Surjectivity of $\beta_n$.} To prove surjectivity of $\beta_n$, let $\eta\in C_c(Y_n,A)$.
+Consider the clopen partition
+\[
+Y_n=
+\Bigl((\mathcal G\vert_{U_1})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n\Bigr)
+\sqcup
+\Bigl((\mathcal G\vert_{U_2})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n\Bigr)
+\sqcup
+(\mathcal G\vert_{U_1\cap U_2})_n.
+\]
+Define $\eta_1\in C_c\bigl((\mathcal G\vert_{U_1})_n,A\bigr)$ and
+$\eta_2\in C_c\bigl((\mathcal G\vert_{U_2})_n,A\bigr)$ by
+\[
+\begin{aligned}
+\eta_1\vert_{(\mathcal G\vert_{U_1})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n}
+&\coloneqq
+\eta\vert_{(\mathcal G\vert_{U_1})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n}, &
+\eta_1\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}&\coloneqq 0,\\
+\eta_2\vert_{(\mathcal G\vert_{U_2})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n}
+&\coloneqq
+\eta\vert_{(\mathcal G\vert_{U_2})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n},&
+\eta_2\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}&\coloneqq \eta\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}.
+\end{aligned}
+\]
+Then $\eta_1,\eta_2$ are compactly supported and locally constant since all pieces are clopen.
+By construction,
+\(
+\widetilde{\eta}_1+\widetilde{\eta}_2=\eta
+\)
+on each of the three clopen pieces of $Y_n$, hence on all of $Y_n$.
+Thus $\beta_n(\eta_1,\eta_2)=\eta$. To identify the kernel, let
+\[
+(\xi_1,\xi_2)\in C_c\bigl((\mathcal G\vert_{U_1})_n,A\bigr)\oplus C_c\bigl((\mathcal G\vert_{U_2})_n,A\bigr)
+\]
+satisfy $\widetilde{\xi}_1+\widetilde{\xi}_2=0$ in $C_c(Y_n,A)$.
+Restricting to $(\mathcal G\vert_{U_1})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n$ gives $\xi_1=0$ there.
+Restricting to $(\mathcal G\vert_{U_2})_n\setminus (\mathcal G\vert_{U_1\cap U_2})_n$ gives $\xi_2=0$ there.
+Restricting to $(\mathcal G\vert_{U_1\cap U_2})_n$ gives
+$\xi_1\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}+\xi_2\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}=0$.
+Set
+\(
+\zeta\coloneqq \xi_1\vert_{(\mathcal G\vert_{U_1\cap U_2})_n}\in C_c\bigl((\mathcal G\vert_{U_1\cap U_2})_n,A\bigr).
+\)
+Then $(\xi_1,\xi_2)=(\zeta,-\zeta)=\alpha_n(\zeta)$, hence $\ker(\beta_n)=\operatorname{im}(\alpha_n)$.
+This proves exactness.
+
+\item \textbf{$C_\bullet^{U_1,U_2}(\mathcal G;A)$ is a subcomplex.} 
+It remains to check that $C_\bullet^{U_1,U_2}(\mathcal G;A)$ is a subcomplex of $C_\bullet(\mathcal G;A)$.
+For every $i\in\{1,2\}$ and every face map $d_j\colon \mathcal G_n\to \mathcal G_{n-1}$ one has
+\[
+d_j\bigl((\mathcal G\vert_{U_i})_n\bigr)\subseteq (\mathcal G\vert_{U_i})_{n-1},
+\qquad
+d_j\bigl((\mathcal G\vert_{U_1\cap U_2})_n\bigr)\subseteq (\mathcal G\vert_{U_1\cap U_2})_{n-1},
+\]
+since deleting one arrow from an $n$-simplex in the nerve does not introduce units outside the same restriction.
+Therefore each pushforward $(d_j)_*$ sends
+\[
+C_c\bigl((\mathcal G\vert_{U_i})_n,A\bigr)\to C_c\bigl((\mathcal G\vert_{U_i})_{n-1},A\bigr),
+\qquad
+C_c\bigl((\mathcal G\vert_{U_1\cap U_2})_n,A\bigr)\to C_c\bigl((\mathcal G\vert_{U_1\cap U_2})_{n-1},A\bigr).
+\]
+Moreover, by extension by zero along the clopen inclusions
+\[
+(\mathcal G\vert_{U_1})_n\hookrightarrow Y_n,
+\qquad
+(\mathcal G\vert_{U_2})_n\hookrightarrow Y_n,
+\qquad
+(\mathcal G\vert_{U_1\cap U_2})_n\hookrightarrow Y_n,
+\]
+the same holds with $C_c(Y_n,A)$ in place of
+$C_c\bigl((\mathcal G\vert_{U_i})_n,A\bigr)$.
+Hence the Moore boundary
+\(
+\partial_n=\sum_{j=0}^n (-1)^j(d_j)_*
+\)
+restricts to a homomorphism
+\(
+\partial_n\colon C_c(Y_n,A)\to C_c(Y_{n-1},A),
+\)
+so the degreewise short exact sequence from \textup{1.} is a short exact sequence of chain complexes.
+
+\item \textbf{Support reduction.}
+The condition $\operatorname{supp}(c)\subseteq Y_n$ means that $c$ vanishes on $\mathcal G_n\setminus Y_n$.
+Hence $c$ is a compactly supported locally constant function on $Y_n$, so
+$c\in C_c(Y_n,A)=C_n^{U_1,U_2}(\mathcal G;A)$.
+Since $\iota_\bullet$ is a chain map, it induces a homomorphism on homology and carries the class of $c$ in
+$H_n\bigl(C_\bullet^{U_1,U_2}(\mathcal G;A)\bigr)$ to the class of $c$ in $H_n(\mathcal G;A)$.
+\end{enumerate}
+\end{proof}
+
+\section{Computing Homology of a SFT Groupoid}
+We demonstrate, that the Moore--Mayer--Vietoris long exact sequence from Theorem~\ref{thm:MV-long-exact} is useful for explicit computations. One covers the unit space by saturated clopen subsets, computes the homology of the corresponding reductions, and then recovers the homology of the whole groupoid via exactness. In this example we combine Moore--Mayer--Vietoris with the UCT from Theorem~\ref{thm:UCT-homology-G} to exhibit how torsion in degree~\(0\) affects homology with finite field coefficients.
+
+Let \(A\in \operatorname{Mat}(N\times N, \mathbb N_0)\) be a square matrix with no zero row and no zero column. Fix a finite directed graph \(E_A\) with vertex set \(\{1,\dots,N\}\) whose adjacency matrix is \(A\) -- allowing multiple edges. Let \(E_A^\infty
+= \left\{(e_n)_{n\ge 0}\in E_A^{\mathbb N_0}\ \middle|\ r(e_n)=s(e_{n+1})\ \text{for all } n\ge 0 \right\}
+\) be the space of infinite directed paths, endowed with the product topology, and let \(\sigma\colon E_A^{\infty}\to E_A^{\infty}, (e_0,e_1,e_2,\dots)\mapsto (e_1,e_2,e_3,\dots)\) be the left shift. The range and source maps are \(r(x,n,y)=x\) and \(s(x,n,y)=y\), with units \(\chi_x=(x,0,x)\), inverses \((x,n,y)^{-1}=(y,-n,x)\), and multiplication \((x,n,y)\cdot (y,m,z)=(x,n+m,z)\) whenever \(s(x,n,y)=r(y,m,z)\). Then \(\sigma\) is a local homeomorphism, and the associated Deaconu--Renault groupoid \(\mathcal G_A\) has unit space \((\mathcal G_A)_0=E_A^\infty\) and arrow space
+\[
+(\mathcal G_A)_1
+=
+\{(x,n,y)\in E_A^\infty\times\mathbb Z\times E_A^\infty \mid \exists\ k, \ell\in\mathbb N_0:\ n=k-\ell,  \sigma^k(x)=\sigma^\ell(y)\}.
+\]
+Equipped with its standard étale topology -- generated by compact open bisections coming from cylinder sets and restrictions of powers of \(\sigma\) -- \(\mathcal G_A\) is second countable, locally compact, Hausdorff, totally disconnected, and étale; in particular it is ample. This is the same construction of the Deaconu--Renault groupoid of a local homeomorphism as in \cite[§2.5]{ArmstrongBrownloweSims2021}.
+
+For SFT groupoids, the integral homology of \(\mathcal G_A\) is given in terms of \(\mathbb{1}-A^{\mathsf T}\). We have
+\[
+\begin{aligned}
+H_0(\mathcal G_A) &\cong \operatorname{coker}(\mathbb{1}-A^{\mathsf T}),\\
+H_1(\mathcal G_A) &\cong \ker(\mathbb{1}-A^{\mathsf T}),\\
+H_n(\mathcal G_A) &= 0\ \ \text{for} \ n\ge 2,
+\end{aligned}
+\]
+where \(\mathbb{1}-A^{\mathsf T}\) acts on \(\mathbb Z^N\) \cite[Theorem~4.14]{matui2012homology}. We consider now the matrices
+\[
+A=\begin{pmatrix}2&1\\ 1&0\end{pmatrix},\qquad
+B=\begin{pmatrix}2&1\\ 1&2\end{pmatrix},\qquad
+C=(3),
+\]
+and compute the integral homology of \(\mathcal G_A\), \(\mathcal G_B\), and \(\mathcal G_C\).
+For \(A\) we have
+\[
+\mathbb{1}-A^{\mathsf T}=
+\begin{pmatrix}-1&-1\\[2pt]-1&1\end{pmatrix},
+\qquad
+\det(\mathbb{1}-A^{\mathsf T})=(-1)\cdot 1-(-1)\cdot(-1)=-2.
+\]
+Hence \(\mathbb{1}-A^{\mathsf T}\) has full rank over \(\mathbb Z\) and \(\ker(\mathbb{1}-A^{\mathsf T})=0\). Moreover, the Smith normal form is
+\[
+\begin{pmatrix}
+-1 & -1\\
+-1 &  1
+\end{pmatrix}
+\overset{R_1\leftarrow (-1) \cdot R_1}{\longrightsquigarrow}
+\begin{pmatrix}
+ 1 & 1\\
+-1 & 1
+\end{pmatrix}
+\overset{R_2\leftarrow R_2+R_1}{\longrightsquigarrow}
+\begin{pmatrix}
+1 & 1\\
+0 & 2
+\end{pmatrix}
+\overset{C_2\leftarrow C_2+(-1)\cdot C_1}{\longrightsquigarrow}
+\begin{pmatrix}
+1 & 0\\
+0 & 2
+\end{pmatrix} = \operatorname{diag}(1,2),
+\]
+so \(\operatorname{coker}(\mathbb{1}-A^{\mathsf T})\cong \mathbb{Z}/2\mathbb{Z}\). Therefore
+\[
+\begin{aligned}
+H_0(\mathcal G_A) &\cong \mathbb{Z}/2\mathbb{Z},\\
+H_1(\mathcal G_A) &= 0,\\
+H_n(\mathcal G_A) &= 0\ \text{for} \ n\ge 2.
+\end{aligned}
+\]
+For \(B\) we have
+\[
+\mathbb{1}-B^{\mathsf T}=
+\begin{pmatrix}-1&-1\\[2pt]-1&-1\end{pmatrix}.
+\]
+The condition \((\mathbb{1}-B^{\mathsf T})(x,y)^{\mathsf T}=0\) is \(-x-y=0\), hence \(\ker(\mathbb{1}-B^{\mathsf T})\cong\mathbb Z\) generated by \((1,-1)\). The image is generated by \((1,1)\), which is primitive in \(\mathbb Z^2\), so \(\operatorname{coker}(\mathbb{1}-B^{\mathsf T})\cong \mathbb Z^2/\langle(1,1)\rangle_{\mathbb Z}\cong\mathbb Z\). Thus, we have for homology
+\[
+\begin{aligned}
+H_0(\mathcal G_B) &\cong \mathbb Z,\\
+H_1(\mathcal G_B) &\cong \mathbb Z,\\
+H_n(\mathcal G_B) &= 0\ \text{for} \ n\ge 2.
+\end{aligned}
+\]
+For \(C\) we have \(\mathbb{1}-C^{\mathsf T}=-2\), so \(\ker(\mathbb{1}-C^{\mathsf T})=0\) and \(\operatorname{coker}(\mathbb{1}-C^{\mathsf T})\cong \mathbb{Z}/2\mathbb{Z}\). Hence
+\[
+\begin{aligned}
+H_0(\mathcal G_C) &\cong \mathbb{Z}/2\mathbb{Z},\\
+H_1(\mathcal G_C) &= 0,\\
+H_n(\mathcal G_C) &= 0\ \text{for} \ n\ge 2.
+\end{aligned}
+\]
+Next set
+\(
+\mathcal G\coloneqq \mathcal G_A\sqcup \mathcal G_B\sqcup \mathcal G_C,
+\)
+the disjoint union groupoid. Then \(\mathcal G\) is ample, and levelwise its nerve decomposes as \(\mathcal G_n=(\mathcal G_A)_n\sqcup(\mathcal G_B)_n\sqcup(\mathcal G_C)_n\). Consequently the associated compactly supported Moore chain complex splits as a direct sum, and therefore
+\[
+H_n(\mathcal G)\cong H_n(\mathcal G_A)\oplus H_n(\mathcal G_B)\oplus H_n(\mathcal G_C)
+\ \text{for} \ n\ge 0.
+\]
+In particular,
+\[
+\begin{aligned}
+H_0(\mathcal G) &\cong \mathbb Z\oplus (\mathbb{Z}/2\mathbb{Z})^2,\\
+H_1(\mathcal G) &\cong \mathbb Z,\\
+H_n(\mathcal G) &= 0\ \text{for} \ n\ge 2.
+\end{aligned}
+\]
+We now illustrate Moore--Mayer--Vietoris on a saturated clopen cover of \(\mathcal G_0\). Define
+\[
+\begin{aligned}
+U_1 &\coloneqq (\mathcal G_A)_0\sqcup(\mathcal G_B)_0,\\
+U_2 &\coloneqq (\mathcal G_B)_0\sqcup(\mathcal G_C)_0.
+\end{aligned}
+\]
+These subsets are clopen because they are unions of clopen components of the disjoint union space \(\mathcal G_0\) and saturated as there are no arrows between distinct components, so any union of components is a union of orbits. Clearly \(U_1\cup U_2=\mathcal G_0\) and \(U_1\cap U_2=(\mathcal G_B)_0\). The reductions are
+\[
+\begin{aligned}
+\mathcal G|_{U_1} &= \mathcal G_A\sqcup \mathcal G_B,\\
+\mathcal G|_{U_2} &= \mathcal G_B\sqcup \mathcal G_C,\\
+\mathcal G|_{U_1\cap U_2} &= \mathcal G_B.
+\end{aligned}
+\]
+Applying Theorem~\ref{thm:MV-long-exact} yields the long exact sequence
+\[
+\cdots\to
+H_n(\mathcal G_B)
+\xrightarrow{\alpha_n}
+H_n(\mathcal G_A\sqcup\mathcal G_B)\oplus H_n(\mathcal G_B\sqcup\mathcal G_C)
+\xrightarrow{\beta_n}
+H_n(\mathcal G)
+\xrightarrow{\partial_n}
+H_{n-1}(\mathcal G_B)
+\to\cdots.
+\]
+Using the canonical identifications
+\[
+\begin{aligned}
+H_n(\mathcal G_A\sqcup\mathcal G_B) &\cong H_n(\mathcal G_A)\oplus H_n(\mathcal G_B),\\
+H_n(\mathcal G_B\sqcup\mathcal G_C) &\cong H_n(\mathcal G_B)\oplus H_n(\mathcal G_C),\\
+H_n(\mathcal G) &\cong H_n(\mathcal G_A)\oplus H_n(\mathcal G_B)\oplus H_n(\mathcal G_C),
+\end{aligned}
+\]
+the map \(\alpha_n\) is the difference of the two inclusions of the \(\mathcal G_B\)-summand and is given by
+\(
+\alpha_n([b])=([0],[b],[-b],[0]).
+\)
+The map \(\beta_n\) is induced by the two inclusions \(\mathcal G|_{U_1}\hookrightarrow \mathcal G\) and \(\mathcal G|_{U_2}\hookrightarrow \mathcal G\); under the above identifications it is
+\(
+\beta_n([a],[b_1],[b_2],[c])=([a],[b_1+b_2],[c]).
+\)
+In particular, \(\beta_n\) is surjective and \(\ker(\beta_n)=\{([0],[b],[-b],[0])\mid b\in H_n(\mathcal G_B)\}=\operatorname{im}(\alpha_n)\). Exactness therefore forces \(\partial_n=[0]\) for all \(n\), and the Moore--Mayer--Vietoris sequence recovers the direct-sum decomposition of \(H_n(\mathcal G)\).
+
+Finally we compute homology with finite coefficients via  UCT. Fix a prime \(p\). Since \(H_2(\mathcal G)=0\) and \(H_1(\mathcal G)\cong\mathbb Z\) is torsion-free, the UCT implies \(H_n(\mathcal G;\mathbb{Z}/p\mathbb{Z})=0\) for all \(n\ge 2\). For \(n=0\):
+\[
+H_0(\mathcal G;\mathbb{Z}/p\mathbb{Z})\cong H_0(\mathcal G)\otimes_{\mathbb Z} \mathbb{Z}/p\mathbb{Z}
+\cong
+\begin{cases}
+\mathbb Z/p\mathbb Z, & \text{for} \ p\ \text{odd},\\[2pt]
+(\mathbb{Z}/2\mathbb{Z})^3, & \text{for} \ p=2.
+\end{cases}
+\]
+For \(n=1\) the UCT from Theorem~\ref{thm:UCT-homology-G} yields a short exact sequence
+\[
+0\rightarrow H_1(\mathcal G)\otimes_{\mathbb Z}\mathbb Z/p\mathbb Z
+\xrightarrow{\iota_1}
+H_1(\mathcal G;\mathbb Z/p\mathbb Z)
+\xrightarrow{\beta_1}
+\operatorname{Tor}_1^{\mathbb Z}\!\bigl(H_0(\mathcal G),\mathbb Z/p\mathbb Z\bigr)
+\rightarrow 0.
+\]
+Here \(\iota_1\) is the change-of-coefficients map induced by
+\(C_\bullet(\mathcal G;\mathbb Z)\otimes \mathbb Z/p\mathbb Z\to C_\bullet(\mathcal G;\mathbb Z/p\mathbb Z)\),
+and \(\beta_1\) is the Bockstein connecting morphism associated to
+\(0\to\mathbb Z\xrightarrow{\cdot p}\mathbb Z\xrightarrow{\pi}\mathbb Z/p\mathbb Z\to 0\).
+In our example \(H_1(\mathcal G)\cong \mathbb Z\) and
+\(H_0(\mathcal G)\cong \mathbb Z\oplus(\mathbb{Z}/2\mathbb{Z})^2\).
+If \(p\) is odd, then \(\operatorname{Tor}_1^{\mathbb Z}(H_0(\mathcal G),\mathbb Z/p\mathbb Z)=0\),
+so \(\beta_1=0\) and \(\iota_1\) is an isomorphism.
+If \(p=2\), then \(H_1(\mathcal G;\mathbb{Z}/2\mathbb{Z})\cong (\mathbb{Z}/2\mathbb{Z})^3\) and
+\(\operatorname{Tor}_1^{\mathbb Z}(H_0(\mathcal G),\mathbb{Z}/2\mathbb{Z})\cong (\mathbb{Z}/2\mathbb{Z})^2\).
+With coordinates corresponding to the decomposition
+\(\mathcal{G}=\mathcal{G}_A\sqcup \mathcal{G}_B\sqcup \mathcal{G}_C\), the maps are \(\iota_1([1])=([0],[1],[0])\) and \(\beta_1([a],[b],[c])=([a],[c])\). Here \(H_1(\mathcal G)\cong\mathbb Z\) gives \(H_1(\mathcal{G})\otimes_{\mathbb{Z}} \mathbb{Z}/p\mathbb{Z} \cong \mathbb{Z}/p\mathbb{Z}\), and
+\[
+\begin{aligned}
+\operatorname{Tor}_1^{\mathbb Z}(\mathbb Z,\mathbb{Z}/p\mathbb{Z}) &= 0,\\
+\operatorname{Tor}_1^{\mathbb Z}(\mathbb{Z}/2\mathbb{Z},\mathbb{Z}/p\mathbb{Z}) &\cong
+\begin{cases}
+0,& \text{for} \ p\ \text{odd},\\
+\mathbb{Z}/2\mathbb{Z}, & \text{for} \ p=2.
+\end{cases}
+\end{aligned}
+\]
+Since \(H_0(\mathcal G)\cong \mathbb Z\oplus(\mathbb{Z}/2\mathbb{Z})^2\), this gives
+\[
+\operatorname{Tor}_1^{\mathbb Z}(H_0(\mathcal G),\mathbb{Z}/p\mathbb{Z})\cong
+\begin{cases}
+0,& \text{for} \ p\ \text{odd},\\
+(\mathbb{Z}/2\mathbb{Z})^2,& \text{for} \ p=2.
+\end{cases}
+\]
+Thus \(H_1(\mathcal G;\mathbb{Z}/p\mathbb{Z})\cong \mathbb Z/p\mathbb Z\) for odd \(p\). For \(p=2\), the chain complex defining \(H_\bullet(\mathcal G;\mathbb{Z}/2\mathbb{Z})\) is a complex of \(\mathbb{Z}/2\mathbb{Z}\)-vector spaces, hence \(H_1(\mathcal G;\mathbb{Z}/2\mathbb{Z})\) is itself a \(\mathbb{Z}/2\mathbb{Z}\)-vector space; the above SES therefore splits though non-canonically in \(\textbf{Vect}_{\mathbb{Z}/2\mathbb{Z}}\). Consequently,
+\[
+H_1(\mathcal G;\mathbb{Z}/p\mathbb{Z})\cong
+\begin{cases}
+\mathbb Z/p\mathbb Z, & \text{for} \ p\ \text{odd},\\[2pt]
+(\mathbb{Z}/2\mathbb{Z})^3, & \text{for} \ p=2.
+\end{cases}
+\]

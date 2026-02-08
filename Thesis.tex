@@ -1,0 +1,240 @@
+\documentclass{mimosis}
+\usepackage{thmtools}
+\usepackage[lastparline]{impnattypo}
+\usepackage{metalogo}
+\usepackage{etoolbox}
+\usepackage{multicol}
+
+\usepackage[
+	colorlinks=true,
+	citecolor=RoyalBlue,
+	linkcolor=RoyalBlue,
+	urlcolor=RoyalBlue,
+	unicode,
+]{hyperref}
+
+\usepackage{bookmark}
+\usepackage{amssymb,amsfonts,amsmath}
+\usepackage{mathdots}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\usepackage{quiver}
+\allowdisplaybreaks
+
+\usepackage{tensor}
+\usepackage{enumitem}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+
+\setlist[itemize]{noitemsep, nolistsep}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usepackage{ragged2e}
+\usetikzlibrary{babel}
+
+\definecolor{BulletRed}{RGB}{150,0,0}
+\definecolor{BulletGold}{RGB}{210,170,0}
+\definecolor{BulletSky}{RGB}{60,160,255}
+
+\DeclareRobustCommand{\fatbullet}[1]{
+\tikz[baseline=-0.6ex] \draw[fill=#1,draw=#1] (0,0) circle (2.2pt);
+}
+
+\setlist[itemize,1]{label=\fatbullet{BulletRed}, leftmargin=1.8em, itemsep=0.2em}
+\setlist[itemize,2]{label=\fatbullet{BulletGold}, leftmargin=1.6em, itemsep=0.15em}
+\setlist[itemize,3]{label=\fatbullet{BulletSky}, leftmargin=1.4em, itemsep=0.10em}
+
+\usepackage[%
+	autocite=plain,
+	backend=biber,
+	doi=true,
+	url=true,
+	giveninits=true,
+	hyperref=true,
+	maxbibnames=99,
+	maxcitenames=99,
+	sortcites=true,
+	style=numeric,
+]{biblatex}
+
+\addbibresource{Thesis.bib}
+
+\usepackage[final,protrusion=false]{microtype}
+\linespread{1.03}
+\usepackage[hang, flushmargin]{footmisc}
+\setlength{\footnotemargin}{0.5em}
+\setlength{\marginparwidth }{2cm}
+
+\ifxetexorluatex
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{TeX Gyre Pagella}
+\setmathfont{TeX Gyre Pagella Math}
+
+\else
+\usepackage[osf, sc]{newpxtext}
+\usepackage{newpxmath}
+\usepackage{mathrsfs}
+\usepackage[scale=0.85]{sourcecodepro}
+\fi
+
+\newacronym[description={Universal Coefficient Theorem}]{UCT}{UCT}{universal coefficient theorem}
+\newacronym[description={Shifts of Finite Type}]{SFT}{SFT}{shifts of finite type}
+
+\input{glossary}
+
+\setlength{\abovedisplayskip}{8pt plus 3pt minus 2pt}
+\setlength{\belowdisplayskip}{8pt plus 3pt minus 2pt}
+\setlength{\abovedisplayshortskip}{0pt plus 2pt}
+\setlength{\belowdisplayshortskip}{4pt plus 2pt minus 2pt}
+
+\tikzset{
+  curarrow/.style n args={2}{
+  rounded corners=8pt,
+  execute at begin to={every node/.style={fill=red}},
+    to path={-- ([xshift=-50pt]\tikztostart.center)
+    |- (#1) node[fill=white] {$\scriptstyle #2$}
+    -| ([xshift=65pt]\tikztotarget.center)
+    -- (\tikztotarget)}
+    }
+}
+
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\Hh}{\mathcal{H}}
+\newcommand{\Gz}{\G^{(0)}}
+\newcommand{\red}[2]{#1\!\mid_{#2}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Ob}{\operatorname{Ob}}
+\newcommand{\Top}{\operatorname{Top}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\fprod}[3]{#1\,\tensor[_#2]{\times}{_{#3}}\,}
+\newcommand{\stimesr}{\tensor[_s]{\times}{_r}}
+\newcommand{\Gstimesr}{\tensor[_{s_{\mathcal{G}}}]{\times}{_{r_{\mathcal{G}}}}}
+\newcommand{\Hstimesr}{\tensor[_{s_{\mathcal{H}}}]{\times}{_{r_{\mathcal{H}}}}}
+\newcommand{\ptimesr}{\tensor[_p]{\times}{_r}}
+\newcommand{\phitimesr}{\tensor[_{\varphi_0}]{\times}{_{r_{\mathcal{G}}}}}
+\newcommand{\epsilontimesr}{\tensor[_{\epsilon}]{\times}{_{r_{\G}}}}
+\newcommand{\pitimespi}{\tensor[_{\pi}]{\times}{_{\pi}}}
+\newcommand{\phiphitimesrr}{\tensor[_{\varphi_0 \times \varphi_0 }]{\times}{_{r_{\mathcal{G}} \times s_{\mathcal{G}}}}}
+
+\DeclareSymbolFont{largesymbolsA}{U}{txexa}{m}{n}
+\DeclareMathSymbol{\varprod}{\mathop}{largesymbolsA}{16}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{setting}[theorem]{Setting}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{assume}[theorem]{Assumption}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}{Question}
+
+\usepackage{silence}
+\WarningFilter{latex}{}
+\WarningFilter{transparent}{Loading aborted, because pdfTeX is not running in PDF mode}
+\WarningFilter{inputenc}{inputenc package ignored with utf8 based engines}
+\WarningFilter{latexfont}{}
+\WarningFilter{hyperref}{}
+\WarningFilter{biblatex}{}
+\WarningFilter{biblatex}{Please (re)run Biber on the file}
+\WarningFilter{biblatex}{The following entry could not be found}
+\WarningFilter{biblatex}{Patching footnotes failed}
+\WarningFilter{pdftex}{}
+\WarningFilter{luatex}{}
+\WarningFilter{rerunfilecheck}{}
+\WarningFilter{microtype}{}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+\fi
+\setlength{\emergencystretch}{2em}
+
+\makeatletter
+\renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
+\renewcommand{\thelemma}{\thesection.\arabic{theorem}}
+\renewcommand{\theproposition}{\thesection.\arabic{theorem}}
+\renewcommand{\thecorollary}{\thesection.\arabic{theorem}}
+\renewcommand{\theconj}{\thesection.\arabic{theorem}}
+\renewcommand{\thedefinition}{\thesection.\arabic{theorem}}
+\renewcommand{\theexample}{\thesection.\arabic{theorem}}
+\renewcommand{\theassume}{\thesection.\arabic{theorem}}
+\renewcommand{\theremark}{\thesection.\arabic{theorem}}
+\AtBeginDocument{
+  \setlength{\parfillskip}{0pt plus .5\linewidth}
+  \setstretch{1.15}
+  \justifying
+  \setlength{\abovedisplayskip}{0.65\baselineskip}
+  \setlength{\belowdisplayskip}{0.65\baselineskip}
+  \setlength{\abovedisplayshortskip}{0.35\baselineskip}
+  \setlength{\belowdisplayshortskip}{0.35\baselineskip}
+  \setlength{\jot}{0.25\baselineskip}
+}
+\numberwithin{equation}{section}
+
+\makeindex
+\makeglossaries
+
+\@ifundefined{st}{
+\newcommand{\st}{\textsuperscript{\textup{st}}\xspace} }{}
+\@ifundefined{rd}{
+\newcommand{\rd}{\textsuperscript{\textup{rd}}\xspace} }{}
+\@ifundefined{nd}{
+\newcommand{\nd}{\textsuperscript{\textup{nd}}\xspace} }{}
+\makeatother
+
+\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
+
+\title{Universal Coefficients and Mayer-Vietoris Sequence for Groupoid Homology}
+\subtitle{Proof of a universal coefficient theorem and \\ a Mayer–Vietoris sequence for the homology of ample groupoids}
+
+\author{Luciano Melodia}
+
+\hfuzz=10pt
+\showboxbreadth=10000
+\showboxdepth=10000
+\errorcontextlines=999
+\tracingonline=1
+
+\begin{document}
+\allowdisplaybreaks
+
+\frontmatter
+\include{Sources/Title}
+\include{Sources/Abstract}
+\include{Sources/Danksagung}
+%\include{Sources/Eigenständigkeitserklärung}
+
+\tableofcontents
+
+\mainmatter
+
+\include{Sources/Preliminaries}
+\clearpage
+\include{Sources/Homology}
+\clearpage
+\include{Sources/Computing_Homology}
+
+\bookmarksetup{startatroot}
+\backmatter
+
+\begingroup
+\let
+\clearpage
+\relax \glsaddall
+\printglossary
+\endgroup
+
+\printindex
+\printbibliography
+\end{document}
