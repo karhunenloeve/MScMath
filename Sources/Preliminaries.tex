@@ -108,7 +108,7 @@ Writing fibre products over \(\mathcal{G}_{0}\) with respect to \(s\) and \(r\),
 \mathcal{G}_n = \{(\gamma_1,\dots,\gamma_n)\in\mathcal{G}^{n} \mid s(\gamma_i)=r(\gamma_{i+1}) \text{ for } 1\le i<n\} \cong
 \underbrace{\mathcal{G}\stimesr\mathcal{G}\stimesr\cdots\stimesr\mathcal{G}}_{n\ \text{factors}},
 \]
-where \(\mathcal{G}\stimesr\mathcal{G}=\{(g_1,g_2)\in\mathcal{G}\times\mathcal{G} \mid s(g_1)=r(g_2)\}\). For \(n=1\) set \(\mathcal{G}_1=\mathcal{G}\). We equip \(\mathcal{G}_n\) with the subspace topology inherited from \(\mathcal{G}^{n}\).
+where \(\mathcal{G}\stimesr\mathcal{G}=\{(\gamma,\eta)\in\mathcal{G}\times\mathcal{G} \mid s(\gamma)=r(\eta)\}\). For \(n=1\) set \(\mathcal{G}_1=\mathcal{G}\). We equip \(\mathcal{G}_n\) with the subspace topology inherited from \(\mathcal{G}^{n}\).
 \end{remark}
 
 \begin{definition}
@@ -842,11 +842,8 @@ UV \coloneqq \{\mu\nu \mid \mu\in U,\ \nu\in V,\ s(\mu)=r(\nu)\}
 m\bigl((U\times V)\cap\G_{2}\bigr).
 \]
 Fix a decreasing neighbourhood base \((U_{j})_{j\in J}\) of \(\alpha\) in \(\G\), with each \(U_{j}\subseteq U\). Since \(r\) is open, each \(r(U_{j})\) is an open neighbourhood of \(r(\alpha)=r(\alpha\beta)\) in \(\G_{0}\). Let \((\gamma_{i})_{i\in I}\) be a net in \(\G\) with \(\gamma_{i}\to\alpha\beta\). Then \(r(\gamma_{i})\to r(\alpha\beta)=r(\alpha)\).
-
 For each \(j\in J\), the set \(r(U_{j})\) is an open neighbourhood of \(r(\alpha)\), so there exists \(i_{0}(j)\in I\) such that \(r(\gamma_{i})\in r(U_{j})\) for all \(i\ge i_{0}(j)\). For each pair \((i,j)\) with \(i\ge i_{0}(j)\), choose \(\alpha_{(i,j)}\in U_{j}\) such that \(r(\alpha_{(i,j)})=r(\gamma_{i})\).
-
 Let \(D\coloneqq \{(i,j)\in I\times J\mid i\ge i_{0}(j)\}\), directed by \((i,j)\le (i',j')\) if \(i\le i'\) and \(j\le j'\). Then \(\alpha_{(i,j)}\to \alpha\) as \((i,j)\) tends to infinity in \(D\). Moreover, inversion is continuous, hence \(\alpha_{(i,j)}^{-1}\to\alpha^{-1}\).
-
 For each \((i,j)\in D\) the pair \((\alpha_{(i,j)}^{-1},\gamma_{i})\) lies in \(\G_{2}\) because
 \(
 s(\alpha_{(i,j)}^{-1})=r(\alpha_{(i,j)})=r(\gamma_{i}).
@@ -856,9 +853,9 @@ By continuity of multiplication,
 \alpha_{(i,j)}^{-1}\gamma_{i} \to \alpha^{-1}(\alpha\beta)=\beta
 \]
 in \(\G\) along the net indexed by \(D\). Since \(V\) is an open neighbourhood of \(\beta\), there exists \((i_{1},j_{1})\in D\) such that \(\alpha_{(i,j)}^{-1}\gamma_{i}\in V\) for all \((i,j)\ge (i_{1},j_{1})\). For such \((i,j)\) we have \(\alpha_{(i,j)}\in U\), \(\alpha_{(i,j)}^{-1}\gamma_{i}\in V\), and the pair \((\alpha_{(i,j)},\alpha_{(i,j)}^{-1}\gamma_{i})\) is composable. Therefore
-\[
+\(
 \gamma_{i}=\alpha_{(i,j)}\bigl(\alpha_{(i,j)}^{-1}\gamma_{i}\bigr)\in UV
-\]
+\)
 for all sufficiently large \((i,j)\). Since \((\gamma_{i})\) was an arbitrary net converging to \(\alpha\beta\), this shows that \(\alpha\beta\) lies in the interior of \(UV\). Hence \(UV\) is open and \(m\) is an open map. If \(\G\) is \'etale, then \(r\) is a local homeomorphism, hence an open map, so \(m\) is open.
 \end{proof}
 
