@@ -1,14 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Preliminaries}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The purpose of this section is to establish a consistent notation and to review the fundamental structures that will be used throughout the thesis. Our main objects of consideration are étale groupoids, which generalise discrete groups, equivalence relations, and dynamical systems. We start with groupoids and their isotropy, emphasising the decomposition into orbits and stabilisers that underpins many of our constructions. Next, we move on to topological groupoids, where the structure maps must be continuous. We then record the properties of the unit and arrow spaces that will be required. Finally, we specialise in étale groupoids, in which the range and source maps are local homeomorphisms. This property is responsible for the favourable analytical and homological behaviour in the ample case.
+This chapter fixes notation and collects the background material used throughout the thesis. The central objects are \'{e}tale groupoids, a common framework that encompasses discrete groups, equivalence relations, and dynamical systems. We begin with the algebraic notion of a groupoid and its orbit decomposition. We then introduce isotropy and principality, which measure stabiliser phenomena. Next we pass to topological groupoids, where all structure maps are continuous. Finally we specialise to \'{e}tale groupoids, characterised by the source map being a local homeomorphism, equivalently by both source and range maps being local homeomorphisms. This regularity is the input for the analytic and homological constructions in later chapters.
 
 \section{Groupoids}
 A groupoid is a small category in which every morphism is invertible. Equivalently, it is a set \(\G\) of arrows with partially defined composition \(m:\G_2\to\G\), where
 \[
-\G_2 \coloneqq \{(g,h)\in \G\times \G \mid s(g)=r(h)\},
+\G_2 \coloneqq \{(\gamma,\eta)\in \G\times \G \mid s(\gamma)=r(\eta)\},
 \]
-together with an object set, also called unit set, \(\G_0\), range and source maps \(r,s:\G\to\G_0\), and inversion \(g\mapsto g^{-1}\), such that composition is associative on \(\G_2\) and units and inverses satisfy the usual identities \cite[Remark~2.1.5]{Sims2018}. Groupoids are a robust algebraic model for orbit and quotient spaces that can fail to be well behaved topologically. Typical examples are non-\(T_1\) quotients such as the shift space modulo the shift, or the circle modulo an irrational rotation \cite[p.~1]{Sims2018}. As an illustration, let \(\mathbb{T}=\mathbb{R}/\mathbb{Z}\) and fix \(\alpha\in\mathbb{R}\setminus\mathbb{Q}\). Define \(r_\alpha:\mathbb{T}\to\mathbb{T}\) by \(r_\alpha(x)=x+\alpha \bmod 1\), and write \(x\sim y\) if there exists \(n\in\mathbb{Z}\) with \(y=r_\alpha^{n}(x)\). Then \(\mathbb{T}/\!\sim\) is not \(T_1\). Indeed, by Dirichlet’s Approximation Theorem \cite[Theorem~185]{HardyWright2008}, for every interval \(I\subset\mathbb{T}\) there exists \(n\in\mathbb{Z}\) with \(n\alpha \bmod 1\in I\). Hence each orbit \(\{x+n\alpha \bmod 1 \mid n\in\mathbb{Z}\}\) is dense and therefore not closed in \(\mathbb{T}\). Let \(\pi:\mathbb{T}\to \mathbb{T}/\!\sim\) be the quotient map. Then \(\pi^{-1}([x])\) is the non-closed orbit of \(x\). If \([x]\) were closed in \(\mathbb{T}/\!\sim\), its preimage \(\pi^{-1}([x])\) would be closed in \(\mathbb{T}\), a contradiction. We include the proof for completeness.
+together with an object set, the unit space \(\G_0\), range and source maps \(r,s:\G\to\G_0\), and inversion \(\gamma\mapsto \gamma^{-1}\), such that composition is associative on \(\G_2\) and units and inverses satisfy the usual identities \cite[Remark~2.1.5]{Sims2018}. Groupoids are a robust algebraic model for orbit and quotient spaces that can fail to be well behaved topologically. Typical examples are non-\(T_1\) quotients such as the shift space modulo the shift, or the circle modulo an irrational rotation \cite[p.~1]{Sims2018}. As an illustration, let \(\mathbb{T}=\mathbb{R}/\mathbb{Z}\) and fix \(\alpha\in\mathbb{R}\setminus\mathbb{Q}\). Define \(r_\alpha:\mathbb{T}\to\mathbb{T}\) by \(r_\alpha(x)=x+\alpha \bmod 1\), and write \(x\sim y\) if there exists \(n\in\mathbb{Z}\) with \(y=r_\alpha^{n}(x)\). Then \(\mathbb{T}/\!\sim\) is not \(T_1\). Indeed, by Dirichlet’s Approximation Theorem \cite[Theorem~185]{HardyWright2008}, for every interval \(I\subset\mathbb{T}\) there exists \(n\in\mathbb{Z}\) with \(n\alpha \bmod 1\in I\). Hence each orbit \(\{x+n\alpha \bmod 1 \mid n\in\mathbb{Z}\}\) is dense and therefore not closed in \(\mathbb{T}\). Let \(\pi:\mathbb{T}\to \mathbb{T}/\!\sim\) be the quotient map. Then \(\pi^{-1}([x])\) is the non-closed orbit of \(x\). If \([x]\) were closed in \(\mathbb{T}/\!\sim\), its preimage \(\pi^{-1}([x])\) would be closed in \(\mathbb{T}\), a contradiction. We include the proof for completeness.
 
 \begin{setting}
 For \(x\in\mathbb{R}\), write its fractional part as \(\{x\}\coloneqq x-\lfloor x\rfloor\in[0,1)\), where \(\lfloor x\rfloor\coloneqq \max\{n\in\mathbb{Z}\mid n\le x\}\). The distance to the nearest integer is \(\|x\|\coloneqq \min\bigl\{\{x\}, 1-\{x\}\bigr\}\in\bigl[0,\tfrac12\bigr]\).
@@ -42,7 +42,7 @@ In particular \(\|q\alpha\|\le |q\alpha-p|<1/Q\). Since \(Q\) is arbitrary, for 
 \begin{example}~
 \label{ex:orbits}
 \begin{itemize}
-\item \textbf{Irrational rotation on the circle.} Let \(\mathbb{T}=\mathbb{R}/\mathbb{Z}\) with addition modulo \(1\) and \(r_\alpha:\mathbb{T}\to\mathbb{T}\), \(r_\alpha(x)=x+\alpha \bmod 1\), for \(\alpha\in\mathbb{R}\setminus\mathbb{Q}\). Consider the orbit relation \(x\sim y \Leftrightarrow \exists\,n\in\mathbb{Z}: y=r_\alpha^{n}(x)\) and the quotient map \(\pi:\mathbb{T}\to\mathbb{T}/{\sim}\). For irrational \(\alpha\), each orbit \(O(x)=\{r_\alpha^{n}(x)\mid n\in\mathbb{Z}\}\) is dense in \(\mathbb{T}\): let \(I\subset[0,1)\) be an interval of length \(l>0\) and write \(I=[a,a+l)\bmod 1\). Apply the pigeonhole argument used in Dirichlet’s theorem to the \(Q{+}1\) numbers \(\{x-a\},\ \{x+\alpha-a\},\ \dots,\ \{x+Q\alpha-a\}\in[0,1)\) and to the partition of \([0,1)\) into \(Q\) half-open intervals of length \(1/Q\). Then there exist \(0\le k<\ell\le Q\) with \(\{x+\ell\alpha-a\}\) and \(\{x+k\alpha-a\}\) lying in the same subinterval. Without loss of generality assume \(\{x+\ell\alpha-a\}\ge \{x+k\alpha-a\}\). Hence
+\item \textbf{Irrational rotation on the circle.} Let \(\mathbb{T}=\mathbb{R}/\mathbb{Z}\) with addition modulo \(1\) and \(r_\alpha:\mathbb{T}\to\mathbb{T}\), \(r_\alpha(x)=x+\alpha \bmod 1\), for \(\alpha\in\mathbb{R}\setminus\mathbb{Q}\). Consider the orbit relation \(x\sim y \Leftrightarrow \exists n\in\mathbb{Z}: y=r_\alpha^{n}(x)\) and the quotient map \(\pi:\mathbb{T}\to\mathbb{T}/{\sim}\). For irrational \(\alpha\), each orbit \(O(x)=\{r_\alpha^{n}(x)\mid n\in\mathbb{Z}\}\) is dense in \(\mathbb{T}\): let \(I\subset[0,1)\) be an interval of length \(l>0\) and write \(I=[a,a+l)\bmod 1\). Apply the pigeonhole argument used in Dirichlet’s theorem to the \(Q{+}1\) numbers \(\{x-a\},\ \{x+\alpha-a\},\ \dots,\ \{x+Q\alpha-a\}\in[0,1)\) and to the partition of \([0,1)\) into \(Q\) half-open intervals of length \(1/Q\). Then there exist \(0\le k<\ell\le Q\) with \(\{x+\ell\alpha-a\}\) and \(\{x+k\alpha-a\}\) lying in the same subinterval. Without loss of generality assume \(\{x+\ell\alpha-a\}\ge \{x+k\alpha-a\}\). Hence
 \[
 0\le \{x+\ell\alpha-a\}-\{x+k\alpha-a\}<\frac{1}{Q}.
 \]
@@ -67,16 +67,16 @@ The shift map \(\sigma:\Sigma\to\Sigma\), \((\sigma(x))_n\coloneqq x_{n+1}\), is
 \end{itemize}
 \end{example}
 
-To connect the examples above with the general theory, we begin with a hands-on axiomatisation of a groupoid in the notation \((\mathcal{G},\mathcal{G}_0,r,s,m,-^{-1})\) and with left--to--right composition \(\gamma\cdot\eta\), defined when \(s(\gamma)=r(\eta)\). This presentation is slightly redundant but keeps all structure maps visible and is useful for intuition and for later constructions, such as nerves and pushforwards. After deriving a few basic consequences, we recast the same object in its concise categorical form, namely a small category in which every arrow is invertible, and verify that the two formulations are equivalent. For étale groupoids we will in addition record that \(r\) and \(s\) are local homeomorphisms, aligning with the simplicial setup in Chapter~\ref{chap:moore-homology}.
+To connect the examples above with the general theory, we begin with a hands-on axiomatisation of a groupoid in the notation \((\mathcal{G},\mathcal{G}_0,r,s,m,i)\) and with left--to--right composition \(\gamma\cdot\eta\), defined when \(s(\gamma)=r(\eta)\). This presentation is slightly redundant but keeps all structure maps visible and is useful for intuition and for later constructions, such as nerves and pushforwards. After deriving a few basic consequences, we recast the same object in its concise categorical form, namely a small category in which every arrow is invertible, and verify that the two formulations are equivalent. For \'{e}tale groupoids we record the equivalent reformulation that \(r\) and \(s\) are local homeomorphisms, aligning with the simplicial setup in Chapter~\ref{chap:moore-homology}.
 
 \begin{definition}[Groupoid {\cite[Remark~2.1.5]{Sims2018}}]
 \label{def:groupoid}
-A groupoid is a sextuple \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})\) consisting of a set of morphisms \(\mathcal{G}\), a distinguished subset \(\mathcal{G}_0\subseteq\mathcal{G}\) of units, range and source maps \(r,s:\mathcal{G}\to\mathcal{G}_0\), a partially defined multiplication on composable pairs
+A groupoid is a sextuple \((\mathcal{G},\mathcal{G}_0,r,s,m,i)\) consisting of a set of morphisms \(\mathcal{G}\), a distinguished subset \(\mathcal{G}_0\subseteq\mathcal{G}\) of units, range and source maps \(r,s:\mathcal{G}\to\mathcal{G}_0\), a partially defined multiplication on composable pairs
 \[
 \cdot: \mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\ \to\ \mathcal{G},\quad
 (\alpha,\beta)\mapsto \alpha\cdot\beta,
 \]
-and an inversion map \(-^{-1}:\mathcal{G}\to\mathcal{G}\), subject to:
+and an inversion map \(i:\mathcal{G}\to\mathcal{G}\), \(i(\gamma)\coloneqq \gamma^{-1}\), subject to:
 \begin{enumerate}[noitemsep,nolistsep]
 \item[(G1)] \(r(x)=x=s(x)\) for all \(x\in\mathcal{G}_0\).
 \item[(G2)] \(r(\gamma)\cdot\gamma=\gamma=\gamma\cdot s(\gamma)\) for all \(\gamma\in\mathcal{G}\).
@@ -127,7 +127,7 @@ In particular, \(F(1_x)=1_{F_{0}(x)}\) for all \(x\in\mathcal G_{0}\) and
 \end{definition}
 
 \begin{remark}
-We will write \(\G\) for the data \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})\) whenever the unit space, the range and source maps, the multiplication, and the inversion are clear from context.
+We will write \(\G\) for the data \((\mathcal{G},\mathcal{G}_0,r,s,m,i)\) whenever the unit space, the range and source maps, the multiplication, and the inversion are clear from context.
 \end{remark}
 
 \begin{definition}
@@ -135,10 +135,10 @@ A homomorphism of groupoids \(F:\G\to\Hh\) is an isomorphism of groupoids if the
 \end{definition}
 
 \begin{remark}
-For étale groupoids we will require \(F\) and \(F_0\) to be continuous. Since \(\mathcal{G}_0\subseteq\mathcal{G}\) carries the subspace topology, continuity of \(F\) implies continuity of \(F_0=F|_{\mathcal{G}_0}\).
+For \'{e}tale groupoids we will require \(F\) and \(F_0\) to be continuous. Since \(\mathcal{G}_0\subseteq\mathcal{G}\) carries the subspace topology, continuity of \(F\) implies continuity of \(F_0=F|_{\mathcal{G}_0}\).
 \end{remark}
 
-Principal groupoids capture pure orbit structure without isotropy groups of units, also called internal stabilisers. Every morphism is determined uniquely by its source and range. For transformation groupoids this corresponds to free actions.
+Principal groupoids capture pure orbit structure without isotropy groups of units, also known as internal stabilisers. Every morphism is determined uniquely by its source and range. For transformation groupoids this corresponds to free actions.
 
 \begin{definition}
 We call \(\mathcal{G}\) principal if any of the following equivalent conditions hold:
@@ -157,17 +157,17 @@ The transformation groupoid from Example~\ref{ex:groupoids-canon} \(\Gamma\ltime
 \end{proposition}
 
 \begin{remark}
-Here, \(\Gamma\ltimes X\) is also étale, see Section~\ref{chapter:etalegroupoids}. Étaleness does not depend on freeness.
+Here, \(\Gamma\ltimes X\) is also \'{e}tale, see Section~\ref{chapter:etalegroupoids}. \'{E}taleness does not depend on freeness.
 \end{remark}
 
 \begin{proof}
-For \(x\in X\), the isotropy group of \(\Gamma\ltimes X\) at \(x\) is \((\Gamma\ltimes X)_x=\{(g,x)\mid g\cdot x=x\}\), which is isomorphic to the stabiliser \(\Gamma_x=\{g\in\Gamma \mid g\cdot x=x\}\) via \((g,x)\mapsto g\). Thus \(\Gamma\ltimes X\) is principal if and only if every \(\Gamma_x\) is trivial, that is the action is free. For étaleness, assume \(\Gamma\) is discrete and the action is continuous. Give \(\Gamma\times X\) the product topology. For any \((g,x)\in\Gamma\times X\) and any open \(U\ni x\), the restrictions \(s|_{\{g\}\times U}:\{g\}\times U\to U\) and \(r|_{\{g\}\times U}:\{g\}\times U\to g\cdot U\) are homeomorphisms. Hence \(s\) and \(r\) are local homeomorphisms and \(\Gamma\ltimes X\) is étale.
+For \(x\in X\), the isotropy group of \(\Gamma\ltimes X\) at \(x\) is \((\Gamma\ltimes X)_x=\{(g,x)\mid g\cdot x=x\}\), which is isomorphic to the stabiliser \(\Gamma_x=\{g\in\Gamma \mid g\cdot x=x\}\) via \((g,x)\mapsto g\). Thus \(\Gamma\ltimes X\) is principal if and only if every \(\Gamma_x\) is trivial, that is the action is free. For \'{e}taleness, assume \(\Gamma\) is discrete and the action is continuous. Give \(\Gamma\times X\) the product topology. For any \((g,x)\in\Gamma\times X\) and any open \(U\ni x\), the restrictions \(s|_{\{g\}\times U}:\{g\}\times U\to U\) and \(r|_{\{g\}\times U}:\{g\}\times U\to g\cdot U\) are homeomorphisms. Hence \(s\) and \(r\) are local homeomorphisms and \(\Gamma\ltimes X\) is \'{e}tale.
 \end{proof}
 
 Minimality singles out groupoids with no proper invariant pieces of the unit space. Every orbit is dense, so the dynamics are indecomposable. For transformation groupoids this corresponds to minimal actions.
 
 \begin{definition}[Minimal groupoid]
-Let \(\G\) be a topological groupoid. For \(x\in\mathcal{G}_0\) write the orbit \(O(x)\coloneqq \{r(\gamma) \mid \gamma\in\mathcal{G},\ s(\gamma)=x\}\). A subset \(U\subseteq\mathcal{G}_0\) is invariant, also called saturated, if it is a union of orbits. Equivalently \(r\bigl(s^{-1}(U)\bigr)=U\), or equivalently \(s\bigl(r^{-1}(U)\bigr)=U\). We call \(\mathcal{G}\) minimal if any of the following hold:
+Let \(\G\) be a topological groupoid. For \(x\in\mathcal{G}_0\) write the orbit \(O(x)\coloneqq \{r(\gamma) \mid \gamma\in\mathcal{G},\ s(\gamma)=x\}\). A subset \(U\subseteq\mathcal{G}_0\) is invariant, also known as saturated, if it is a union of orbits. Equivalently \(r\bigl(s^{-1}(U)\bigr)=U\), or equivalently \(s\bigl(r^{-1}(U)\bigr)=U\). We call \(\mathcal{G}\) minimal if any of the following hold:
 \begin{enumerate}[noitemsep]
 \item[(M1)] \textbf{Dense orbits:} \(\overline{O(x)}=\mathcal{G}_0\) for all \(x\in\mathcal{G}_0\).
 \item[(M2)] There is no nonempty proper open invariant \(U\subset\mathcal{G}_0\).
@@ -181,23 +181,23 @@ For a left action \(\Gamma\rhd X\), the transformation groupoid \(\Gamma\ltimes 
 \begin{example}[Groupoids {\cite[Ex.~2.1.7–2.1.11]{Sims2018}}]\label{ex:groupoids-canon}~
 \begin{itemize}[noitemsep]
 \item \textbf{Groups.} Every group \(G\) is a discrete groupoid with one unit:
-\(\mathcal{G}=G\), \(\mathcal{G}_0=\{e\}\), \(r(g)=s(g)=e\), multiplication \(g\cdot h=gh\), inversion \(g\mapsto g^{-1}\).
+\(\mathcal{G}=G\), \(\mathcal{G}_0=\{e\}\), \(r(g)=s(g)=e\), multiplication \(g\cdot h=gh\), inversion \(\gamma\mapsto \gamma^{-1}\).
 
 A groupoid is a group if and only if \(\mathcal{G}_0\) is a singleton.
 
 \item \textbf{Group bundles.} Let \(X\) be a set and \(\{G_x\}_{x\in X}\) a family of groups. Put \(\mathcal{G}\coloneqq \bigsqcup_{x\in X}\{x\}\times G_x\), \(\mathcal{G}_0=\{ (x,e_{G_x}) \mid x\in X \}\cong X\), \(r(x,g)=x=s(x,g)\), \((x,g)\cdot(x,h)=(x,gh)\), \((x,g)^{-1}=(x,g^{-1})\). If each \(G_x\) is a topological group and the disjoint union carries the sum topology, this is a topological groupoid, see Definition~\ref{def:topological-groupoid}.
 
-\item \textbf{Equivalence-relation groupoid.} For a set \(X\) and an equivalence relation \(R\subseteq X\times X\), let \(\mathcal{G}=R\), \(\mathcal{G}_0=X\), \(r(x,y)=x\), \(s(x,y)=y\), \((x,y)^{-1}=(y,x)\), and \((x,y)\cdot(y,z)=(x,z)\). If \(X\) is a topological space and \(R\subseteq X\times X\) is equipped with the subspace topology, this is a topological groupoid. It is principal. It is étale whenever the coordinate projections are local homeomorphisms, for instance if \(X\) is discrete, or if \(R\) is an étale equivalence relation on a Cantor set.
+\item \textbf{Equivalence-relation groupoid.} For a set \(X\) and an equivalence relation \(R\subseteq X\times X\), let \(\mathcal{G}=R\), \(\mathcal{G}_0=X\), \(r(x,y)=x\), \(s(x,y)=y\), \((x,y)^{-1}=(y,x)\), and \((x,y)\cdot(y,z)=(x,z)\). If \(X\) is a topological space and \(R\subseteq X\times X\) is equipped with the subspace topology, this is a topological groupoid. It is principal. It is \'{e}tale whenever the coordinate projections are local homeomorphisms, for instance if \(X\) is discrete, or if \(R\) is an \'{e}tale equivalence relation on a Cantor set.
 
-\item \textbf{Matrix finite pair groupoid.} For \(X=\{1,\dots,n\}\) the pair groupoid \(\mathcal{G}=X\times X\) with morphisms \((i,j)\), units \(X\), and composition \((i,k)\cdot(k,j)=(i,j)\) is discrete, principal, and étale. Its groupoid \(C^\ast\)-algebra is \(\operatorname{Mat}(n \times n,\mathbb{C})\) with matrix units \(E_{ij}\) that correspond to \((i,j)\).
+\item \textbf{Matrix finite pair groupoid.} For \(X=\{1,\dots,n\}\) the pair groupoid \(\mathcal{G}=X\times X\) with morphisms \((i,j)\), units \(X\), and composition \((i,k)\cdot(k,j)=(i,j)\) is discrete, principal, and \'{e}tale. Its groupoid \(C^\ast\)-algebra is \(\operatorname{Mat}(n \times n,\mathbb{C})\) with matrix units \(E_{ij}\) that correspond to \((i,j)\).
 
-\item \textbf{Transformation groupoid.} Let a discrete group \(\Gamma\) act on an \(\mathbf{LCH}\) space \(X\) by homeomorphisms. The transformation groupoid \(\mathcal{G}=\Gamma\ltimes X\) has objects \(\mathcal{G}_0=X\), morphisms \(\Gamma\times X\), \(r(g,x)=g\cdot x\), \(s(g,x)=x\), \((g,x)^{-1}=(g^{-1},g\cdot x)\), and \((h,g\cdot x)\cdot(g,x)=(hg,x)\) whenever \(s(h,g\cdot x)=r(g,x)\). Since \(\Gamma\) is discrete, \(r\) and \(s\) are local homeomorphisms. Thus \(\Gamma\ltimes X\) is étale. For \(r_\alpha\) on \(\mathbb{T}\), the groupoid \(\mathbb{Z}\ltimes\mathbb{T}\) is Hausdorff, étale, principal, and minimal.
+\item \textbf{Transformation groupoid.} Let a discrete group \(\Gamma\) act on an \(\mathbf{LCH}\) space \(X\) by homeomorphisms. The transformation groupoid \(\mathcal{G}=\Gamma\ltimes X\) has objects \(\mathcal{G}_0=X\), morphisms \(\Gamma\times X\), \(r(g,x)=g\cdot x\), \(s(g,x)=x\), \((g,x)^{-1}=(g^{-1},g\cdot x)\), and \((h,g\cdot x)\cdot(g,x)=(hg,x)\) whenever \(s(h,g\cdot x)=r(g,x)\). Since \(\Gamma\) is discrete, \(r\) and \(s\) are local homeomorphisms. Thus \(\Gamma\ltimes X\) is \'{e}tale. For \(r_\alpha\) on \(\mathbb{T}\), the groupoid \(\mathbb{Z}\ltimes\mathbb{T}\) is Hausdorff, \'{e}tale, principal, and minimal.
 
 \item \textbf{Deaconu–Renault groupoid of a local homeomorphism.} Let \(f:X\to X\) be a local homeomorphism of an \(\mathbf{LCH}\) space. Define
 \[
-\mathcal{G}_f\coloneqq\{(x,k,y)\in X\times\mathbb{Z}\times X \mid \exists\,m,n\ge 0: k=n-m \ \text{and} \ f^n(x)=f^m(y)\},
+\mathcal{G}_f\coloneqq\{(x,k,y)\in X\times\mathbb{Z}\times X \mid \exists m,n\ge 0: k=n-m \ \text{and} \ f^n(x)=f^m(y)\},
 \]
-with \(r(x,k,y)=x\), \(s(x,k,y)=y\), \((x,k,y)^{-1}=(y,-k,x)\), and \((x,k,y)\cdot(y,\ell,z)=(x,k+\ell,z)\). Then \(\mathcal{G}_f\) is Hausdorff and étale. It is principal if and only if no point is eventually periodic. It becomes principal on the aperiodic part.
+with \(r(x,k,y)=x\), \(s(x,k,y)=y\), \((x,k,y)^{-1}=(y,-k,x)\), and \((x,k,y)\cdot(y,\ell,z)=(x,k+\ell,z)\). Then \(\mathcal{G}_f\) is Hausdorff and \'{e}tale. It is principal if and only if no point is eventually periodic. It becomes principal on the aperiodic part.
 \end{itemize}
 \end{example}
 
@@ -271,11 +271,11 @@ Thus \(\gamma^{-1}\) is unique.
 \end{enumerate}
 \end{proof}
 
-For later simplicial constructions, we want the domain of composition to be recorded as part of the data. Presenting a groupoid via its set of composable pairs makes the multiplication explicitly partial, allows us to form the iterated fibre products \(\mathcal{G}_n\) cleanly, and aligns with the étale setting in which \(\mathcal{G}_2\) is the fibre product over \(\mathcal{G}_0\). This viewpoint streamlines nerves and pushforwards with topological arguments.
+For later simplicial constructions, we want the domain of composition to be recorded as part of the data. Presenting a groupoid via its set of composable pairs makes the multiplication explicitly partial, allows us to form the iterated fibre products \(\mathcal{G}_n\) cleanly, and aligns with the \'{e}tale setting in which \(\mathcal{G}_2\) is the fibre product over \(\mathcal{G}_0\). This viewpoint streamlines nerves and pushforwards with topological arguments.
 
 \begin{definition}[Groupoid {\cite[Definition~2.1.1]{Sims2018}}]
 \label{def:groupoid2}
-A groupoid is given by the quadruple \((\mathcal{G},\mathcal{G}_2,m,-^{-1})\) where \(\mathcal{G}\) is a set of morphisms, \(\mathcal{G}_2\subseteq \mathcal{G}\times\mathcal{G}\) is the set of composable pairs, \(m:\mathcal{G}_2\to\mathcal{G}\) multiplication, written \(m(\alpha,\beta)=\alpha\cdot\beta\), and \(-^{-1}:\mathcal{G}\to\mathcal{G}\) inversion, subject to:
+A groupoid is given by the quadruple \((\mathcal{G},\mathcal{G}_2,m,i)\) where \(\mathcal{G}\) is a set of morphisms, \(\mathcal{G}_2\subseteq \mathcal{G}\times\mathcal{G}\) is the set of composable pairs, \(m:\mathcal{G}_2\to\mathcal{G}\) multiplication, written \(m(\alpha,\beta)=\alpha\cdot\beta\), and \(i:\mathcal{G}\to\mathcal{G}\) inversion, subject to:
 \begin{enumerate}[noitemsep,nolistsep]
 \item[(G1')] \((\gamma^{-1})^{-1}=\gamma\) for all \(\gamma\in\mathcal{G}\).
 \item[(G2')] If \((\alpha,\beta)\) and \((\beta,\gamma)\) lie in \(\mathcal{G}_2\), then \((\alpha\cdot\beta,\gamma)\) and \((\alpha,\beta\cdot\gamma)\) lie in \(\mathcal{G}_2\) and \((\alpha\cdot\beta)\cdot\gamma=\alpha\cdot(\beta\cdot\gamma)\).
@@ -299,12 +299,12 @@ We use left--to--right composition \(\alpha\cdot\beta\).
 Units are derived rather than primitive in this version. The four axioms encode inversion, associativity with domain control, and the two unit laws via cancellation identities, from which \(\mathcal{G}_0\) together with \(r\) and \(s\) are defined. This presentation is economical for proofs and aligns with categorical practice, morphisms first, objects reconstructed, yet it is equivalent to the expanded axiom list used earlier. The relationship with the previous definition is as follows:
 
 \begin{proposition}[Equivalence of presentations]
-Let \(\mathcal{G}\) be a groupoid \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})\) and axioms (G1)–(G6) as in Definition~\ref{def:groupoid}. Then one obtains the presentation from Definition~\ref{def:groupoid2} by setting \(\mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\) and \(m(\alpha,\beta)\coloneqq \alpha\cdot\beta\), with inversion as before. Conversely, let \((\mathcal{G},\mathcal{G}_2,m,-^{-1})\) satisfy (G1')–(G4'). Define \(\mathcal{G}_0\coloneqq \{\gamma\cdot\gamma^{-1}\mid \gamma\in\mathcal{G}\}=\{\gamma^{-1}\cdot\gamma\mid \gamma\in\mathcal{G}\}\), \(r(\gamma)\coloneqq \gamma\cdot\gamma^{-1}\), and \(s(\gamma)\coloneqq \gamma^{-1}\cdot\gamma\). Then the axioms (G1)–(G6) hold with left--to--right composition, and the domain of multiplication agrees with source--range matching, that is \((\alpha,\beta)\in\mathcal{G}_2 \Leftrightarrow s(\alpha)=r(\beta)\).
+Let \(\mathcal{G}\) be a groupoid \((\mathcal{G},\mathcal{G}_0,r,s,m,i)\) and axioms (G1)–(G6) as in Definition~\ref{def:groupoid}. Then one obtains the presentation from Definition~\ref{def:groupoid2} by setting \(\mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\) and \(m(\alpha,\beta)\coloneqq \alpha\cdot\beta\), with inversion as before. Conversely, let \((\mathcal{G},\mathcal{G}_2,m,i)\) satisfy (G1')–(G4'). Define \(\mathcal{G}_0\coloneqq \{\gamma\cdot\gamma^{-1}\mid \gamma\in\mathcal{G}\}=\{\gamma^{-1}\cdot\gamma\mid \gamma\in\mathcal{G}\}\), \(r(\gamma)\coloneqq \gamma\cdot\gamma^{-1}\), and \(s(\gamma)\coloneqq \gamma^{-1}\cdot\gamma\). Then the axioms (G1)–(G6) hold with left--to--right composition, and the domain of multiplication agrees with source--range matching, that is \((\alpha,\beta)\in\mathcal{G}_2 \Leftrightarrow s(\alpha)=r(\beta)\).
 \end{proposition}
 
 \begin{proof}~
 \begin{itemize}
-\item \textbf{Assume we are given \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})\) satisfying (G1)–(G6).} Define \(\mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\) and \(m(\alpha,\beta)\coloneqq \alpha\cdot\beta\). Then:
+\item \textbf{Assume we are given \((\mathcal{G},\mathcal{G}_0,r,s,m,i)\) satisfying (G1)–(G6).} Define \(\mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\) and \(m(\alpha,\beta)\coloneqq \alpha\cdot\beta\). Then:
 \begin{itemize}[noitemsep,nolistsep]
 \item (G1') holds by the involutivity lemma \((\gamma^{-1})^{-1}=\gamma\), which follows from (G2)–(G4) and associativity (G6).
 \item (G2') holds by (G5) and (G6): if \((\alpha,\beta)\) and \((\beta,\gamma)\) lie in \(\mathcal{G}_2\), then \(s(\alpha)=r(\beta)\) and \(s(\beta)=r(\gamma)\). By (G5), \(s(\alpha\cdot\beta)=s(\beta)=r(\gamma)\) and \(r(\beta\cdot\gamma)=r(\beta)=s(\alpha)\), hence \((\alpha\cdot\beta,\gamma)\) and \((\alpha,\beta\cdot\gamma)\) lie in \(\mathcal{G}_2\), and (G6) yields \((\alpha\cdot\beta)\cdot\gamma=\alpha\cdot(\beta\cdot\gamma)\).
@@ -312,7 +312,7 @@ Let \(\mathcal{G}\) be a groupoid \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})
 \item (G4') is exactly the cancellation lemma above: for all \((\gamma,\eta)\in\mathcal{G}_2\) one has \(\gamma^{-1}\cdot(\gamma\cdot\eta)=\eta\) and \((\gamma\cdot\eta)\cdot\eta^{-1}=\gamma\).
 \end{itemize}
 
-\item \textbf{Assume we are given \((\mathcal{G},\mathcal{G}_2,m,-^{-1})\) satisfying (G1')–(G4').} Define \(\mathcal{G}_0\coloneqq \{\gamma\cdot\gamma^{-1}\mid \gamma\in\mathcal{G}\}=\{\gamma^{-1}\cdot\gamma\mid \gamma\in\mathcal{G}\}\), \(r(\gamma)\coloneqq \gamma\cdot\gamma^{-1}\), and \(s(\gamma)\coloneqq \gamma^{-1}\cdot\gamma\). We verify (G1)–(G6) and the identification of the domain of composition.
+\item \textbf{Assume we are given \((\mathcal{G},\mathcal{G}_2,m,i)\) satisfying (G1')–(G4').} Define \(\mathcal{G}_0\coloneqq \{\gamma\cdot\gamma^{-1}\mid \gamma\in\mathcal{G}\}=\{\gamma^{-1}\cdot\gamma\mid \gamma\in\mathcal{G}\}\), \(r(\gamma)\coloneqq \gamma\cdot\gamma^{-1}\), and \(s(\gamma)\coloneqq \gamma^{-1}\cdot\gamma\). We verify (G1)–(G6) and the identification of the domain of composition.
 \begin{itemize}[noitemsep,nolistsep]
 \item By (G3') we have \((\gamma,\gamma^{-1})\) and \((\gamma^{-1},\gamma)\) in \(\mathcal{G}_2\). Taking \(\eta=\gamma^{-1}\) in (G4') and using (G1'), we obtain \((\gamma\cdot\gamma^{-1})\cdot(\gamma^{-1})^{-1}=\gamma\), hence \(r(\gamma)\cdot\gamma=\gamma\). Taking \(\gamma=\eta^{-1}\) in the second identity of (G4') yields \(\eta\cdot(\eta^{-1}\cdot\eta)=\eta\), hence \(\gamma\cdot s(\gamma)=\gamma\). Thus (G2) holds.
 \item Let \((\alpha,\beta)\in\mathcal{G}_2\) and set \(\delta\coloneqq \beta^{-1}\cdot\alpha^{-1}\). Using (G2') and (G4'),
@@ -414,18 +414,16 @@ Therefore \(\mathrm{Ad}_\gamma\) is a group isomorphism.
 Topological structure allows groupoids to encode convergence, compactness, and local symmetries, unifying groups, group actions, and equivalence relations within a single analytic–geometric framework. It also captures pathological quotients faithfully -- for instance the orbit spaces in Example~\ref{ex:orbits} -- while retaining continuous structure maps that are crucial for later homological constructions.
 
 \begin{definition}[Topological groupoids {\cite[§2.1]{Komura2020}}]
-A topological groupoid is a groupoid \((\mathcal{G},\mathcal{G}_0,r,s,\cdot,-^{-1})\) equipped with topologies on \(\mathcal{G}\) and \(\mathcal{G}_0\) such that:
+A topological groupoid is a groupoid \((\mathcal{G},\mathcal{G}_0,r,s,m,i,u)\) equipped with topologies on \(\mathcal{G}\) and \(\mathcal{G}_0\) such that:
 \begin{enumerate}[noitemsep,nolistsep]
   \item[(T1)] \(\mathcal{G}_0\subseteq \mathcal{G}\) is the unit space, endowed with the subspace topology.
   \item[(T2)] \(r,s:\mathcal{G}\to\mathcal{G}_0\) are continuous.
-  \item[(T3)] \(\mathcal{G}_2\coloneqq\{(\alpha,\beta)\in\mathcal{G}\times\mathcal{G}\mid s(\alpha)=r(\beta)\}\) carries the subspace topology from \(\mathcal{G}\times\mathcal{G}\), and multiplication \(m:\mathcal{G}_2\to\mathcal{G}\), \((\alpha,\beta)\mapsto \alpha\cdot\beta\), is continuous.
-  \item[(T4)] The inversion map \(-^{-1}:\mathcal{G}\to\mathcal{G}\) is continuous.
+  \item[(T3)] \(\mathcal{G}_2\coloneqq\{(\gamma,\eta)\in\mathcal{G}\times\mathcal{G}\mid s(\gamma)=r(\eta)\}\) carries the subspace topology from \(\mathcal{G}\times\mathcal{G}\), and multiplication \(m:\mathcal{G}_2\to\mathcal{G}\), \((\gamma,\eta)\mapsto \gamma\cdot\eta\), is continuous.
+  \item[(T4)] The inversion map \(i:\mathcal{G}\to\mathcal{G}\), \(i(\gamma)\coloneqq \gamma^{-1}\), is continuous.
+  \item[(T5)] The unit map \(u:\mathcal{G}_0\to\mathcal{G}\), \(u(x)\coloneqq 1_x\), is continuous.
 \end{enumerate}
 \end{definition}
 
-\begin{remark}[\'{E}tale groupoids {\cite[§2.1]{Komura2020}}]
-When, in addition, \(r\) and \(s\) are local homeomorphisms, the groupoid \(\mathcal{G}\) is called \'etale.
-\end{remark}
 
 Subgroupoids isolate controlled pieces of a groupoid -- reductions to invariant subspaces, isotropy, kernels/images of homomorphisms. They are building blocks for exact constructions.
 
@@ -435,9 +433,9 @@ Let \(\mathcal{G}\) be a groupoid. A subgroupoid consists of subsets \(\mathcal{
 r\vert^{\mathcal{H}_0}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H}_0,
 s\vert^{\mathcal{H}_0}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H}_0,
 m\vert^{\mathcal{H}}_{\mathcal{H}_2}:\mathcal{H}_2\to\mathcal{H},
-(-^{-1})|^{\mathcal{H}}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H},
+(i)|^{\mathcal{H}}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H},
 \)
-where \(\mathcal{H}_2\coloneqq\{(\alpha,\beta)\in\mathcal{H}\times\mathcal{H}\mid s(\alpha)=r(\beta)\,\}\), such that:
+where \(\mathcal{H}_2\coloneqq\{(\alpha,\beta)\in\mathcal{H}\times\mathcal{H}\mid s(\alpha)=r(\beta) \}\), such that:
 \begin{enumerate}[noitemsep,nolistsep]
   \item[(S1)] \(\mathcal{H}_0=\mathcal{H}\cap\mathcal{G}_0\) and \(r(\mathcal{H})\cup s(\mathcal{H})\subseteq\mathcal{H}_0\).
   \item[(S2)] If \((\alpha,\beta)\in\mathcal{H}_2\), then \(\alpha\cdot\beta\in\mathcal{H}\).
@@ -501,17 +499,17 @@ $\mathcal{G}(x,y)\coloneqq\{\gamma\in\mathcal{G}\mid r(\gamma)=x,\ s(\gamma)=y\}
 the set of morphisms from $y$ to $x$. Composition restricts to $\mathcal{G}(x,y)\times\mathcal{G}(y,z)\to\mathcal{G}(x,z)$, $(\alpha,\beta)\mapsto\alpha\cdot\beta$. $\mathcal{G}(x,y)$ and $\mathcal{N}_x$ carry the subspace topology from $\mathcal{G}$.
 \end{setting}
 
-The following examples form the basic operations for constructing and analysing groupoids. The pair groupoid \(X\times X\) encodes the space itself. The transformation groupoid \(\Gamma\ltimes X\) models orbit spaces of actions while remaining \'etale for discrete \(\Gamma\). Reductions \(\mathcal{G}\vert_U\) implement localisation along units, and quotients by wide normal isotropy subgroupoids collapse internal symmetries. Such quotients are needed for functoriality, Morita invariance, and homology.
+The following examples form the basic operations for constructing and analysing groupoids. The pair groupoid \(X\times X\) encodes the space itself. The transformation groupoid \(\Gamma\ltimes X\) models orbit spaces of actions while remaining \'{e}tale for discrete \(\Gamma\). Reductions \(\mathcal{G}\vert_U\) implement localisation along units, and quotients by wide normal isotropy subgroupoids collapse internal symmetries. Such quotients are needed for functoriality, Morita invariance, and homology.
 
 \begin{example}~
 \label{ex:groupoids}
 \begin{itemize}[noitemsep,nolistsep]
-  \item \textbf{Topological groupoid.} Let \(X\) be a topological space. Set \(\mathcal{G}=X\times X\), \(\mathcal{G}_0=X\), \(r(x,y)=x\), \(s(x,y)=y\), inversion \((x,y)^{-1}=(y,x)\), and composition \((x,y)\cdot(y,z)=(x,z)\). All structure maps are continuous, so \(\mathcal{G}\) is a topological groupoid. It is \'etale iff \(X\) is discrete. Otherwise the projections are not local homeomorphisms. If $X$ is discrete, then for each $(x,y)\in\G$ the singleton $\{(x,y)\}$ is open in $X\times X$, and
+  \item \textbf{Topological groupoid.} Let \(X\) be a topological space. Set \(\mathcal{G}=X\times X\), \(\mathcal{G}_0=X\), \(r(x,y)=x\), \(s(x,y)=y\), inversion \((x,y)^{-1}=(y,x)\), and composition \((x,y)\cdot(y,z)=(x,z)\). All structure maps are continuous, so \(\mathcal{G}\) is a topological groupoid. It is \'{e}tale iff \(X\) is discrete. Otherwise the projections are not local homeomorphisms. If $X$ is discrete, then for each $(x,y)\in\G$ the singleton $\{(x,y)\}$ is open in $X\times X$, and
   \(r\big|_{\{(x,y)\}} : \{(x,y)\}\to\{x\},\)
   \(s\big|_{\{(x,y)\}} : \{(x,y)\}\to\{y\},\)
-  are homeomorphisms onto open subsets of $X$. Hence $r$ and $s$ are local homeomorphisms, so $\G$ is \'etale. Conversely, suppose $\G$ is \'etale. Then in particular $r$ is a local homeomorphism. Fix $x\in X$ and consider the arrow $(x,x)\in\G$. By local homeomorphy of $r$ there exist open neighbourhoods $U\subseteq X\times X$ of $(x,x)$ and $V\subseteq X$ of $x$ such that \(r\big|_U : U\to V\) is a homeomorphism. Since $r$ is the projection onto the first coordinate, the restriction $r\big|_U$ is bijective, so $U$ is the graph of a continuous map $f:V\to X$: \(U = \{(v,f(v)) \mid v\in V\}.\) Because $U$ is open in $X\times X$ and $(x,x)\in U$, there exist open neighbourhoods $W_1,W_2\subseteq X$ of $x$ such that $W_1\times W_2\subseteq U$. Let $w\in W_2$. Then for every $v\in W_1$ we have $(v,w)\in W_1\times W_2\subseteq U$, so $(v,w)=(v,f(v))$ and hence $w=f(v)$. Thus $w$ does not depend on $v$, and in particular for $v=x$ we get $w=f(x)$. Since also $(x,x)\in U$, we have $f(x)=x$, so $w=x$. Therefore every $w\in W_2$ equals $x$, and hence $W_2=\{x\}$ is open in $X$. As $x\in X$ was arbitrary, every singleton $\{x\}$ is open, so $X$ is discrete.
+  are homeomorphisms onto open subsets of $X$. Hence $r$ and $s$ are local homeomorphisms, so $\G$ is \'{e}tale. Conversely, suppose $\G$ is \'{e}tale. Then in particular $r$ is a local homeomorphism. Fix $x\in X$ and consider the arrow $(x,x)\in\G$. By local homeomorphy of $r$ there exist open neighbourhoods $U\subseteq X\times X$ of $(x,x)$ and $V\subseteq X$ of $x$ such that \(r\big|_U : U\to V\) is a homeomorphism. Since $r$ is the projection onto the first coordinate, the restriction $r\big|_U$ is bijective, so $U$ is the graph of a continuous map $f:V\to X$: \(U = \{(v,f(v)) \mid v\in V\}.\) Because $U$ is open in $X\times X$ and $(x,x)\in U$, there exist open neighbourhoods $W_1,W_2\subseteq X$ of $x$ such that $W_1\times W_2\subseteq U$. Let $w\in W_2$. Then for every $v\in W_1$ we have $(v,w)\in W_1\times W_2\subseteq U$, so $(v,w)=(v,f(v))$ and hence $w=f(v)$. Thus $w$ does not depend on $v$, and in particular for $v=x$ we get $w=f(x)$. Since also $(x,x)\in U$, we have $f(x)=x$, so $w=x$. Therefore every $w\in W_2$ equals $x$, and hence $W_2=\{x\}$ is open in $X$. As $x\in X$ was arbitrary, every singleton $\{x\}$ is open, so $X$ is discrete.
 
-  \item \textbf{\'Etale groupoid.} Let a discrete group \(\Gamma\) act by homeomorphisms on a locally compact Hausdorff space \(X\). Set \(\mathcal{G}=\Gamma\ltimes X\), \(\mathcal{G}_0=X\), \(r(g,x)=g\cdot x\), \(s(g,x)=x\), inversion \((g,x)^{-1}=(g^{-1},g\cdot x)\), and composition \((h,g\cdot x)\cdot(g,x)=(hg,x)\). Since \(\Gamma\) is discrete, \(r\) and \(s\) are local homeomorphisms. Hence \(\Gamma\ltimes X\) is \'etale.
+  \item \textbf{\'{E}tale groupoid.} Let a discrete group \(\Gamma\) act by homeomorphisms on a locally compact Hausdorff space \(X\). Set \(\mathcal{G}=\Gamma\ltimes X\), \(\mathcal{G}_0=X\), \(r(g,x)=g\cdot x\), \(s(g,x)=x\), inversion \((g,x)^{-1}=(g^{-1},g\cdot x)\), and composition \((h,g\cdot x)\cdot(g,x)=(hg,x)\). Since \(\Gamma\) is discrete, \(r\) and \(s\) are local homeomorphisms. Hence \(\Gamma\ltimes X\) is \'{e}tale.
 
   \item \textbf{Subgroupoid.} Let \(\mathcal{G}\) be a topological groupoid and \(U\subseteq \mathcal{G}_0\). Define the reduction
   \[
@@ -565,9 +563,9 @@ Let \((\gamma_i)_{i\in I}\) be a net in \(\mathcal G\) with \(\gamma_i\to \alpha
 In \cite[Lemma~2.3.2]{Sims2018} the statement is proved under the standing hypotheses of \cite[Definition~2.3.1]{Sims2018}, in particular assuming local compactness. However, those uses are inessential for the implication itself. Indeed, the argument only requires that the structure maps \(s,r,m,(-)^{-1},u\) are continuous and that \(\mathcal G_0\) is Hausdorff in the relative topology.
 \end{remark}
 
-\section{Étale Groupoids}
+\section{\'{E}tale Groupoids}
 \label{chapter:etalegroupoids}
-\'Etale groupoids occupy the middle ground between the purely topological and the smooth settings. They retain enough local regularity to support constructions such as bisections, \'etale sheaves, nerves and counting measures, while remaining flexible enough to model orbit and equivalence–relation dynamics arising from local homeomorphisms and actions of discrete groups. A groupoid can be summarised by the diagram \cite[§1]{crainic1999homology}:
+\'{E}tale groupoids occupy the middle ground between the purely topological and the smooth settings. They retain enough local regularity to support constructions such as bisections, \'{e}tale sheaves, nerves and counting measures, while remaining flexible enough to model orbit and equivalence–relation dynamics arising from local homeomorphisms and actions of discrete groups. A groupoid can be summarised by the diagram \cite[§1]{crainic1999homology}:
 \[
 \G_2=\G\stimesr\G
 \xrightarrow{m} \G
@@ -575,15 +573,15 @@ In \cite[Lemma~2.3.2]{Sims2018} the statement is proved under the standing hypot
 \overset{r}{\underset{s}{\rightrightarrows}} \G_0
 \xrightarrow{u} \G,
 \]
-where \(s,r:\G\to\G_0\) are the source and range maps, \(u(x)\coloneqq 1_x\) inserts the identity morphism at \(x\in\G_0\), \(i(g)\coloneqq g^{-1}\) is inversion, and \(m(g,h)\coloneqq g\cdot h\) is defined exactly when \(s(g)=r(h)\), that is, \((g,h)\in\G_2\). We write \(g:x\to y\) for \(s(g)=x\) and \(r(g)=y\). A topological groupoid is obtained by equipping \(\G_0\) and \(\G\) with topologies and requiring all structure maps in the diagram above to be continuous. In the smooth (Lie) case, \(\G_0\) and \(\G\) are smooth manifolds, the structure maps are smooth, and one assumes that \(s\) and \(r\) are submersions so that the fibre product \(\G\stimesr\G\) is again a manifold \cite[§1]{crainic1999homology}. \'Etaleness is the topological analogue of this local regularity: we require \(s\) and \(r\) to be local homeomorphisms. This forces the fibres of \(s\) and \(r\) to be discrete, aligns \'etale groupoids with transformation groupoids of actions of discrete groups and equivalence–relation groupoids of local homeomorphisms, and at the same time preserves enough categorical structure for the homological constructions in Chapter~\ref{chap:moore-homology}.
+where \(s,r:\G\to\G_0\) are the source and range maps, \(u(x)\coloneqq 1_x\) inserts the identity morphism at \(x\in\G_0\), \(i(g)\coloneqq g^{-1}\) is inversion, and \(m(g,h)\coloneqq g\cdot h\) is defined exactly when \(s(g)=r(h)\), that is, \((g,h)\in\G_2\). We write \(g:x\to y\) for \(s(g)=x\) and \(r(g)=y\). A topological groupoid is obtained by equipping \(\G_0\) and \(\G\) with topologies and requiring all structure maps in the diagram above to be continuous. In the smooth (Lie) case, \(\G_0\) and \(\G\) are smooth manifolds, the structure maps are smooth, and one assumes that \(s\) and \(r\) are submersions so that the fibre product \(\G\stimesr\G\) is again a manifold \cite[§1]{crainic1999homology}. \'{E}taleness is the topological analogue of this local regularity: we require \(s\) and \(r\) to be local homeomorphisms. This forces the fibres of \(s\) and \(r\) to be discrete, aligns \'{e}tale groupoids with transformation groupoids of actions of discrete groups and equivalence–relation groupoids of local homeomorphisms, and at the same time preserves enough categorical structure for the homological constructions in Chapter~\ref{chap:moore-homology}.
 
-\begin{definition}[\'Etale groupoids {\cite[Definition~1.1]{crainic1999homology}}]
-\label{def:topological-groupoid}
-Let $\G$ be a topological groupoid. \(\G\) is called \'etale if the source map \(s:\G\to\G_{0}\) is a local homeomorphism.
+\begin{definition}[\'{E}tale groupoids {\cite[Definition~1.1]{crainic1999homology}}]
+\label{def:etale-groupoid}
+Let $\G$ be a topological groupoid. The groupoid \(\G\) is called \'{e}tale if the source map \(s:\G\to\G_{0}\) is a local homeomorphism. Equivalently, both \(r\) and \(s\) are local homeomorphisms.
 \end{definition}
 
 \begin{remark}
-    Since inversion \(-^{-1}\) is a homeomorphism and \(r = s\circ(-^{-1})\), this is equivalent to requiring that the range map \(r:\G\to\G_{0}\) is a local homeomorphism. In particular, for all \(g\in\G\) there is an open neighbourhood  \(U\subset\G\) with \(g\in U\) such that \(s|_{U}: U\xrightarrow{\cong} s(U)\) and \(r|_{U}: U\xrightarrow{\cong} r(U)\) are homeomorphisms.
+    Since inversion \(i\) is a homeomorphism and \(r=s\circ i\), this is equivalent to requiring that the range map \(r:\G\to\G_{0}\) is a local homeomorphism. Many authors state the condition as: \(r\) and \(s\) are local homeomorphisms. In particular, for all \(g\in\G\) there is an open neighbourhood  \(U\subset\G\) with \(g\in U\) such that \(s|_{U}: U\xrightarrow{\cong} s(U)\) and \(r|_{U}: U\xrightarrow{\cong} r(U)\) are homeomorphisms.
 \end{remark}
 
 Such a set \(U\) is called a local bisection. In the smooth or Lie setting the same definition applies with local diffeomorphisms in place of local homeomorphisms. Direct limits assemble compatible local data around a point. Two local maps represent the same element once they agree on some smaller neighbourhood.
@@ -600,10 +598,10 @@ Fix \(x\in\G_0\) and let \(\mathcal{N}(x)\) denote the directed set of open neig
 where \((U,\varphi)\sim(U',\varphi')\) if there exists an open set \(W\subseteq U\cap U'\) with \(x\in W\) and \(\varphi|_{W}=\varphi'|_{W}\).
 \end{definition}
 
-More generally, a direct system in a category \(\mathcal{C}\) consists of a directed set \((I,\leq)\), a family of objects \((A_i)_{i\in I}\), and morphisms \(\phi_{ij}:A_i\to A_j\) for all \(i\leq j\) such that \(\phi_{ii}=\mathrm{id}_{A_i}\) and \(\phi_{jk}\circ\phi_{ij}=\phi_{ik}\) whenever \(i\leq j\leq k\). In particular, the family \(\bigl(\operatorname{LH}(U,\G_0)\bigr)_{U\in\mathcal{N}(x)}\), together with the restriction maps \(\rho_{U,U'}:\operatorname{LH}(U,\G_0)\to\operatorname{LH}(U',\G_0)\) for \(U'\subseteq U\), is a direct system in \(\mathbf{Set}\) indexed by \(\mathcal{N}(x)\). In an \'etale groupoid, every arrow sufficiently close to a unit arises from a local bisection, so its local effect is recorded by the germ of a local homeomorphism of the unit space, that is, by an element of this direct limit.
+More generally, a direct system in a category \(\mathcal{C}\) consists of a directed set \((I,\leq)\), a family of objects \((A_i)_{i\in I}\), and morphisms \(\phi_{ij}:A_i\to A_j\) for all \(i\leq j\) such that \(\phi_{ii}=\mathrm{id}_{A_i}\) and \(\phi_{jk}\circ\phi_{ij}=\phi_{ik}\) whenever \(i\leq j\leq k\). In particular, the family \(\bigl(\operatorname{LH}(U,\G_0)\bigr)_{U\in\mathcal{N}(x)}\), together with the restriction maps \(\rho_{U,U'}:\operatorname{LH}(U,\G_0)\to\operatorname{LH}(U',\G_0)\) for \(U'\subseteq U\), is a direct system in \(\mathbf{Set}\) indexed by \(\mathcal{N}(x)\). In an \'{e}tale groupoid, every arrow sufficiently close to a unit arises from a local bisection, so its local effect is recorded by the germ of a local homeomorphism of the unit space, that is, by an element of this direct limit.
 
 \begin{definition}
-Let \(\G\) be an \'etale groupoid and let \(g\in\G\) with \(s(g)=x\) and \(r(g)=y\).
+Let \(\G\) be an \'{e}tale groupoid and let \(g\in\G\) with \(s(g)=x\) and \(r(g)=y\).
 Choose an open bisection \(B\subseteq \G\) with \(g\in B\), and put \(U\coloneqq s(B)\subseteq \G_0\).
 Let \(\sigma:U\to \G\) be the inverse of \(s|_B:B\to U\), so that
 \(\sigma(x)=g\) and \(s\circ\sigma=\mathrm{id}_U\).
@@ -633,7 +631,7 @@ This construction is well defined and depends only on \(g\). Since \(s\) is a lo
 \begin{remark}[Basic properties {\cite[§1.2]{crainic1999homology}}]
 \leavevmode
 \begin{enumerate}[label=(\alph*),nosep]
-\item Since \(\G\) is \'etale, \(s\) is a local homeomorphism. After shrinking \(U\), there exists a local section \(\sigma:U\to\G\) of \(s\) with \(\sigma(x)=g\) and \(s\circ\sigma=\mathrm{id}_U\). The inversion map \(\G\to\G\), \(h\mapsto h^{-1}\), is a homeomorphism and \(r=s\circ(-^{-1}_{\G})\), so \(r\) is a local homeomorphism as well. In particular, \(r|_{\sigma(U)}:\sigma(U)\to V\) is a homeomorphism onto the open set \(V\coloneqq r(\sigma(U))\subseteq\G_0\). Consequently the representative \(\varphi_{(U,\sigma)}=r\circ\sigma:U\to V\) of \(\widetilde g\) is a local homeomorphism.
+\item Since \(\G\) is \'{e}tale, \(s\) is a local homeomorphism. After shrinking \(U\), there exists a local section \(\sigma:U\to\G\) of \(s\) with \(\sigma(x)=g\) and \(s\circ\sigma=\mathrm{id}_U\). The inversion map \(\G\to\G\), \(h\mapsto h^{-1}\), is a homeomorphism and \(r=s\circ(i_{\G})\), so \(r\) is a local homeomorphism as well. In particular, \(r|_{\sigma(U)}:\sigma(U)\to V\) is a homeomorphism onto the open set \(V\coloneqq r(\sigma(U))\subseteq\G_0\). Consequently the representative \(\varphi_{(U,\sigma)}=r\circ\sigma:U\to V\) of \(\widetilde g\) is a local homeomorphism.
 \item For the unit \(1_x\in\G\) we may take \(U\subseteq\G_0\) and \(\sigma(u)\coloneqq 1_u\) for \(u\in U\). Then \(s\circ\sigma=\mathrm{id}_U\) and \(r\circ\sigma=\mathrm{id}_U\), so the germ \(\widetilde{1_x}\) is represented by the identity map near \(x\) and hence \(\widetilde{1_x}=\mathrm{1}_x\).
 \item If \(g:x\to y\) and \(h:y\to z\), choose local sections \(\sigma_g:U\to\G\) and \(\sigma_h:V\to\G\) with \(x\in U\), \(y\in V\), \(s\circ\sigma_g=\mathrm{id}_U\), \(s\circ\sigma_h=\mathrm{id}_V\), \(\sigma_g(x)=g\), and \(\sigma_h(y)=h\). Shrinking \(U\) if necessary, we may assume \(\varphi_{(U,\sigma_g)}(U)\subseteq V\). On \(U\) the map \(\varphi_{(U,\sigma_g)}=r\circ\sigma_g\) represents \(\widetilde g\) and \(\varphi_{(V,\sigma_h)}=r\circ\sigma_h\) represents \(\widetilde h\). The product section \(U\to\G\), \(u\mapsto \sigma_h(\varphi_{(U,\sigma_g)}(u))\cdot\sigma_g(u)\), represents \(hg\), and its range map is the composition \(\varphi_{(V,\sigma_h)}\circ\varphi_{(U,\sigma_g)}\) near \(x\). Hence the germ of \(hg\) at \(x\) is the composite germ \(\widetilde h\circ\widetilde g\).
 \end{enumerate}
@@ -642,49 +640,49 @@ This construction is well defined and depends only on \(g\). Since \(s\) is a lo
 \begin{example}\label{ex:etale-groupoids}
 \leavevmode
 \begin{itemize}[noitemsep,nolistsep]
-  \item \textbf{Spaces as \'etale groupoids \cite[§1.3(1)]{crainic1999homology}.}
-  Let \(X\) be a topological space. Consider the groupoid \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},-^{-1}_{\G})\) given by
+  \item \textbf{Spaces as \'{e}tale groupoids \cite[§1.3(1)]{crainic1999homology}.}
+  Let \(X\) be a topological space. Consider the groupoid \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) given by
   \(\G \coloneqq X\), \(\G_{0} \coloneqq X\),
   \(r_{\G} \coloneqq \mathrm{id}_{X}\), \(s_{\G} \coloneqq \mathrm{id}_{X}\),
-  \(g^{-1}_{\G} \coloneqq g\), and \(g\cdot_{\G}h \coloneqq g\) whenever \(g,h\in X\) and \(g=h\). Then \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},-^{-1}_{\G})\) is a topological groupoid, and since \(r_{\G}\) and \(s_{\G}\) are homeomorphisms, \(\G\) is \'etale.
+  \(g^{-1}_{\G} \coloneqq g\), and \(g\cdot_{\G}h \coloneqq g\) whenever \(g,h\in X\) and \(g=h\). Then \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) is a topological groupoid, and since \(r_{\G}\) and \(s_{\G}\) are homeomorphisms, \(\G\) is \'{e}tale.
 
   \item \textbf{Translation groupoid of a discrete group action \cite[§1.3(2)]{crainic1999homology}.}
-  Let a discrete group \(\Gamma\) act on a locally compact Hausdorff space \(X\) by homeomorphisms via a left action \(\Gamma\times X\to X, (g,x)\mapsto g\cdot x\). The associated transformation groupoid \(\Gamma\ltimes X\) is the \'etale groupoid with \( (\Gamma\ltimes X)_0\coloneqq X\), source and range maps \(s_{\Gamma\ltimes X}(g,x)\coloneqq x, r_{\Gamma\ltimes X}(g,x)\coloneqq g\cdot x\), unit map \(u_{\Gamma\ltimes X}(x)\coloneqq (e,x)\), inverse map \((g,x)^{-1}\coloneqq (g^{-1},g\cdot x)\), and multiplication \((h,y)\cdot(g,x)\coloneqq (hg,x)\) whenever \(s_{\Gamma\ltimes X}(h,y)=r_{\Gamma\ltimes X}(g,x)\), i.e. whenever \(y=g\cdot x\), so that explicitly \((h,g\cdot x)\cdot(g,x)=(hg,x)\).
+  Let a discrete group \(\Gamma\) act on a locally compact Hausdorff space \(X\) by homeomorphisms via a left action \(\Gamma\times X\to X, (g,x)\mapsto g\cdot x\). The associated transformation groupoid \(\Gamma\ltimes X\) is the \'{e}tale groupoid with \( (\Gamma\ltimes X)_0\coloneqq X\), source and range maps \(s_{\Gamma\ltimes X}(g,x)\coloneqq x, r_{\Gamma\ltimes X}(g,x)\coloneqq g\cdot x\), unit map \(u_{\Gamma\ltimes X}(x)\coloneqq (e,x)\), inverse map \((g,x)^{-1}\coloneqq (g^{-1},g\cdot x)\), and multiplication \((h,y)\cdot(g,x)\coloneqq (hg,x)\) whenever \(s_{\Gamma\ltimes X}(h,y)=r_{\Gamma\ltimes X}(g,x)\), i.e. whenever \(y=g\cdot x\), so that explicitly \((h,g\cdot x)\cdot(g,x)=(hg,x)\).
 
-  Since \(\Gamma\) is discrete, sets of the form \(\{g\}\times U\subseteq \Gamma\times X\) with \(U\subseteq X\) open form a basis. On \(\{g\}\times U\) the source map is the homeomorphism \((g,x)\mapsto x\), hence \(s_{\Gamma\ltimes X}\) is a local homeomorphism. Likewise, \(r_{\Gamma\ltimes X}\) restricts to the homeomorphism \((g,x)\mapsto g\cdot x\) from \(\{g\}\times U\) onto \(g\cdot U\). Therefore \(r_{\Gamma\ltimes X}\) is a local homeomorphism as well, and \(\Gamma\ltimes X\) is \'etale.
+  Since \(\Gamma\) is discrete, sets of the form \(\{g\}\times U\subseteq \Gamma\times X\) with \(U\subseteq X\) open form a basis. On \(\{g\}\times U\) the source map is the homeomorphism \((g,x)\mapsto x\), hence \(s_{\Gamma\ltimes X}\) is a local homeomorphism. Likewise, \(r_{\Gamma\ltimes X}\) restricts to the homeomorphism \((g,x)\mapsto g\cdot x\) from \(\{g\}\times U\) onto \(g\cdot U\). Therefore \(r_{\Gamma\ltimes X}\) is a local homeomorphism as well, and \(\Gamma\ltimes X\) is \'{e}tale.
 
   For a right action \((x,\gamma)\mapsto x\cdot\gamma\) one may equivalently use the arrow space \(X\times\Gamma\) and define \(r_{X\rtimes\Gamma}(x,\gamma)\coloneqq x, s_{X\rtimes\Gamma}(x,\gamma)\coloneqq x\cdot\gamma\), with \(u_{X\rtimes\Gamma}(x)=(x,e)\), \((x,\gamma)^{-1}=(x\cdot\gamma,\gamma^{-1})\), and \((x,\gamma)\cdot(x\cdot\gamma,\eta)=(x,\gamma\eta)\).
 
-  \item \textbf{Action groupoid of a right \(\G\)-space \cite[§1.3(6)]{crainic1999homology}.} Let \((\G,\G_0,r,s,m,(-)^{-1})\) be an \'etale groupoid with unit map \(u: \G_0 \rightarrow \G, x \mapsto 1_x\). A right \(\G\)-space consists of a topological space \(X\), a continuous anchor map \(p:X\to\G_0\), and a continuous action map \(\cdot:X\ptimesr\G\to X\), \((x,g)\mapsto x\cdot g\), defined on the fibre product \(X\ptimesr\G=\{(x,g)\in X\times\G\mid p(x)=r(g)\}\), such that for all \((x,g)\in X\ptimesr\G\) one has \(p(x\cdot g)=s(g)\) and \(x\cdot 1_{p(x)}=x\), and whenever \((g,h)\in\G_2\) and \(p(x)=r(g)\) one has \((x\cdot g)\cdot h=x\cdot(gh)\).
+  \item \textbf{Action groupoid of a right \(\G\)-space \cite[§1.3(6)]{crainic1999homology}.} Let \((\G,\G_0,r,s,m,(-)^{-1})\) be an \'{e}tale groupoid with unit map \(u: \G_0 \rightarrow \G, x \mapsto 1_x\). A right \(\G\)-space consists of a topological space \(X\), a continuous anchor map \(p:X\to\G_0\), and a continuous action map \(\cdot:X\ptimesr\G\to X\), \((x,g)\mapsto x\cdot g\), defined on the fibre product \(X\ptimesr\G=\{(x,g)\in X\times\G\mid p(x)=r(g)\}\), such that for all \((x,g)\in X\ptimesr\G\) one has \(p(x\cdot g)=s(g)\) and \(x\cdot 1_{p(x)}=x\), and whenever \((g,h)\in\G_2\) and \(p(x)=r(g)\) one has \((x\cdot g)\cdot h=x\cdot(gh)\).
 
   The action groupoid \(X\rtimes\G\) is the topological groupoid with objects \((X\rtimes\G)_0=X\) and arrows \((X\rtimes\G)_1=X\ptimesr\G\) with the subspace topology from \(X\times\G\), and structure maps \(r_{X\rtimes\G}(x,g)=x\), \(s_{X\rtimes\G}(x,g)=x\cdot g\), \(u_{X\rtimes\G}(x)=(x,1_{p(x)})\), \((x,g)^{-1}=(x\cdot g,g^{-1})\), and multiplication \((x,g)\cdot(x\cdot g,h)=(x,gh)\), defined whenever \((g,h)\in\G_2\). Equivalently, \((X\rtimes\G)_2=\{((x,g),(y,h))\in (X\rtimes\G)_1^2\mid y=x\cdot g,\ (g,h)\in\G_2\}\).
 
   Fix \((x,g)\in (X\rtimes\G)_1\). Choose an open bisection \(U\subseteq \G\) with \(g\in U\), so \(r|_U:U\to r(U)\) and \(s|_U:U\to s(U)\) are homeomorphisms onto open subsets of \(\G_0\). Choose an open neighbourhood \(W\subseteq X\) of \(x\) with \(p(W)\subseteq r(U)\). Then \(W\ptimesr U=\{(x',g')\in W\times U\mid p(x')=r(g')\}\) is an open neighbourhood of \((x,g)\) in \((X\rtimes\G)_1\).
 
-  On \(W\ptimesr U\), the restriction of \(r_{X\rtimes\G}\) is a homeomorphism onto \(W\), with inverse \(W\to W\ptimesr U\), \(x'\mapsto \bigl(x',(r|_U)^{-1}(p(x'))\bigr)\). Moreover, the restriction of \(s_{X\rtimes\G}\) to \(W\ptimesr U\) is a homeomorphism onto its image. Indeed, for \(y\in s_{X\rtimes\G}(W\ptimesr U)\) we have \(p(y)\in s(U)\), hence \(k(y)\coloneqq (s|_U)^{-1}(p(y))\in U\) is well defined, and \(y\mapsto \bigl(y\cdot k(y)^{-1},k(y)\bigr)\) is an inverse to \(s_{X\rtimes\G}|_{W\ptimesr U}\) since \((y\cdot k(y)^{-1})\cdot k(y)=y\) and \(p(y\cdot k(y)^{-1})=r(k(y))\). Therefore \(r_{X\rtimes\G}\) and \(s_{X\rtimes\G}\) are local homeomorphisms, and \(X\rtimes\G\) is \'etale.  
+  On \(W\ptimesr U\), the restriction of \(r_{X\rtimes\G}\) is a homeomorphism onto \(W\), with inverse \(W\to W\ptimesr U\), \(x'\mapsto \bigl(x',(r|_U)^{-1}(p(x'))\bigr)\). Moreover, the restriction of \(s_{X\rtimes\G}\) to \(W\ptimesr U\) is a homeomorphism onto its image. Indeed, for \(y\in s_{X\rtimes\G}(W\ptimesr U)\) we have \(p(y)\in s(U)\), hence \(k(y)\coloneqq (s|_U)^{-1}(p(y))\in U\) is well defined, and \(y\mapsto \bigl(y\cdot k(y)^{-1},k(y)\bigr)\) is an inverse to \(s_{X\rtimes\G}|_{W\ptimesr U}\) since \((y\cdot k(y)^{-1})\cdot k(y)=y\) and \(p(y\cdot k(y)^{-1})=r(k(y))\). Therefore \(r_{X\rtimes\G}\) and \(s_{X\rtimes\G}\) are local homeomorphisms, and \(X\rtimes\G\) is \'{e}tale.  
 \end{itemize}
 \end{example}
 
 \begin{definition}[{\cite[§1.4]{crainic1999homology}}]
-Let \((\K,\K_{0},r_{\K},s_{\K},\cdot_{\K},-^{-1}_{\K})\) and \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},-^{-1}_{\G})\) be \'etale groupoids.
-A homomorphism of \'etale groupoids \(\varphi:\K\to\G\) is a pair of continuous maps \(\varphi_{0}:\K_{0}\to\G_{0}\) and \(\varphi_{1}:\K\to\G\)
+Let \((\K,\K_{0},r_{\K},s_{\K},\cdot_{\K},i_{\K})\) and \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) be \'{e}tale groupoids.
+A homomorphism of \'{e}tale groupoids \(\varphi:\K\to\G\) is a pair of continuous maps \(\varphi_{0}:\K_{0}\to\G_{0}\) and \(\varphi_{1}:\K\to\G\)
 such that the following identities hold:
 \begin{align*}
 &r_{\G}\circ \varphi_{1} = \varphi_{0}\circ r_{\K}, & \ &s_{\G}\circ \varphi_{1} = \varphi_{0}\circ s_{\K}, \\
-&\varphi_{1}\circ (-^{-1}_{\K}) = (-^{-1}_{\G})\circ \varphi_{1},  & &\varphi_{1}\circ u_{\K} = u_{\G}\circ \varphi_{0}, \\
+&\varphi_{1}\circ (i_{\K}) = (i_{\G})\circ \varphi_{1},  & &\varphi_{1}\circ u_{\K} = u_{\G}\circ \varphi_{0}, \\
 &\varphi_{1}(g\cdot_{\K} h) = \varphi_{1}(g)\cdot_{\G} \varphi_{1}(h) &
 &\text{for all }(g,h) \in \K\times_{\K_{0}}\K.
 \end{align*}
 Equivalently, \(\varphi\) is a functor of small categories \(\K\to\G\).
 \end{definition}
 
-Isomorphism of \'etale groupoids is usually too rigid for geometric purposes, since different groupoids can present the same quotient or orbit data. Morita equivalence isolates the underlying geometric object by requiring a homomorphism \(\varphi:\K\to\G\) to behave like an equivalence of categories in a way compatible with the topology. Recall that a functor between small categories is an equivalence if and only if it is essentially surjective on objects and fully faithful on morphisms. In the \'etale setting these two conditions are reformulated in terms of local homeomorphisms of the unit spaces and of the bibundle of arrows, leading to the notion of Morita equivalence for \'etale groupoids.
+Isomorphism of \'{e}tale groupoids is usually too rigid for geometric purposes, since different groupoids can present the same quotient or orbit data. Morita equivalence isolates the underlying geometric object by requiring a homomorphism \(\varphi:\K\to\G\) to behave like an equivalence of categories in a way compatible with the topology. Recall that a functor between small categories is an equivalence if and only if it is essentially surjective on objects and fully faithful on morphisms. In the \'{e}tale setting these two conditions are reformulated in terms of local homeomorphisms of the unit spaces and of the bibundle of arrows, leading to the notion of Morita equivalence for \'{e}tale groupoids.
 
 \begin{definition}[Morita equivalence {\cite[§1.5]{crainic1999homology}}]
 \label{def:morita}
-Let \(\K\) and \(\G\) be \'etale groupoids and let \(\varphi:\K\to\G\) be a homomorphism with components \(\varphi_0:\K_0\to\G_0\) and \(\varphi_1:\K_1\to\G_1\). We say that \(\varphi\) is a Morita equivalence, also called a weak or essential equivalence, if:
+Let \(\K\) and \(\G\) be \'{e}tale groupoids and let \(\varphi:\K\to\G\) be a homomorphism with components \(\varphi_0:\K_0\to\G_0\) and \(\varphi_1:\K_1\to\G_1\). We say that \(\varphi\) is a Morita equivalence, also known as a weak or essential equivalence, if:
 \begin{enumerate}[noitemsep,nolistsep]
-\item \textbf{Essential surjectivity (\'etale surjection).}
+\item \textbf{Essential surjectivity (\'{e}tale surjection).}
 Consider the fibre product
 \[
 \K_0 \phitimesr \G_1
@@ -728,18 +726,18 @@ is a homeomorphism, where the fibre product is
 The essential surjectivity condition says that every object of \(\G\) is locally in the image of \(s_{\G}\circ\pi_2\), and hence admits local lifts along \(s_{\G}\circ\pi_2\) after restricting to suitable neighbourhoods in \(\G_0\). The pullback condition identifies \(\K_1\) with the space of arrows of \(\G\) between points in the image of \(\K_0\), so that arrows of \(\G\) over \(\varphi_0\) correspond uniquely and continuously to arrows of \(\K\). Together these conditions express that \(\varphi\) is fully faithful and essentially surjective in a way compatible with the topologies on \(\K\) and \(\G\).
 \end{remark}
 
-When these conditions hold we write \(\varphi:\K \xrightarrow{\sim} \G\). Two \'etale groupoids \(\Hh\) and \(\G\) are Morita equivalent if there exist Morita equivalences \(\Hh \xleftarrow{\sim} \K \xrightarrow{\sim} \G\). This generates an equivalence relation, and one often works in the localisation of the category of \'etale groupoids obtained by formally inverting all Morita equivalences. A morphism \(\Hh\to\G\) there can be represented by a zig--zag \(\Hh \xleftarrow{\sim} \K \xrightarrow{\sim} \G\) \cite[§1.5]{crainic1999homology}.
+When these conditions hold we write \(\varphi:\K \xrightarrow{\sim} \G\). Two \'{e}tale groupoids \(\Hh\) and \(\G\) are Morita equivalent if there exist Morita equivalences \(\Hh \xleftarrow{\sim} \K \xrightarrow{\sim} \G\). This generates an equivalence relation, and one often works in the localisation of the category of \'{e}tale groupoids obtained by formally inverting all Morita equivalences. A morphism \(\Hh\to\G\) there can be represented by a zig--zag \(\Hh \xleftarrow{\sim} \K \xrightarrow{\sim} \G\) \cite[§1.5]{crainic1999homology}.
 
 \begin{definition}[{\cite[§2.1]{matui2012homology}}]
-For an \'etale groupoid \(\G\) and \(Y\subseteq \G_0\) the reduction is
+For an \'{e}tale groupoid \(\G\) and \(Y\subseteq \G_0\) the reduction is
 \(
 \G\vert_Y \coloneqq r^{-1}(Y)\cap s^{-1}(Y),
 \)
-equipped with the subspace topology. It is an \'etale subgroupoid with unit space \(Y\) whenever \(Y\) is open.
+equipped with the subspace topology. It is an \'{e}tale subgroupoid with unit space \(Y\) whenever \(Y\) is open.
 \end{definition}
 
 \begin{definition}[{\cite[§2.1]{matui2012homology}}]
-Let \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},-^{-1}_{\G})\) be an \'etale groupoid and write \(r\coloneqq r_{\G}\), \(s\coloneqq s_{\G}\).
+Let \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) be an \'{e}tale groupoid and write \(r\coloneqq r_{\G}\), \(s\coloneqq s_{\G}\).
 A subset \(U\subseteq \G\) is a \(\G\)\nobreakdash-bisection if the restrictions \(r|_U:U\to r(U)\) and \(s|_U:U\to s(U)\) are injective. If in addition \(U\) is open, we call it an open \(\G\)\nobreakdash-bisection.
 For subsets \(U,V\subseteq\G\) set
 \[
@@ -751,12 +749,12 @@ If \(U\) and \(V\) are \(\G\)\nobreakdash-bisections, then \(U^{-1}\) and \(UV\)
 \end{definition}
 
 \begin{remark}
-In the \'etale case every arrow \(g\in\G\) admits an open neighbourhood \(U\subseteq\G\) which is a \(\G\)\nobreakdash-bisection.
+In the \'{e}tale case every arrow \(g\in\G\) admits an open neighbourhood \(U\subseteq\G\) which is a \(\G\)\nobreakdash-bisection.
 On such a set, the restrictions \(r|_U:U\to r(U)\) and \(s|_U:U\to s(U)\) are homeomorphisms onto open subsets of \(\G_0\) \cite[§2.4]{Sims2018}.
 \end{remark}
 
 \begin{lemma}\label{lem:discrete-units-implies-discrete-nerve}
-Let \(\G\) be an \'etale groupoid. If the unit space \(\G_0\) is discrete, then \(\G\) is discrete, and for every \(n\ge 0\) the space of \(n\)-composables \(\G_n\) is discrete.
+Let \(\G\) be an \'{e}tale groupoid. If the unit space \(\G_0\) is discrete, then \(\G\) is discrete, and for every \(n\ge 0\) the space of \(n\)-composables \(\G_n\) is discrete.
 \end{lemma}
 
 \begin{proof}
@@ -764,7 +762,7 @@ Assume \(\G_0\) is discrete.
 
 \begin{itemize}[noitemsep,nolistsep]
 \item \textbf{\(\G\) is discrete.}
-Since \(\G\) is \'etale, the range map \(r:\G\to\G_0\) is a local homeomorphism.
+Since \(\G\) is \'{e}tale, the range map \(r:\G\to\G_0\) is a local homeomorphism.
 Fix \(g\in\G\) and set \(u\coloneqq r(g)\in\G_0\).
 Because \(\G_0\) is discrete, the singleton \(\{u\}\) is open.
 As \(r\) is a local homeomorphism, there exists an open neighbourhood \(U\subset\G\) of \(g\) such that \(r|_U:U\to r(U)\) is a homeomorphism onto an open subset \(r(U)\subset\G_0\).
@@ -789,31 +787,31 @@ A subset \(X\subseteq \G_0\) is called full if \(r\bigl(s^{-1}(X)\bigr)=\G_0\).
 \end{definition}
 
 \begin{definition}[Kakutani equivalence {\cite[Definition~3.8]{matui2022long}}]\label{def:kakutani-equivalence}
-Let \(\G\) and \(\Hh\) be \'etale groupoids.
+Let \(\G\) and \(\Hh\) be \'{e}tale groupoids.
 We say that \(\G\) and \(\Hh\) are Kakutani equivalent if there exist full clopen subsets
 \(X\subseteq \G_0\) and \(Y\subseteq \Hh_0\) such that the reductions
-\(\G|_X\) and \(\Hh|_Y\) are isomorphic as \'etale groupoids.
+\(\G|_X\) and \(\Hh|_Y\) are isomorphic as \'{e}tale groupoids.
 \end{definition}
 
 \begin{remark}
-Let \(\G\) be an \'etale groupoid and let \(X\subseteq \G_0\) be clopen and full. The reduction \(\G|_X\) has unit space \(X\) and arrow space \(\G|_X \coloneqq \{g\in\G \mid r_{\G}(g)\in X,\ s_{\G}(g)\in X\}\). Since \(X\) is clopen, the subsets \(r_{\G}^{-1}(X)\) and \(s_{\G}^{-1}(X)\) are open in \(\G\), and hence \(\G|_X = r_{\G}^{-1}(X)\cap s_{\G}^{-1}(X)\) is open in \(\G\). The structure maps of \(\G|_X\) are the restrictions of those of \(\G\):
+Let \(\G\) be an \'{e}tale groupoid and let \(X\subseteq \G_0\) be clopen and full. The reduction \(\G|_X\) has unit space \(X\) and arrow space \(\G|_X \coloneqq \{g\in\G \mid r_{\G}(g)\in X,\ s_{\G}(g)\in X\}\). Since \(X\) is clopen, the subsets \(r_{\G}^{-1}(X)\) and \(s_{\G}^{-1}(X)\) are open in \(\G\), and hence \(\G|_X = r_{\G}^{-1}(X)\cap s_{\G}^{-1}(X)\) is open in \(\G\). The structure maps of \(\G|_X\) are the restrictions of those of \(\G\):
 \[
 r_{\G|_X} = r_{\G}|_{\G|_X},\quad
 s_{\G|_X} = s_{\G}|_{\G|_X},\quad
 (g,h)\mapsto g\cdot_{\G}h,\quad
 g\mapsto g^{-1},
 \]
-with composition defined whenever \(s_{\G}(g)=r_{\G}(h)\in X\). Since \(r_{\G}\) and \(s_{\G}\) are local homeomorphisms, their restrictions \(r_{\G|_X}\) and \(s_{\G|_X}\) are local homeomorphisms as well. Thus \(\G|_X\) is again an \'etale groupoid with unit space \(X\). Fullness of \(X\), that is \(r_{\G}\bigl(s_{\G}^{-1}(X)\bigr)=\G_0\), means that every unit \(x\in\G_0\) is the range of some arrow whose source lies in \(X\). Equivalently, every \(\G\)\nobreakdash-orbit meets \(X\). Hence the reduction \(\G|_X\) still sees the entire orbit structure of \(\G\).
+with composition defined whenever \(s_{\G}(g)=r_{\G}(h)\in X\). Since \(r_{\G}\) and \(s_{\G}\) are local homeomorphisms, their restrictions \(r_{\G|_X}\) and \(s_{\G|_X}\) are local homeomorphisms as well. Thus \(\G|_X\) is again an \'{e}tale groupoid with unit space \(X\). Fullness of \(X\), that is \(r_{\G}\bigl(s_{\G}^{-1}(X)\bigr)=\G_0\), means that every unit \(x\in\G_0\) is the range of some arrow whose source lies in \(X\). Equivalently, every \(\G\)\nobreakdash-orbit meets \(X\). Hence the reduction \(\G|_X\) still sees the entire orbit structure of \(\G\).
 If \(\G|_X\cong\Hh|_Y\) for full clopen \(X\subseteq\G_0\) and \(Y\subseteq\Hh_0\), then \(\G\) and \(\Hh\) have the same dynamics up to cutting down to representatives in \(X\) and \(Y\), which is what Kakutani equivalence is designed to capture.
 \end{remark}
 
 \begin{lemma}[{\cite[Lemma~2.4.9]{Sims2018}}]
 \label{lem:bisection-basis}
-If \(\G\) is second countable, Hausdorff, and \'etale, then \(\G_1\) admits a countable base consisting of open bisections.
+If \(\G\) is second countable, Hausdorff, and \'{e}tale, then \(\G_1\) admits a countable base consisting of open bisections.
 \end{lemma}
 
 \begin{proof}
-Let \(\mathcal{B}\) be a countable base for the topology on \(\G_1\). Fix \(B\in\mathcal{B}\). For every \(\gamma\in B\), since \(\G\) is \'etale there exists an open bisection \(U_\gamma\subseteq \G_1\) with \(\gamma\in U_\gamma\subseteq B\). Thus \(\{U_\gamma\}_{\gamma\in B}\) is an open cover of \(B\) by open bisections. Since \(\G_1\) is second countable, it is Lindelöf, so there exists a countable subcover \(\{U_{B,n}\}_{n\in\mathbb{N}}\) of \(B\) by open bisections. Define
+Let \(\mathcal{B}\) be a countable base for the topology on \(\G_1\). Fix \(B\in\mathcal{B}\). For every \(\gamma\in B\), since \(\G\) is \'{e}tale there exists an open bisection \(U_\gamma\subseteq \G_1\) with \(\gamma\in U_\gamma\subseteq B\). Thus \(\{U_\gamma\}_{\gamma\in B}\) is an open cover of \(B\) by open bisections. Since \(\G_1\) is second countable, it is Lindelöf, so there exists a countable subcover \(\{U_{B,n}\}_{n\in\mathbb{N}}\) of \(B\) by open bisections. Define
 \[
 \mathcal{W}\coloneqq \{U_{B,n}\mid B\in\mathcal{B},\ n\in\mathbb{N}\}.
 \]
@@ -822,16 +820,16 @@ Then \(\mathcal{W}\) is countable. To see that \(\mathcal{W}\) is a base, let \(
 
 \begin{corollary}[{\cite[Corollary~2.4.10]{Sims2018}}]
 \label{cor:discrete}
-If \(\G\) is \'etale, then for every \(x\in \G_0\) the sets \(r^{-1}(x)\), \(s^{-1}(x)\), and \(\G_x \coloneqq \{\gamma\in\G \mid r(\gamma)=s(\gamma)=x\}\) are discrete in the subspace topology.
+If \(\G\) is \'{e}tale, then for every \(x\in \G_0\) the sets \(r^{-1}(x)\), \(s^{-1}(x)\), and \(\G_x \coloneqq \{\gamma\in\G \mid r(\gamma)=s(\gamma)=x\}\) are discrete in the subspace topology.
 \end{corollary}
 
 \begin{proof}
-Fix \(x\in\G_0\) and \(\gamma\in r^{-1}(x)\). Since \(\G\) is \'etale, there exists an open bisection \(U\subseteq\G\) with \(\gamma\in U\). On \(U\) the restriction \(r|_U:U\to r(U)\) is injective, so \(U\cap r^{-1}(x)\) contains at most one point. Since \(r(\gamma)=x\), we have \(U\cap r^{-1}(x) = \{\gamma\}\), and \(\{\gamma\}\) is open in the subspace \(r^{-1}(x)\). Thus \(r^{-1}(x)\) is discrete. The same argument applied to \(s\) shows that \(s^{-1}(x)\) is discrete. Now let \(\gamma\in\G_x = r^{-1}(x)\cap s^{-1}(x)\). From the first two steps there exist open sets \(U_r,U_s\subseteq\G\) such that \(U_r\cap r^{-1}(x) = \{\gamma\}\) and \(U_s\cap s^{-1}(x) = \{\gamma\}\). Then \((U_r\cap U_s)\cap \G_x = (U_r\cap r^{-1}(x))\cap (U_s\cap s^{-1}(x)) = \{\gamma\}\), so \(\{\gamma\}\) is open in the subspace \(\G_x\). Therefore \(\G_x\) is discrete.
+Fix \(x\in\G_0\) and \(\gamma\in r^{-1}(x)\). Since \(\G\) is \'{e}tale, there exists an open bisection \(U\subseteq\G\) with \(\gamma\in U\). On \(U\) the restriction \(r|_U:U\to r(U)\) is injective, so \(U\cap r^{-1}(x)\) contains at most one point. Since \(r(\gamma)=x\), we have \(U\cap r^{-1}(x) = \{\gamma\}\), and \(\{\gamma\}\) is open in the subspace \(r^{-1}(x)\). Thus \(r^{-1}(x)\) is discrete. The same argument applied to \(s\) shows that \(s^{-1}(x)\) is discrete. Now let \(\gamma\in\G_x = r^{-1}(x)\cap s^{-1}(x)\). From the first two steps there exist open sets \(U_r,U_s\subseteq\G\) such that \(U_r\cap r^{-1}(x) = \{\gamma\}\) and \(U_s\cap s^{-1}(x) = \{\gamma\}\). Then \((U_r\cap U_s)\cap \G_x = (U_r\cap r^{-1}(x))\cap (U_s\cap s^{-1}(x)) = \{\gamma\}\), so \(\{\gamma\}\) is open in the subspace \(\G_x\). Therefore \(\G_x\) is discrete.
 \end{proof}
 
 \begin{lemma}[{\cite[Lemma~2.4.11]{Sims2018}}]
 \label{lem:mult-open}
-Let \(\G\) be a topological groupoid. If the range map \(r:\G\to\G_{0}\) is open, then the multiplication \(m:\G_{2}\to\G\) is an open map. In particular, \(m\) is open for any \'etale groupoid.
+Let \(\G\) be a topological groupoid. If the range map \(r:\G\to\G_{0}\) is open, then the multiplication \(m:\G_{2}\to\G\) is an open map. In particular, \(m\) is open for any \'{e}tale groupoid.
 \end{lemma}
 
 \begin{proof}
@@ -856,28 +854,28 @@ in \(\G\) along the net indexed by \(D\). Since \(V\) is an open neighbourhood o
 \(
 \gamma_{i}=\alpha_{(i,j)}\bigl(\alpha_{(i,j)}^{-1}\gamma_{i}\bigr)\in UV
 \)
-for all sufficiently large \((i,j)\). Since \((\gamma_{i})\) was an arbitrary net converging to \(\alpha\beta\), this shows that \(\alpha\beta\) lies in the interior of \(UV\). Hence \(UV\) is open and \(m\) is an open map. If \(\G\) is \'etale, then \(r\) is a local homeomorphism, hence an open map, so \(m\) is open.
+for all sufficiently large \((i,j)\). Since \((\gamma_{i})\) was an arbitrary net converging to \(\alpha\beta\), this shows that \(\alpha\beta\) lies in the interior of \(UV\). Hence \(UV\) is open and \(m\) is an open map. If \(\G\) is \'{e}tale, then \(r\) is a local homeomorphism, hence an open map, so \(m\) is open.
 \end{proof}
 
-Principal \(\G\)\nobreakdash-bundles enter naturally when one wants to express Morita equivalence in geometric rather than purely functorial terms. In our setting, Morita equivalent \'etale groupoids are related by principal bibundles, and these bibundles are built from right and left principal \(\G\)\nobreakdash-bundles as in the definition below. Introducing principal bundles therefore prepares the ground for describing Morita equivalence via correspondences, and for proving that invariants such as Moore homology are preserved under these geometric equivalences of groupoids.
+Principal \(\G\)\nobreakdash-bundles enter naturally when one wants to express Morita equivalence in geometric rather than purely functorial terms. In our setting, Morita equivalent \'{e}tale groupoids are related by principal bibundles, and these bibundles are built from right and left principal \(\G\)\nobreakdash-bundles as in the definition below. Introducing principal bundles therefore prepares the ground for describing Morita equivalence via correspondences, and for proving that invariants such as Moore homology are preserved under these geometric equivalences of groupoids.
 
 \begin{definition}[Principal \({\G}\)-bundle {\cite[§1.6]{crainic1999homology}}]
-Let \(X\) be a topological space and \(\G\) an \'etale groupoid.
-A right principal \(\G\)-bundle over \(X\) consists of a topological space \(P\), a surjective open map \(\pi:P\to X\), an anchor \(\epsilon:P\to \G_0\), and a continuous right action \(P\stimesr\G_1 \to P, (p,g)\mapsto p\cdot g,\) defined when \(\epsilon(p)=r(g)\), such that \(\epsilon(p\cdot g)=s(g), p\cdot 1_{\epsilon(p)}=p, (p\cdot g)\cdot h=p\cdot(gh)\), and the canonical map of fibre products \(P\stimesr\G_1 \to P\pitimespi P, (p,g)\mapsto (p,\,p\cdot g)\), is a homeomorphism.
+Let \(X\) be a topological space and \(\G\) an \'{e}tale groupoid.
+A right principal \(\G\)-bundle over \(X\) consists of a topological space \(P\), a surjective open map \(\pi:P\to X\), an anchor \(\epsilon:P\to \G_0\), and a continuous right action \(P\stimesr\G_1 \to P, (p,g)\mapsto p\cdot g,\) defined when \(\epsilon(p)=r(g)\), such that \(\epsilon(p\cdot g)=s(g), p\cdot 1_{\epsilon(p)}=p, (p\cdot g)\cdot h=p\cdot(gh)\), and the canonical map of fibre products \(P\stimesr\G_1 \to P\pitimespi P, (p,g)\mapsto (p, p\cdot g)\), is a homeomorphism.
 \end{definition}
 
-In the context of Morita equivalence we do not only need right principal \(\G\)\nobreakdash-bundles, but bundles that carry in addition a compatible action of a second groupoid \(\K\). A \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundle is precisely a principal \(\G\)\nobreakdash-bundle together with a left \(\K\)\nobreakdash-action which commutes with the right \(\G\)\nobreakdash-action and respects the projection to the base. Such objects organise into \((\K,\G)\)\nobreakdash-bibundles and give the geometric realisation of Morita equivalences between \(\K\) and \(\G\). In particular, every Morita equivalence can be encoded by a \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundle, and conversely these bibundles provide the correct framework to transport structures such as homology and cohomology functorially along equivalences of \'etale groupoids.
+In the context of Morita equivalence we do not only need right principal \(\G\)\nobreakdash-bundles, but bundles that carry in addition a compatible action of a second groupoid \(\K\). A \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundle is precisely a principal \(\G\)\nobreakdash-bundle together with a left \(\K\)\nobreakdash-action which commutes with the right \(\G\)\nobreakdash-action and respects the projection to the base. Such objects organise into \((\K,\G)\)\nobreakdash-bibundles and give the geometric realisation of Morita equivalences between \(\K\) and \(\G\). In particular, every Morita equivalence can be encoded by a \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundle, and conversely these bibundles provide the correct framework to transport structures such as homology and cohomology functorially along equivalences of \'{e}tale groupoids.
 
 \begin{definition}[{\cite[§1.6]{crainic1999homology}}]
-Let \(\K\) and \(\G\) be \'etale groupoids.
+Let \(\K\) and \(\G\) be \'{e}tale groupoids.
 
 A \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundle consists of:
 \begin{itemize}[nosep]
   \item a topological space \(P\) together with continuous maps \(\pi:P\to \K_0, \varepsilon:P\to \G_0\),
-  \item a continuous right \(\G\)\nobreakdash-action with anchor \(\varepsilon\), \(P\epsilontimesr\G_1 \to P, (p,g)\mapsto p\cdot g\), defined whenever \(\varepsilon(p)=r_{\G}(g)\), such that \(\varepsilon(p\cdot g)=s_{\G}(g), p\cdot 1_{\varepsilon(p)}=p, (p\cdot g)\cdot h=p\cdot(gh)\) for all composable \(g,h\in\G_1\), and the canonical map of fibre products \(\Theta:\ P\stimesr\G_1 \to P\pitimespi P, (p,g)\mapsto \bigl(p,\,p\cdot g\bigr)\), is a homeomorphism. In particular, \(\pi:P\to\K_0\) is a surjective open map and \((P,\pi,\varepsilon)\) is a principal right \(\G\)\nobreakdash-bundle over \(\K_0\) in the sense defined above,
+  \item a continuous right \(\G\)\nobreakdash-action with anchor \(\varepsilon\), \(P\epsilontimesr\G_1 \to P, (p,g)\mapsto p\cdot g\), defined whenever \(\varepsilon(p)=r_{\G}(g)\), such that \(\varepsilon(p\cdot g)=s_{\G}(g), p\cdot 1_{\varepsilon(p)}=p, (p\cdot g)\cdot h=p\cdot(gh)\) for all composable \(g,h\in\G_1\), and the canonical map of fibre products \(\Theta:\ P\stimesr\G_1 \to P\pitimespi P, (p,g)\mapsto \bigl(p, p\cdot g\bigr)\), is a homeomorphism. In particular, \(\pi:P\to\K_0\) is a surjective open map and \((P,\pi,\varepsilon)\) is a principal right \(\G\)\nobreakdash-bundle over \(\K_0\) in the sense defined above,
   \item a continuous left \(\K\)\nobreakdash-action with anchor \(\pi\), \(\K_1\pitimespi P \to P, (k,p)\mapsto k\cdot p\), defined whenever \(s_{\K}(k)=\pi(p)\), such that \(\pi(k\cdot p)=r_{\K}(k), 1_{\pi(p)}\cdot p=p, (k\ell)\cdot p=k\cdot(\ell\cdot p)\) for all composable \(k,\ell\in\K_1\), and \(\varepsilon(k\cdot p)=\varepsilon(p)\) for all \((k,p)\in\K_1\pitimespi P\),
   \item the left \(\K\)\nobreakdash-action and the right \(\G\)\nobreakdash-action commute, \((k\cdot p)\cdot g = k\cdot(p\cdot g)\) whenever defined.
 \end{itemize}
 \end{definition}
 
-Equivalently, the left \(\K\)\nobreakdash-action is by bundle automorphisms of the principal right \(\G\)\nobreakdash-bundle \((P,\pi,\varepsilon)\): the map \(\Theta\) is \(\K\)\nobreakdash-equivariant for the diagonal \(\K\)\nobreakdash-action on \(P\pitimespi P\) and the induced \(\K\)\nobreakdash-action on \(P\stimesr\G_1\). A morphism of \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundles is a homeomorphism \(f:P\to P'\) such that \(\pi'=\pi\circ f, \varepsilon'=\varepsilon\circ f, f(k\cdot p)=k\cdot f(p)\) and \(f(p\cdot g)=f(p)\cdot g\). Isomorphism classes of such objects are the generalised morphisms \(\K\dashrightarrow \G\) \cite[§1.6]{crainic1999homology}. To apply the homology theories of \cite{crainic2000homology,matui2012homology,matui2022long} we adopt the setting of \cite[§1.8]{crainic1999homology}. Throughout, all groupoids are \'etale and their unit and morphism spaces are Hausdorff, locally compact and second countable. Under these standing assumptions the nerves \(\G_n\) inherit compatible topologies, the bisection bases of Lemma~\ref{lem:bisection-basis} exist, the fibres in Corollary~\ref{cor:discrete} are discrete and the multiplication is open by Lemma~\ref{lem:mult-open}. These properties enter both the construction of convolution algebras \cite{Sims2018} and the homology long exact sequences \cite{matui2022long}.
+Equivalently, the left \(\K\)\nobreakdash-action is by bundle automorphisms of the principal right \(\G\)\nobreakdash-bundle \((P,\pi,\varepsilon)\): the map \(\Theta\) is \(\K\)\nobreakdash-equivariant for the diagonal \(\K\)\nobreakdash-action on \(P\pitimespi P\) and the induced \(\K\)\nobreakdash-action on \(P\stimesr\G_1\). A morphism of \(\K\)\nobreakdash-equivariant principal \(\G\)\nobreakdash-bundles is a homeomorphism \(f:P\to P'\) such that \(\pi'=\pi\circ f, \varepsilon'=\varepsilon\circ f, f(k\cdot p)=k\cdot f(p)\) and \(f(p\cdot g)=f(p)\cdot g\). Isomorphism classes of such objects are the generalised morphisms \(\K\dashrightarrow \G\) \cite[§1.6]{crainic1999homology}. To apply the homology theories of \cite{crainic2000homology,matui2012homology,matui2022long} we adopt the setting of \cite[§1.8]{crainic1999homology}. Throughout, all groupoids are \'{e}tale and their unit and morphism spaces are Hausdorff, locally compact and second countable. Under these standing assumptions the nerves \(\G_n\) inherit compatible topologies, the bisection bases of Lemma~\ref{lem:bisection-basis} exist, the fibres in Corollary~\ref{cor:discrete} are discrete and the multiplication is open by Lemma~\ref{lem:mult-open}. These properties enter both the construction of convolution algebras \cite{Sims2018} and the homology long exact sequences \cite{matui2022long}.
