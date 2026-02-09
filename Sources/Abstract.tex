@@ -3,11 +3,16 @@
 \end{center}
 \noindent
 
-We study homology of ample groupoids through the compactly supported Moore chain complex of the nerve \(\G_\bullet\). Throughout we work under standing hypotheses ensuring that the pushforward maps along the face maps are defined on compactly supported chains (in particular, \'etaleness so that the face maps are local homeomorphisms, and local compactness/Hausdorffness on the relevant spaces so that compact supports behave as expected). For a topological abelian group \(A\) we define, for each \(n\ge 0\), the Moore chain group \(C_c(\G_n,A)\) of compactly supported continuous \(A\)\nobreakdash-valued functions on \(\G_n\), with boundary
-\(\partial_n^A=\sum_{i=0}^n(-1)^i(d_i)_*\)
-induced by the face maps. This yields homology groups \(H_n(\G;A)\) which are functorial for continuous \'etale homomorphisms and compatible with the standard operations used in computations (reduction to saturated clopen subsets and, in the ample setting, invariance under Kakutani equivalence). We reprove Matui’s long exact sequences in a Moore--complex formulation and identify the comparison maps at the chain level (Theorem~\ref{thm:LES-regular-diagram}).
+We investigate homology of ample groupoids via the compactly supported Moore chain complex of the nerve \(\G_\bullet\).
+Under standing hypotheses that guarantee well behaved compact supports and well defined pushforwards along the face maps, in particular \'{e}taleness and local compactness with Hausdorff separation, we define for each \(n\ge 0\) the Moore chain group \(C_c(\G_n,A)\) of compactly supported continuous \(A\)-valued functions on \(\G_n\), with boundary
+\(
+\partial_n^A \coloneqq \sum_{i=0}^n (-1)^i (d_i)_* .
+\)
+The resulting homology groups \(H_n(\G;A)\) are functorial for continuous \'{e}tale homomorphisms and compatible with the standard reduction operations used in computations, including reduction to saturated clopen subsets and, in the ample setting, invariance under Kakutani equivalence.
+Within this Moore formulation we reprove Matui type long exact sequences and identify the comparison maps already at the chain level, see Theorem~\ref{thm:LES-regular-diagram}.
 
-A main theme is a universal coefficient phenomenon for Moore homology with compact supports. For discrete abelian \(A\) we prove a natural short exact sequence
+A central theme is a universal coefficient phenomenon for Moore homology with compact supports.
+For discrete abelian coefficients \(A\) we prove a natural short exact sequence
 \[
 0
 \to H_n(\G)\otimes_{\mathbb Z} A
@@ -17,38 +22,24 @@ H_n(\G;A)
 \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
 \to 0,
 \]
-natural in both \(\G\) and \(A\) (Theorem~\ref{thm:UCT-homology-G}). The key input is the chain-level identification
+natural in both \(\G\) and \(A\), see Theorem~\ref{thm:UCT-homology-G}.
+The key input is the chain level identification
 \(
 C_c(\G_n,\mathbb Z)\otimes_{\mathbb Z} A \cong C_c(\G_n,A),
 \)
-which reduces the groupoid statement to the classical algebraic UCT applied to the free chain complex \(C_c(\G_\bullet,\mathbb Z)\).
-We then isolate a sharp obstruction to extending this mechanism beyond discrete coefficients: for a locally compact totally disconnected Hausdorff space \(X\) with a basis of compact open sets and a topological abelian group \(A\), the image of the canonical comparison map
-\(\Phi_X:C_c(X,\mathbb Z)\otimes_{\mathbb Z}A\to C_c(X,A)\)
-consists exactly of the compactly supported functions with finite image. Consequently, \(\Phi_X\) is surjective (equivalently, an isomorphism) if and only if every \(f\in C_c(X,A)\) has finite image (Corollary~\ref{cor:discrete-necessity}). In particular, discreteness of \(A\) is sufficient for \(\Phi_X\) to be an isomorphism; however, the converse can fail in general. Under additional mild countability hypotheses on \(A\) one can nonetheless construct, for suitable non-discrete ample spaces \(X\), compactly supported continuous functions \(X\to A\) with infinite image, forcing \(\Phi_X\) to fail to be surjective; this explains why the classical UCT is, in the Moore framework, essentially a discrete-coefficient phenomenon.
+which reduces the groupoid statement to the classical algebraic universal coefficient theorem applied to the free chain complex \(C_c(\G_\bullet,\mathbb Z)\).
 
-Finally, we develop a Mayer--Vietoris principle for ample groupoids and topological coefficients. For a topological abelian group \(A\) and a clopen saturated cover \(\G_0=U_1\cup U_2\), we construct a short exact sequence of Moore chain complexes and derive the Moore--Mayer--Vietoris long exact homology sequence (Theorem~\ref{thm:MV-long-exact})
-\[
-\begin{tikzcd}[arrow style=math font,cells={nodes={text height=2ex,text depth=0.75ex}}]
-\cdots
-& H_{n-1}(\mathcal{G}|_{U_1};A)\oplus H_{n-1}(\mathcal{G}|_{U_2};A)
-  \arrow[l]
-  \arrow[draw=none]{d}[name=Y,shape=coordinate]{}
-& H_{n-1}(\mathcal{G}|_{U_1\cap U_2};A)
-  \arrow[l,"{H_{n-1}(\alpha_\bullet)}"']
-\\
-H_{n}(\mathcal{G};A)
-  \arrow[curarrow={Y}{\partial_{n}}]{urr}
-& H_{n}(\mathcal{G}|_{U_1};A)\oplus H_{n}(\mathcal{G}|_{U_2};A)
-  \arrow[l,"{H_n(\beta_\bullet)}"']
-  \arrow[draw=none]{d}[name=Z,shape=coordinate]{}
-& H_{n}(\mathcal{G}|_{U_1\cap U_2};A)
-  \arrow[l,"{H_n(\alpha_\bullet)}"']
-\\
-H_{n+1}(\mathcal{G};A)
-  \arrow[curarrow={Z}{\partial_{n+1}}]{urr}
-& H_{n+1}(\mathcal{G}|_{U_1};A)\oplus H_{n+1}(\mathcal{G}|_{U_2};A)
-  \arrow[l,"{H_{n+1}(\beta_\bullet)}"']
-& \cdots \arrow[l]
-\end{tikzcd}
-\]
-which is designed for explicit computations by cutting the unit space into saturated clopen pieces and recovering \(H_\bullet(\G;A)\) from the corresponding reductions. Combined with the UCT in the discrete-coefficient regime, this framework isolates how torsion in integral homology contributes additional homology via \(\operatorname{Tor}_1^{\mathbb Z}\), a phenomenon illustrated concretely in a later example built from standard ample groupoids such as those associated to shifts of finite type.
+We then isolate the precise obstruction to extending this mechanism beyond discrete coefficients.
+For a locally compact totally disconnected Hausdorff space \(X\) with a basis of compact open sets and a topological abelian group \(A\), the image of the canonical comparison map
+\(
+\Phi_X : C_c(X,\mathbb Z)\otimes_{\mathbb Z}A \longrightarrow C_c(X,A)
+\)
+consists exactly of those compactly supported functions with finite image.
+Consequently \(\Phi_X\) is surjective if and only if every \(f\in C_c(X,A)\) has finite image, see Corollary~\ref{cor:discrete-necessity}.
+This shows that the Moore universal coefficient theorem is, in a precise sense, a discrete coefficient phenomenon.
+Under mild countability hypotheses on \(A\) we further construct, for suitable non discrete ample spaces \(X\), compactly supported continuous functions \(X\to A\) with infinite image, forcing \(\Phi_X\) to fail to be surjective.
+
+Finally, we develop a Mayer--Vietoris principle for ample groupoids with topological coefficients.
+Given a clopen saturated cover \(\G_0 = U_1 \cup U_2\), we construct a short exact sequence of Moore chain complexes and derive a Mayer--Vietoris long exact homology sequence, see Theorem~\ref{thm:MV-long-exact}.
+This sequence is tailored for explicit computations by cutting the unit space into saturated clopen pieces and reconstructing \(H_\bullet(\G;A)\) from the corresponding reductions.
+Combined with the universal coefficient theorem in the discrete regime, it cleanly isolates how torsion in integral homology contributes additional homology through \(\operatorname{Tor}_1^{\mathbb Z}\), a phenomenon illustrated later on examples built from standard ample groupoids such as those arising from shifts of finite type.

@@ -3,8 +3,12 @@
 Let $A$ be a topological abelian group, written additively with neutral element $0_A$.
 A subset of a topological space is called clopen if it is both closed and open.
 A topological space is totally disconnected if each of its connected components is a singleton.
-A Cantor set is a compact, metrizable, totally disconnected, perfect space, equivalently a compact, metrizable, totally disconnected space with no isolated points. Any two Cantor sets are homeomorphic.
-Unless stated otherwise, all groupoids $\G$ considered below are second countable, locally compact, Hausdorff, and \'etale; that is, $\G$ is a topological groupoid whose source and range maps $s,r:\G\rightarrow \G_0$ are local homeomorphisms, compare \cite[§2]{Sims2018} and \cite[§2.1]{matui2012homology}.
+A Cantor set is a compact metrizable totally disconnected perfect space.
+A compact metrizable totally disconnected space is a Cantor set if and only if it has no isolated points. Any two Cantor sets are homeomorphic.
+Unless stated otherwise, all groupoids $\G$ considered below are second countable locally compact and Hausdorff.
+When we say that $\G$ is \'{e}tale we mean that the source map $s:\G\to\G_0$ is a local homeomorphism.
+Then $r=s\circ i$ is a local homeomorphism as well, where $i(\gamma)=\gamma^{-1}$.
+This convention is used in \cite[§2]{Sims2018} and \cite[§2.1]{matui2012homology}.
 For a locally compact Hausdorff space $X$ we write $C_c(X,A)$ for the abelian group of continuous functions $f:X\to A$ with compact support, where
 \[
 \operatorname{supp}(f)\coloneqq \overline{\{x\in X \mid f(x)\neq 0_A\}}.
@@ -13,7 +17,7 @@ If $X$ is compact, we abbreviate $C_c(X,A)$ by $C(X,A)$, since every continuous 
 With pointwise addition, both $C_c(X,A)$ and $C(X,A)$ are abelian groups. This section relies on the recent theory of Matui \cite{matui2012homology,matui2022long,matui2024cup} and Sims et.al. \cite{sims2017etale,Sims2018,farsi2018ample}.
 
 \section{Covariant Push-Forward}
-Pushing-forward along a local homeomorphism lets one transport compactly supported $A$-valued functions from $X$ to $Y$ by summing over fibres. This construction will be used to define maps induced by the structure maps of \'etale groupoids on compactly supported chains.
+Pushing-forward along a local homeomorphism lets one transport compactly supported $A$-valued functions from $X$ to $Y$ by summing over fibres. This construction will be used to define maps induced by the structure maps of \'{e}tale groupoids on compactly supported chains.
 
 \begin{definition}[Pushforward]
 \label{def:pushforward}
@@ -114,7 +118,7 @@ If \(\psi\colon Y\to Z\) is another local homeomorphism, then for \(z\in Z\),
 =\sum_{x\in (\psi\circ \phi)^{-1}(z)} f(x)
 =((\psi\circ\phi)_* f)(z),
 \]
-where interchanging the sums is valid because only finitely many terms are nonzero as above. Equivalently, Proposition~\ref{prop:pushforward_compatible} gives \((\psi\circ\phi)_*=\psi_*\circ \phi_*\).
+where interchanging the sums is valid because only finitely many terms are nonzero as above. In particular, Proposition~\ref{prop:pushforward_compatible} yields \((\psi\circ\phi)_*=\psi_*\circ \phi_*\).
 \end{itemize}
 Therefore \(C_c(-,A)\colon \mathbf{LCH}\to \mathbf{Ab}\) is a covariant functor.
 \end{proof}
@@ -129,7 +133,7 @@ The simplicial relations $d_i d_j = d_{j-1} d_i$ for $i<j$, together with functo
 \(
 H_n(X_\bullet;A)\coloneqq H_n\bigl(C_c(X_\bullet,A),\partial_\bullet\bigr)
 \)
-for the resulting homology groups. Our primary application will be to \'etale groupoids. If $\mathcal{G}\rightrightarrows \mathcal{G}_0$ is \'etale, its nerve $\mathcal{G}_\bullet$ has $\mathcal{G}_n$ the space of composable $n$-tuples, with face and degeneracy maps induced by the structure maps $r,s,u,(-)^{-1}$ and multiplication. In the \'etale setting these induced maps are local homeomorphisms.\footnote{The unit map $u\colon \mathcal{G}_0\to\mathcal{G}$ is a continuous section of the local homeomorphism $s$, hence a homeomorphism onto an open subset of \(\mathcal{G}\). The inversion map is a homeomorphism. The multiplication map $m\colon \mathcal{G}_2\to\mathcal{G}$ is a local homeomorphism: for each $(g,h)\in\mathcal{G}_2$ one can choose open bisections $U,V\subseteq\mathcal{G}$ with $g\in U$, $h\in V$ and $s(U)=r(V)$, and then $m\colon U\,{}_s\!\times_r V\to UV$ is a homeomorphism onto an open subset of $\mathcal{G}$. The remaining face and degeneracy maps are obtained from these maps by finite products and pullbacks, which preserve local homeomorphisms.} 
+for the resulting homology groups. Our primary application will be to \'{e}tale groupoids. If $\mathcal{G}\rightrightarrows \mathcal{G}_0$ is \'{e}tale, its nerve $\mathcal{G}_\bullet$ has $\mathcal{G}_n$ the space of composable $n$-tuples, with face and degeneracy maps induced by the structure maps $r,s,u,(-)^{-1}$ and multiplication. In the \'{e}tale setting these induced maps are local homeomorphisms.\footnote{The unit map $u\colon \mathcal{G}_0\to\mathcal{G}$ is a continuous section of the local homeomorphism $s$, hence a homeomorphism onto an open subset of \(\mathcal{G}\). The inversion map is a homeomorphism. The multiplication map $m\colon \mathcal{G}_2\to\mathcal{G}$ is a local homeomorphism: for each $(g,h)\in\mathcal{G}_2$ one can choose open bisections $U,V\subseteq\mathcal{G}$ with $g\in U$, $h\in V$ and $s(U)=r(V)$, and then $m\colon U\,{}_s\!\times_r V\to UV$ is a homeomorphism onto an open subset of $\mathcal{G}$. The remaining face and degeneracy maps are obtained from these maps by finite products and pullbacks, which preserve local homeomorphisms.} 
 Therefore the preceding construction applies to $\mathcal{G}_\bullet$, and we define
 \(
 H_n(\mathcal{G};A)\coloneqq H_n\bigl(C_c(\mathcal{G}_\bullet,A),\partial_\bullet\bigr),
@@ -137,21 +141,21 @@ H_n(\mathcal{G};A)\coloneqq H_n\bigl(C_c(\mathcal{G}_\bullet,A),\partial_\bullet
 the Moore homology of $\mathcal{G}$ with coefficients in $A$, which we develop next.
 
 \section{Simplicial Spaces}
-For an \'etale groupoid $\mathcal{G}$ we need a canonical way to package finite composable strings of arrows so that the groupoid operations (units, inversion, and composition) are reflected by structure maps in a functorial topological object. The standard construction is the nerve $\mathcal{G}_\bullet$, a simplicial space whose $n$-simplices are composable $n$-tuples in $\mathcal{G}$ and whose face and degeneracy maps are induced by the groupoid structure.
+For an \'{e}tale groupoid $\mathcal{G}$ we need a canonical way to package finite composable strings of arrows so that the groupoid operations (units, inversion, and composition) are reflected by structure maps in a functorial topological object. The standard construction is the nerve $\mathcal{G}_\bullet$, a simplicial space whose $n$-simplices are composable $n$-tuples in $\mathcal{G}$ and whose face and degeneracy maps are induced by the groupoid structure.
 
 \begin{itemize}[noitemsep,nolistsep]
   \item Set $C_n\coloneqq C_c(\mathcal{G}_n,A)$ and use the face maps $d_i\colon \mathcal{G}_n\to \mathcal{G}_{n-1}$ to define the boundary
   \(
     \partial_n\coloneqq \sum_{i=0}^n (-1)^i (d_i)_*\colon C_n\to C_{n-1}.
   \)
-  If $\mathcal{G}$ is \'etale, then each $d_i$ is a local homeomorphism, hence $(d_i)_*$ is well defined on $C_c(-,A)$ by Definition~\ref{def:pushforward}.
+  If $\mathcal{G}$ is \'{e}tale, then each $d_i$ is a local homeomorphism, hence $(d_i)_*$ is well defined on $C_c(-,A)$ by Definition~\ref{def:pushforward}.
   The simplicial identities $d_i d_j = d_{j-1} d_i$ for $i<j$, together with compatibility of pushforward with composition from Proposition~\ref{prop:pushforward_compatible}, imply $\partial_{n-1}\circ \partial_n = 0$.
   Thus $(C_c(\mathcal{G}_\bullet,A),\partial_\bullet)$ is a chain complex, and its homology defines the Moore homology of $\mathcal{G}$ with coefficients in $A$.
 
   \item The simplicial space $\mathcal{G}_\bullet$ also has a geometric realization $B\mathcal{G}$, which provides a standard model for a classifying space of $\mathcal{G}$.
   This gives a conceptual link to classical constructions, but the Moore complex $C_c(\mathcal{G}_\bullet,A)$ is generally not the singular chain complex of $B\G$, which can be seen in Example~\ref{ex:moore-not-singular}. The nerve viewpoint is used to organize functoriality and exactness for compactly supported chains.
 
-  \item An \'etale homomorphism of \'etale groupoids $\varphi\colon\mathcal{K}\to\mathcal{G}$ induces a simplicial map $N\varphi\colon \mathcal{K}_\bullet\to\mathcal{G}_\bullet$ whose components are local homeomorphisms.
+  \item An \'{e}tale homomorphism of \'{e}tale groupoids $\varphi\colon\mathcal{K}\to\mathcal{G}$ induces a simplicial map $N\varphi\colon \mathcal{K}_\bullet\to\mathcal{G}_\bullet$ whose components are local homeomorphisms.
   Applying pushforward degreewise yields a chain map
   \(
     (\varphi_n)_*\colon C_c(\mathcal{K}_n,A)\rightarrow C_c(\mathcal{G}_n,A),
@@ -239,13 +243,13 @@ s_j d_{i-1}, & \text{for} \ i>j+1.
 \end{definition}
 
 \begin{remark}
-Equivalently, a simplicial space is a functor $X_\bullet\colon \Delta^{\mathrm{op}}\to \mathbf{Top}$.
+In other words, a simplicial space is a functor $X_\bullet\colon \Delta^{\mathrm{op}}\to \mathbf{Top}$.
 In our applications we assume $X_n\in \mathbf{LCH}$ for all $n$, so it suffices to regard $X_\bullet$ as a functor $X_\bullet\colon \Delta^{\mathrm{op}}\to \mathbf{LCH}$.
 For the definition of the opposite simplex category $\Delta^{\mathrm{op}}$ we refer to Definition~\ref{def:simplexcat}.
 \end{remark}
 
 Simplicial spaces are best viewed as functors \(X_\bullet:\Delta^{\mathrm{op}}\to\mathbf{Top}\). 
-Accordingly, a map \(f_\bullet:X_\bullet\to Y_\bullet\) should be a morphism of such functors, that is, a natural transformation. Equivalently, it is a family \((f_n)_{n\ge 0}\) commuting with all face and degeneracy maps.
+Accordingly, a map \(f_\bullet:X_\bullet\to Y_\bullet\) should be a morphism of such functors, that is, a natural transformation. Concretely, it is a family \((f_n)_{n\ge 0}\) commuting with all face and degeneracy maps.
 
 \begin{definition}[Maps of simplicial spaces]
 A map \(f_\bullet\colon X_\bullet\to Y_\bullet\) is a natural transformation, i.e. a family of continuous maps
@@ -262,10 +266,10 @@ X_{n+1} \arrow[r,"f_{n+1}"'] & Y_{n+1}.
 \]
 \end{definition}
 
-To define homology from an \'etale groupoid \(\mathcal{G}\), we need a systematic way to package all composable strings of arrows together with the structural operations (source, range, units, inversion, multiplication) so that the resulting spaces vary functorially under \'etale homomorphisms of groupoids. 
-The standard tool for this is the nerve \(\mathcal{G}_\bullet\): its \(n\)-simplices are composable \(n\)-tuples, and the simplicial operators are obtained by composing adjacent arrows or inserting units. This provides the simplicial space on which the Moore chain complex \(C_c(\mathcal{G}_n,A)\) is built. Let \((\mathcal{G},\mathcal{G}_{0},r,s,m,{}^{-1})\) be an \'etale groupoid with unit space \(\mathcal{G}_{0}\) and range/source maps
+To define homology from an \'{e}tale groupoid \(\mathcal{G}\), we need a systematic way to package all composable strings of arrows together with the structural operations (source, range, units, inversion, multiplication) so that the resulting spaces vary functorially under \'{e}tale homomorphisms of groupoids. 
+The standard tool for this is the nerve \(\mathcal{G}_\bullet\): its \(n\)-simplices are composable \(n\)-tuples, and the simplicial operators are obtained by composing adjacent arrows or inserting units. This provides the simplicial space on which the Moore chain complex \(C_c(\mathcal{G}_n,A)\) is built. Let \((\mathcal{G},\mathcal{G}_{0},r,s,m,{}^{-1})\) be an \'{e}tale groupoid with unit space \(\mathcal{G}_{0}\) and range/source maps
 \(r,s\colon \mathcal{G}\to \mathcal{G}_{0}\).
-Since \(\mathcal{G}\) is \'etale, \(s\) is a local homeomorphism, hence \(r=s\circ({-}^{-1})\) is a local homeomorphism as well. Write
+Since \(\mathcal{G}\) is \'{e}tale, \(s\) is a local homeomorphism, hence \(r=s\circ({-}^{-1})\) is a local homeomorphism as well. Write
 \(
 \mathcal{G}_{2}\coloneqq \{(g,h)\in \mathcal{G}\times \mathcal{G}\mid s(g)=r(h)\}
 =\mathcal{G}\,{}_s\!\times_r\,\mathcal{G}
@@ -302,17 +306,17 @@ When convenient, we abbreviate an \(n\)-tuple \((g_1,\dots,g_n)\in\G_n\) by \(\m
 We fix the indexing of the groupoid once and for all. While the unit space is often written \(\G^{(0)}\), we write \(\G_0\) to emphasize that we organize \(\G\) via its nerve \(\G_\bullet\): the \(0\)-simplices are exactly the units, \(\G_1=\G\), and \(\G_n\) is the space of composable \(n\)-tuples. With this convention the face maps \(d_i:\G_n\to\G_{n-1}\) and degeneracies \(s_j:\G_n\to\G_{n+1}\) always change the simplicial degree by \(\pm 1\), and we avoid additional parenthesized notations for composability spaces. This alignment is tailored to the Moore--complex viewpoint. In degree \(n\) the chain group is \(C_c(\G_n,A)\), and the boundary is the alternating sum \(\partial_n=\sum_{i=0}^n(-1)^i(d_i)_*\). Thus the single index \(n\) simultaneously records the simplicial level, the underlying space \(\G_n\), and the corresponding chain group, which keeps later degreewise constructions readable (pushforwards, functoriality, and exact sequences), all of them living on the simplicial object \(\G_\bullet\), see Definition~\ref{def:nervefunctor}.
 
 \begin{remark}
-For \(n\ge 2\) one may equivalently identify \(\G_n\) with the iterated fibre product
+For \(n\ge 2\) one may identify \(\G_n\) with the iterated fibre product
 \[
 \underbrace{\G\,{}_s\!\times_r \G\,{}_s\!\times_r \cdots {}_s\!\times_r \G}_{n\ \text{factors}};
 \]
 the composability condition \(s(g_i)=r(g_{i+1})\) is then built into the pullback.
 Under this description the endpoint faces \(d_0,d_n\) forget the first, respectively last, arrow, while the inner faces \(d_i\) compose the \((i,i+1)\)-entries.
-Finally, in the étale setting the structure maps of the nerve are local homeomorphisms, hence have discrete fibres; combined with compact support, this ensures that the fibrewise sums defining pushforwards \((d_i)_*\) are finite, and therefore that the Moore boundary formula is well defined.
+Finally, in the \'{e}tale setting the structure maps of the nerve are local homeomorphisms, hence have discrete fibres; combined with compact support, this ensures that the fibrewise sums defining pushforwards \((d_i)_*\) are finite, and therefore that the Moore boundary formula is well defined.
 \end{remark}
 
 \begin{definition}[Face and degeneracy maps {\cite[p.~4]{matui2022long}}]\label{def:face-degeneracy}
-Let \(\mathcal{G}\) be an \'etale groupoid with unit map \(u\colon \mathcal{G}_0\to \mathcal{G}_1=\mathcal{G}\). For \(n\ge 1\) and \(i\in\{0,1,\dots,n\}\) define \(d_i\colon \mathcal{G}_n\to \mathcal{G}_{n-1}\), and for \(n\ge 0\) and \(j\in\{0,1,\dots,n\}\) define \(s_j\colon \mathcal{G}_n\to \mathcal{G}_{n+1}\), by
+Let \(\mathcal{G}\) be an \'{e}tale groupoid with unit map \(u\colon \mathcal{G}_0\to \mathcal{G}_1=\mathcal{G}\). For \(n\ge 1\) and \(i\in\{0,1,\dots,n\}\) define \(d_i\colon \mathcal{G}_n\to \mathcal{G}_{n-1}\), and for \(n\ge 0\) and \(j\in\{0,1,\dots,n\}\) define \(s_j\colon \mathcal{G}_n\to \mathcal{G}_{n+1}\), by
 \[
 \begin{aligned}
 d_i(\mathbf{g})
@@ -719,7 +723,7 @@ d_n s_n(\mathbf{g})
 Therefore all simplicial identities hold, and \(\bigl(\mathcal{G}_n,(d_i)_{i=0}^{n},(s_j)_{j=0}^{n}\bigr)_{n\ge 0}\) is a simplicial space.
 \end{proof}
 
-Starting from the simplex category \(\Delta\) from Definition~\ref{def:simplexcat}, a simplicial space is, by definition, a functor \(X_\bullet\colon \Delta^{\mathrm{op}}\to\mathbf{Top}\): the objects \([n]\) give the levels \(X_n\), and the generating maps in \(\Delta\), cofaces \(\delta^i\) and codegeneracies \(\sigma^j\), correspond in \(\Delta^{\mathrm{op}}\) to face maps \(d_i\) and degeneracy maps \(s_j\) satisfying the simplicial identities. For an \'etale groupoid \((\mathcal{G},\mathcal{G}_0,r,s,m,{}^{-1})\), the nerve \(\mathcal{G}_\bullet\) is obtained by taking \(\mathcal{G}_n\) to be the space of composable \(n\)-tuples and by defining \(d_i\) and \(s_j\) via the structure maps \(r,s,m,u\) as in Definition~\ref{def:face-degeneracy}. Proposition~\ref{prop:nerve-is-simplicial} verifies by explicit computation that these maps satisfy the simplicial identities, hence \(\mathcal{G}_\bullet\) is a simplicial space. Since \(\mathcal{G}\) is \'etale, each face map \(d_i\colon \mathcal{G}_n\to\mathcal{G}_{n-1}\) is a local homeomorphism. Therefore the pushforward construction from Definition~\ref{def:pushforward} applies and yields well-defined homomorphisms
+Starting from the simplex category \(\Delta\) from Definition~\ref{def:simplexcat}, a simplicial space is, by definition, a functor \(X_\bullet\colon \Delta^{\mathrm{op}}\to\mathbf{Top}\): the objects \([n]\) give the levels \(X_n\), and the generating maps in \(\Delta\), cofaces \(\delta^i\) and codegeneracies \(\sigma^j\), correspond in \(\Delta^{\mathrm{op}}\) to face maps \(d_i\) and degeneracy maps \(s_j\) satisfying the simplicial identities. For an \'{e}tale groupoid \((\mathcal{G},\mathcal{G}_0,r,s,m,{}^{-1})\), the nerve \(\mathcal{G}_\bullet\) is obtained by taking \(\mathcal{G}_n\) to be the space of composable \(n\)-tuples and by defining \(d_i\) and \(s_j\) via the structure maps \(r,s,m,u\) as in Definition~\ref{def:face-degeneracy}. Proposition~\ref{prop:nerve-is-simplicial} verifies by explicit computation that these maps satisfy the simplicial identities, hence \(\mathcal{G}_\bullet\) is a simplicial space. Since \(\mathcal{G}\) is \'{e}tale, each face map \(d_i\colon \mathcal{G}_n\to\mathcal{G}_{n-1}\) is a local homeomorphism. Therefore the pushforward construction from Definition~\ref{def:pushforward} applies and yields well-defined homomorphisms
 \(
 (d_i)_*\colon C_c(\mathcal{G}_n,A)\to C_c(\mathcal{G}_{n-1},A),
 \)
@@ -738,32 +742,32 @@ as follows.
 
 \begin{itemize}[noitemsep,nolistsep]
 \item \textbf{On objects.}
-Let \(\G\) be a groupoid with source and range maps \(s,r\colon \G_1\to \G_0\), unit map \(u\colon \G_0\to \G_1\), and multiplication written left to right: \(g\cdot h\) is defined when \(s(g)=r(h)\).
+Let \(\G\) be a groupoid with source and range maps \(s,r\colon \G_1\to \G_0\), unit map \(u\colon \G_0\to \G_1\), and multiplication written left to right: \(\gamma\cdot\eta\) is defined when \(s(\gamma)=r(\eta)\).
 Set \(N(\G)=\G_\bullet\), where \(\G_0\) is the unit space and, for \(n\ge 1\),
 \[
-\G_n\coloneqq \{(g_1,\dots,g_n)\in \G^n \mid s(g_i)=r(g_{i+1})\text{ for }1\le i<n\},
+\G_n\coloneqq \{(\gamma_1,\dots,\gamma_n)\in \G^n \mid s(g_i)=r(g_{i+1})\text{ for }1\le i<n\},
 \]
 endowed with the subspace topology from \(\G_1^n\).
 
 For \(n\ge 1\) and \(0\le i\le n\), define the face maps \(d_i\colon \G_n\to \G_{n-1}\) by
 \[
-d_i(g_1,\dots,g_n)\coloneqq
+d_i(\gamma_1,\dots,\gamma_n)\coloneqq
 \begin{cases}
-s(g_1), & n=1,\ i=0,\\
-r(g_1), & n=1,\ i=1,\\
-(g_2,\dots,g_n), & n\ge 2,\ i=0,\\
-(g_1,\dots,g_i\cdot g_{i+1},\dots,g_n), & n\ge 2,\ 1\le i\le n-1,\\
-(g_1,\dots,g_{n-1}), & n\ge 2,\ i=n.
+s(\gamma_1), & n=1,\ i=0,\\
+r(\gamma_1), & n=1,\ i=1,\\
+(\gamma_2,\dots,\gamma_n), & n\ge 2,\ i=0,\\
+(\gamma_1,\dots,g_i\cdot g_{i+1},\dots,\gamma_n), & n\ge 2,\ 1\le i\le n-1,\\
+(\gamma_1,\dots,g_{n-1}), & n\ge 2,\ i=n.
 \end{cases}
 \]
 For \(n\ge 0\) and \(0\le j\le n\), define the degeneracy maps \(s_j\colon \G_n\to \G_{n+1}\) by
 \[
-s_j(g_1,\dots,g_n)\coloneqq
+s_j(\gamma_1,\dots,\gamma_n)\coloneqq
 \begin{cases}
 u(x), & n=0,\ j=0,\ x\in \G_0,\\
-(u(r(g_1)),g_1,\dots,g_n), & n\ge 1,\ j=0,\\
-(g_1,\dots,g_j,\,u(r(g_{j+1})),\,g_{j+1},\dots,g_n), & n\ge 2,\ 1\le j\le n-1,\\
-(g_1,\dots,g_n,\,u(s(g_n))), & n\ge 1,\ j=n.
+(u(r(\gamma_1)),\gamma_1,\dots,\gamma_n), & n\ge 1,\ j=0,\\
+(\gamma_1,\dots,g_j,\,u(r(g_{j+1})),\,g_{j+1},\dots,\gamma_n), & n\ge 2,\ 1\le j\le n-1,\\
+(\gamma_1,\dots,\gamma_n,\,u(s(\gamma_n))), & n\ge 1,\ j=n.
 \end{cases}
 \]
 These maps agree with Definition~\ref{def:face-degeneracy}, written in left-to-right convention \(s(g_i)=r(g_{i+1})\).
@@ -900,7 +904,7 @@ Then the induced map on classifying spaces
 \(
 B\varphi: B\Hh \rightarrow B\G
 \)
-is a weak homotopy equivalence. Equivalently, for every \(k\ge 0\) and every basepoint \(b\in B\Hh\), the induced map
+is a weak homotopy equivalence. This means that for every \(k\ge 0\) and every basepoint \(b\in B\Hh\), the induced map
 \(
 \pi_k(B\Hh,b)\xrightarrow{\ \cong\ }\pi_k\bigl(B\G,B\varphi(b)\bigr)
 \)
@@ -1139,7 +1143,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \coloneqq
     \{h\in \Hh_1 \mid s(h)=x,\ r(h)=x',\ \alpha'\cdot \varphi_1(h)=\alpha\}.
     \]
-    Equivalently, morphisms are those arrows \(h:x\mapsto x'\) in \(\Hh\) for which the triangle
+    Thus morphisms are those arrows \(h:x\mapsto x'\) in \(\Hh\) for which the triangle
     \[
     \begin{tikzcd}
     \varphi_0(x) \arrow[rr,"\alpha"] \arrow[dr,"\varphi_1(h)"'] & & y \\
@@ -1210,7 +1214,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \bigr).
     \end{aligned}
     \]
-    Equivalently, we insert \(\eta_{a_k}:a_k\to T\) after the \(k\)-th arrow and then fill the remaining arrows with identities of \(T\),
+    Concretely, we insert \(\eta_{a_k}:a_k\to T\) after the \(k\)-th arrow and then fill the remaining arrows with identities of \(T\),
     which is consistent because \((s\circ p)\) sends every morphism to \(\mathrm{id}_T\). We now verify that \((H_k)_{0\le k\le n}\) is a simplicial homotopy from \(i\circ r\) to \(N\mathrm{id}_{\varphi\!\downarrow\! y}\). The required identities are: \(d_0 H_0 = i\circ r\) and \(d_{n+1} H_n = N\mathrm{id}_{\varphi\!\downarrow\! y}\), and for all \(n\ge 0\) and \(0\le k\le n\),
     \[
     d_\ell H_k =
@@ -1522,7 +1526,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     Thus \(BH\) is a strong deformation retraction of \(B\varphi\!\downarrow\! y\) onto \(i(\star)\).
     \end{itemize}
     
-    \item \textbf{Continuous homotopy.} The preceding construction is the standard realization of a simplicial homotopy, see \cite[Chapter~14]{may1967}. Equivalently, one may appeal to the realization lemma for simplicial homotopies, see \cite[Chapter~I,§4]{GoerssJardine1999} or \cite[§11]{May1975}. We record the endpoint computations.
+    \item \textbf{Continuous homotopy.} The preceding construction is the standard realization of a simplicial homotopy, see \cite[Chapter~14]{may1967}. Alternatively, one may appeal to the realization lemma for simplicial homotopies, see \cite[Chapter~I,§4]{GoerssJardine1999} or \cite[§11]{May1975}. We record the endpoint computations.
 
     Let \(BH\) be the unique map with
     \(
@@ -1591,7 +1595,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     B\varphi:B\mathcal H\rightarrow B\mathcal G
     \)
     is a weak homotopy equivalence.
-    Equivalently, for every \(k\ge 0\) and every basepoint \(b\in B\mathcal H\) the induced map on homotopy groups is an isomorphism
+    This means that for every \(k\ge 0\) and every basepoint \(b\in B\mathcal H\) the induced map on homotopy groups is an isomorphism
     \[
     \pi_k(B\mathcal H,b)\xrightarrow{\ \cong\ }\pi_k\bigl(B\mathcal G,B\varphi(b)\bigr).
     \]
@@ -1625,7 +1629,7 @@ Since our theory is designed for topological coefficient groups \(A\), to what e
 \subsection{The Moore Complex}
 Let \(\mathcal G\) be a topological groupoid.
 A functor \([n]\to \mathcal G\) is the same as a composable \(n\)-tuple \((g_1,\ldots,g_n)\in \mathcal G_n\).
-Assume \(\mathcal G\) is \'etale, so the structure maps \(s,r\colon \mathcal G\to \mathcal G_0\) are local homeomorphisms.
+Assume \(\mathcal G\) is \'{e}tale, so the structure maps \(s,r\colon \mathcal G\to \mathcal G_0\) are local homeomorphisms.
 Then the unit map \(u\colon \mathcal G_0\to \mathcal G\) is a local homeomorphism.
 Indeed, for \(x\in \mathcal G_0\) choose an open bisection \(U\ni u(x)\).
 Then \(s|_U\colon U\to s(U)\) is a homeomorphism onto an open neighborhood of \(x\), and \(u=(s|_U)^{-1}\) on \(s(U)\).
@@ -1657,7 +1661,7 @@ d_i d_j = d_{j-1} d_i
 \end{definition}
 
 \begin{remark}\label{rem:semisimplicial-functor}
-Equivalently, a semi-simplicial abelian group is a functor
+In other words, a semi-simplicial abelian group is a functor
 \(
 A_\bullet\colon \Delta_{\mathrm{inj}}^{\mathrm{op}}\rightarrow \mathbf{Ab},
 \)
@@ -1684,11 +1688,11 @@ s_j d_{i-1}, & \text{for } i>j+1.
 \end{definition}
 
 \begin{remark}\label{rem:simplicial-functor}
-Equivalently, a simplicial abelian group is a functor \(A_\bullet\colon \Delta^{\mathrm{op}}\to \mathbf{Ab}\), where \(\Delta\) is the simplex category.
+In other words, a simplicial abelian group is a functor \(A_\bullet\colon \Delta^{\mathrm{op}}\to \mathbf{Ab}\), where \(\Delta\) is the simplex category.
 \end{remark}
 
 \begin{corollary}[{\cite[Example~1.4]{GoerssJardine1999}}]\label{cor:cc-nerve-simplicial-abelian}
-Let \(\mathcal G_\bullet=\bigl(\mathcal G_n,(d_i)_{i=0}^n,(s_j)_{j=0}^n\bigr)_{n\ge 0}\) be the nerve of an \'etale groupoid \(\mathcal G\), as in Definition~\ref{def:nervefunctor}.
+Let \(\mathcal G_\bullet=\bigl(\mathcal G_n,(d_i)_{i=0}^n,(s_j)_{j=0}^n\bigr)_{n\ge 0}\) be the nerve of an \'{e}tale groupoid \(\mathcal G\), as in Definition~\ref{def:nervefunctor}.
 Then
 \[
 C_c(\mathcal G_\bullet,A)\coloneqq \bigl(C_c(\mathcal G_n,A)\bigr)_{n\ge 0}
@@ -1706,7 +1710,7 @@ defined by pushforward along the local homeomorphisms \(d_i\) and \(s_j\).
 \end{corollary}
 
 \begin{proof}
-Since \(\mathcal G\) is \'etale, each face map \(d_i\) and each degeneracy map \(s_j\) of \(\mathcal G_\bullet\) is a local homeomorphism.
+Since \(\mathcal G\) is \'{e}tale, each face map \(d_i\) and each degeneracy map \(s_j\) of \(\mathcal G_\bullet\) is a local homeomorphism.
 Therefore pushforward is defined in every degree.
 More precisely, for a local homeomorphism \(\phi\colon X\to Y\), Definition~\ref{def:pushforward} gives a homomorphism \(\phi_*\), and Proposition~\ref{prop:pushforward_compatible} shows that \(\phi_*\) maps \(C_c(X,A)\) to \(C_c(Y,A)\) and preserves compact support.
 Moreover, pushforward is functorial for composition, so for composable local homeomorphisms \(\psi,\phi\) one has \((\psi\circ \phi)_*=\psi_*\circ \phi_*\).
@@ -1773,7 +1777,7 @@ This functoriality is a basic input for the exact sequences used later, in parti
 \end{remark}
 
 \begin{theorem}\label{thm:functoriality-homology-groupoids}
-Let \(\varphi:\Hh\to\G\) be an \'etale functor between \'etale groupoids, and let \(A\) be a topological abelian group.
+Let \(\varphi:\Hh\to\G\) be an \'{e}tale functor between \'{e}tale groupoids, and let \(A\) be a topological abelian group.
 \begin{enumerate}[noitemsep,nolistsep]
   \item For each \(n\ge 0\), the induced map on nerves
   \(
@@ -1801,7 +1805,7 @@ Let \(\varphi:\Hh\to\G\) be an \'etale functor between \'etale groupoids, and le
     H_n(\varphi):H_n(\Hh;A)\rightarrow H_n(\G;A)
   \)
   for all \(n\ge 0\), and \(\varphi\mapsto H_\bullet(\varphi)\) is functorial.
-  If \(\psi:\G\to\K\) is another \'etale functor, then
+  If \(\psi:\G\to\K\) is another \'{e}tale functor, then
   \(H_\bullet(\psi\circ\varphi)=H_\bullet(\psi)\circ H_\bullet(\varphi)\) and
   \(H_\bullet(\mathrm{id}_{\G})=\mathrm{id}_{H_\bullet(\G;A)}\).
 
@@ -1815,7 +1819,7 @@ Let \(\varphi:\Hh\to\G\) be an \'etale functor between \'etale groupoids, and le
 
 \begin{proof}~
 \begin{enumerate}[noitemsep,nolistsep]
-  \item Since \(\varphi\) is an \'etale functor, both \(\varphi_0:\Hh_0\to\G_0\) and \(\varphi_1:\Hh_1\to\G_1\) are local homeomorphisms.
+  \item Since \(\varphi\) is an \'{e}tale functor, both \(\varphi_0:\Hh_0\to\G_0\) and \(\varphi_1:\Hh_1\to\G_1\) are local homeomorphisms.
   For \(n\ge 2\), write the \(n\)-simplices as iterated fibre products
   \[
     \Hh_n=\Hh_1\Hstimesr\cdots\Hstimesr\Hh_1,
@@ -1846,7 +1850,7 @@ Let \(\varphi:\Hh\to\G\) be an \'etale functor between \'etale groupoids, and le
     =(\varphi_{n-1})_*\circ \partial_n^{\Hh}.
   \]
   Thus \((N\varphi)_*\) induces \(H_n(\varphi)\) on homology.
-  If \(\psi:\G\to\K\) is another \'etale functor, then \((\psi\circ\varphi)_n=\psi_n\circ \varphi_n\), hence
+  If \(\psi:\G\to\K\) is another \'{e}tale functor, then \((\psi\circ\varphi)_n=\psi_n\circ \varphi_n\), hence
   \(((\psi\circ\varphi)_n)_*=(\psi_n)_*\circ(\varphi_n)_*\) by Proposition~\ref{prop:pushforward_compatible}, and functoriality on homology follows.
   The identity functor induces the identity chain map
   \[
@@ -1994,7 +1998,7 @@ Under the usual hypotheses, in particular that \(C_c(\G_n,\ZZ)\) is free for all
 We emphasize that this coefficient description is specific to the compact-support model and, as in homology, the behaviour changes substantially once one allows genuinely topological coefficients.
 
 \begin{definition}[Cochains and coboundary]\label{def:cochains-compact-support}
-Let \(\G\) be an étale groupoid and let \(A\) be an abelian group.
+Let \(\G\) be an \'{e}tale groupoid and let \(A\) be an abelian group.
 For \(n\ge 0\) set
 \(
 C^n(\G;A)\coloneqq C_c(\G_n,A).
@@ -2051,7 +2055,7 @@ Since \(g\) was arbitrary, \(\delta^{n+1}\circ\delta^n=0\).
 
 \begin{remark}\label{rem:cochains-properness}
 The properness hypothesis in Proposition~\ref{prop:cochain-complex} is a genuine restriction in the compact-support model.
-For étale groupoids the face maps are local homeomorphisms, but need not be proper, so pullback does not preserve compact support in general.
+For \'{e}tale groupoids the face maps are local homeomorphisms, but need not be proper, so pullback does not preserve compact support in general.
 There are standard alternatives, for instance defining cochains without compact support or working with sheaf or module coefficients, as in the module-theoretic and sheaf-theoretic approaches developed in recent work \cite{crainic1999homology,crainic2000homology}.
 We keep the compact-support convention here because it interacts well with the cut-and-paste technology and the exact sequences used throughout this thesis, and we isolate precisely where additional hypotheses are needed.
 \end{remark}
@@ -2162,7 +2166,7 @@ For \(U\subseteq \G\) we denote by \(\chi_U\in C_c(\G,\ZZ)\) its characteristic 
 \end{remark}
 
 \begin{lemma}\label{lem:locally-constant-generators}
-Let \(\G\) be an ample \'etale groupoid.
+Let \(\G\) be an ample \'{e}tale groupoid.
 Then every \(f\in C_c(\G,\ZZ)\) is locally constant and has compact open support.
 Moreover, \(C_c(\G,\ZZ)\) is generated, as an abelian group, by the characteristic functions \(\chi_U\) with \(U\in \operatorname{Bis}(\G)\).
 \end{lemma}
@@ -2217,7 +2221,7 @@ Let \(f\in C_c(\G,\ZZ)\).
 This lemma is the basic ample input behind the chain-level freeness used later in the universal coefficient theorem for discrete coefficients, and it is also the point where the restriction to compact open data becomes visible.
 
 \begin{definition}\label{def:convolution}
-Let \(\G\) be an \'etale groupoid and, for \(u\in \G_0\), set \(\G_u\coloneqq \{g\in \G\mid s(g)=u\}\).
+Let \(\G\) be an \'{e}tale groupoid and, for \(u\in \G_0\), set \(\G_u\coloneqq \{g\in \G\mid s(g)=u\}\).
 For \(f_1,f_2\in C_c(\G,\ZZ)\) define the convolution product \(f_1\ast f_2\in C_c(\G,\ZZ)\) by
 \[
 (f_1\ast f_2)(g)
@@ -2225,11 +2229,11 @@ For \(f_1,f_2\in C_c(\G,\ZZ)\) define the convolution product \(f_1\ast f_2\in C
 \sum_{h\in \G_{r(g)}} f_1(h^{-1})\,f_2(hg)
 \quad \text{for all } g\in \G.
 \]
-The sum is finite because \(\G\) is \'etale and \(f_1,f_2\) have compact support.
+The sum is finite because \(\G\) is \'{e}tale and \(f_1,f_2\) have compact support.
 \end{definition}
 
 \begin{lemma}\label{lem:convolution-ring}
-Let \(\G\) be an ample \'etale groupoid.
+Let \(\G\) be an ample \'{e}tale groupoid.
 With pointwise addition and convolution \(\ast\) as in Definition~\ref{def:convolution}, the triple \(\bigl(C_c(\G,\ZZ),+,\ast\bigr)\) is an associative ring with local units: for every finite subset \(\{f_1,\ldots,f_n\}\subset C_c(\G,\ZZ)\) there exists an idempotent \(e\in C_c(\G,\ZZ)\) such that \(e\ast f_i=f_i=f_i\ast e\) for all \(i\).
 \end{lemma}
 
@@ -2246,7 +2250,7 @@ E_g
 \coloneqq
 \{h\in \G_{r(g)} \mid h^{-1}\in \operatorname{supp}(f_1),\ hg\in \operatorname{supp}(f_2)\}.
 \]
-Since \(\G\) is \'etale, the fibre \(\G_{r(g)}=s^{-1}(r(g))\) is discrete.
+Since \(\G\) is \'{e}tale, the fibre \(\G_{r(g)}=s^{-1}(r(g))\) is discrete.
 The set
 \[
 H_1\coloneqq \{h\in \G_{r(g)} \mid h^{-1}\in \operatorname{supp}(f_1)\}
@@ -2387,14 +2391,14 @@ Then
 (e\ast f)(g)
 = \sum_{h\in \G_{r(g)}} e(h^{-1})\,f(hg).
 \]
-The term \(e(h^{-1})\) is nonzero only if \(h^{-1}\in \G_0\), equivalently \(h\in \G_0\), and the unique unit in \(\G_{r(g)}\) is \(r(g)\).
+The term \(e(h^{-1})\) is nonzero only if \(h^{-1}\in \G_0\), that is, \(h\in \G_0\), and the unique unit in \(\G_{r(g)}\) is \(r(g)\).
 Hence \((e\ast f)(g)=e(r(g))\,f(r(g)g)=1\cdot f(g)=f(g)\).
 Similarly,
 \[
 (f\ast e)(g)
 = \sum_{h\in \G_{r(g)}} f(h^{-1})\,e(hg).
 \]
-The term \(e(hg)\) is nonzero only if \(hg\in \G_0\), equivalently \(h=g^{-1}\), the unique such element of \(\G_{r(g)}\).
+The term \(e(hg)\) is nonzero only if \(hg\in \G_0\), that is, \(h=g^{-1}\), the unique such element of \(\G_{r(g)}\).
 Thus \((f\ast e)(g)=f(g)\,e(s(g))=f(g)\).
 Therefore \(e\ast f=f=f\ast e\) for all \(f\) in the finite set, so \(C_c(\G,\ZZ)\) has local units.
 \end{itemize}
@@ -2421,17 +2425,17 @@ Establishing invariance under Kakutani equivalence therefore serves two purposes
 This point of view also connects directly to the broader Morita-invariance philosophy for groupoids and their invariants: Kakutani equivalence is implemented by full clopen reductions and can be seen as a concrete ample analogue of Morita equivalence at the level of orbit geometry.
 Accordingly, the invariance proof below is carried out at the chain level, using functoriality and reduction exact sequences, rather than appealing to classifying-space homotopy type.
 
-Let \(\G\) and \(\Hh\) be Kakutani equivalent ample \'etale groupoids, and let \(A\) be an abelian group, viewed with the discrete topology when forming \(C_c(-,A)\).
+Let \(\G\) and \(\Hh\) be Kakutani equivalent ample \'{e}tale groupoids, and let \(A\) be an abelian group, viewed with the discrete topology when forming \(C_c(-,A)\).
 We will prove that for every \(n\ge 0\) there is a natural isomorphism
 \(
 H_n(\G;A)\cong H_n(\Hh;A).
 \)
 We now recall the definition of Kakutani equivalence in the ample setting.
-Let \(\G\) and \(\Hh\) be \'etale groupoids whose unit spaces are compact and totally disconnected.
+Let \(\G\) and \(\Hh\) be \'{e}tale groupoids whose unit spaces are compact and totally disconnected.
 
 \begin{definition}[Kakutani equivalence {\cite[\S 3]{Carlsen2016}}]\label{def:kakutani}
-\'Etale groupoids \(\G\) and \(\Hh\) are Kakutani equivalent if there exist clopen, full subsets
-\(F\subseteq \G_0\) and \(E\subseteq \Hh_0\) and an isomorphism of \'etale groupoids
+\'{E}tale groupoids \(\G\) and \(\Hh\) are Kakutani equivalent if there exist clopen, full subsets
+\(F\subseteq \G_0\) and \(E\subseteq \Hh_0\) and an isomorphism of \'{e}tale groupoids
 \(
 \phi\colon \G|_{F}\xrightarrow{\cong}\Hh|_{E},
 \)
@@ -2439,12 +2443,11 @@ where \(\G|_{F}\) denotes the reduction with arrow space \(r^{-1}(F)\cap s^{-1}(
 \end{definition}
 
 \begin{remark}
-Here full means that the saturation equals the whole unit space, equivalently
-\(r\bigl(s^{-1}(F)\bigr)=\G_0\) and \(r\bigl(s^{-1}(E)\bigr)=\Hh_0\).
+Here full means that the saturation equals the whole unit space, that is, \(r\bigl(s^{-1}(F)\bigr)=\G_0\) and \(r\bigl(s^{-1}(E)\bigr)=\Hh_0\).
 \end{remark}
 
 \begin{definition}[Homological similarity {\cite[Definition~3.4]{matui2012homology}}]\label{def:hom-similarity}
-Let \(\G\) and \(\Hh\) be \'etale groupoids.
+Let \(\G\) and \(\Hh\) be \'{e}tale groupoids.
 \begin{itemize}[noitemsep,nolistsep]
   \item
   Functors \(\rho,\sigma\colon \G\to \Hh\) are similar if there exists a continuous map
@@ -2458,7 +2461,7 @@ Let \(\G\) and \(\Hh\) be \'etale groupoids.
   \[
   \theta\bigl(r_{\G}(g)\bigr)\,\rho(g)=\sigma(g)\,\theta\bigl(s_{\G}(g)\bigr).
   \]
-  Equivalently, \(\theta\colon \rho\Rightarrow \sigma\) is a natural transformation.
+  Thus \(\theta\colon \rho\Rightarrow \sigma\) is a natural transformation.
 
   \item
   The groupoids \(\G\) and \(\Hh\) are homologically similar if there exist functors
@@ -2494,13 +2497,13 @@ Define
 \(
 H_0(\G)^+\coloneqq q\bigl(C_c(\G_0,\ZZ_{\ge 0})\bigr).
 \)
-Equivalently, \(H_0(\G)^+\) is the submonoid of \(H_0(\G)\) generated by the classes \([\chi_U]\) of characteristic functions of clopen subsets \(U\subseteq \G_0\).
+In other words, \(H_0(\G)^+\) is the submonoid of \(H_0(\G)\) generated by the classes \([\chi_U]\) of characteristic functions of clopen subsets \(U\subseteq \G_0\).
 When \(\G_0\) is totally disconnected, every nonnegative integer-valued compactly supported continuous function is a finite sum of characteristic functions of clopen sets, so the two descriptions agree.
-The pair \(\bigl(H_0(\G),H_0(\G)^+\bigr)\) is an ordered abelian group, and the maps induced on \(H_0\) by functors of \'etale groupoids are positive with respect to these cones.
+The pair \(\bigl(H_0(\G),H_0(\G)^+\bigr)\) is an ordered abelian group, and the maps induced on \(H_0\) by functors of \'{e}tale groupoids are positive with respect to these cones.
 \end{remark}
 
 \begin{lemma}\label{lem:functoriality}
-Let \(\rho:\G\to\Hh\) be an \'etale functor of \'etale groupoids and let \(A\) be a topological abelian group.
+Let \(\rho:\G\to\Hh\) be an \'{e}tale functor of \'{e}tale groupoids and let \(A\) be a topological abelian group.
 For \(n\ge 0\) define
 \[
 \rho_n:\G_n\rightarrow \Hh_n,
@@ -2533,7 +2536,7 @@ For \(n\ge 2\) write the \(n\)-simplices as iterated fibre products
 \quad
 \Hh_n=\Hh_1\Hstimesr\cdots\Hstimesr\Hh_1.
 \]
-Since \(\rho\) is an \'etale functor, the maps \(\rho_0:\G_0\to \Hh_0\) and \(\rho_1:\G_1\to \Hh_1\) are local homeomorphisms and satisfy
+Since \(\rho\) is an \'{e}tale functor, the maps \(\rho_0:\G_0\to \Hh_0\) and \(\rho_1:\G_1\to \Hh_1\) are local homeomorphisms and satisfy
 \(s_{\Hh}\circ \rho_1=\rho_0\circ s_{\G}\) and \(r_{\Hh}\circ \rho_1=\rho_0\circ r_{\G}\).
 Thus \(\rho_n\) is the induced map between these iterated pullbacks.
 Local homeomorphisms are stable under finite products and base change, hence \(\rho_n\) is a local homeomorphism for all \(n\ge 0\).
@@ -2588,10 +2591,10 @@ For \(n=0\) we have \(\partial_0^{\G}=\partial_0^{\Hh}=0\).
 \end{proof}
 
 \begin{proposition}[Chain homotopy from a similarity {\cite[Proposition~3.5]{matui2012homology}}]\label{prop:similar-homotopy}
-Let \(\rho,\sigma:\mathcal G\to \mathcal H\) be \'etale functors between \'etale groupoids, and suppose they are similar via \(\theta:\mathcal G_0\to \mathcal H_1\), meaning
+Let \(\rho,\sigma:\mathcal G\to \mathcal H\) be \'{e}tale functors between \'{e}tale groupoids, and suppose they are similar via \(\theta:\mathcal G_0\to \mathcal H_1\), meaning
 \(s_{\mathcal H}(\theta(x))=\rho_0(x)\), \(r_{\mathcal H}(\theta(x))=\sigma_0(x)\) for all \(x\in\mathcal G_0\), and
 \(\theta(r(g))\cdot_{\mathcal H}\rho_1(g)=\sigma_1(g)\cdot_{\mathcal H}\theta(s(g))\) for all \(g\in\mathcal G_1\).
-Assume moreover that \(\theta\) is \'etale, equivalently \(\theta(\mathcal G_0)\) is a bisection of \(\mathcal H_1\), so \(s_{\mathcal H}\circ\theta\) and \(r_{\mathcal H}\circ\theta\) are local homeomorphisms.
+Assume moreover that \(\theta\) is \'{e}tale, that is, \(\theta(\mathcal G_0)\) is a bisection of \(\mathcal H_1\), so \(s_{\mathcal H}\circ\theta\) and \(r_{\mathcal H}\circ\theta\) are local homeomorphisms.
 Define \(k_0:\mathcal G_0\to \mathcal H_1\) by \(k_0\coloneqq \theta\).
 
 For \(n\ge 1\) and \(0\le j\le n\) define
@@ -2682,7 +2685,7 @@ If \(A=\ZZ\), then \(H_0(\rho)\) carries the positive cone \(H_0(\mathcal G)^+\)
 \end{proposition}
 
 \begin{proof}
-By Definition~\ref{def:hom-similarity} there exist \'etale functors \(\rho:\mathcal G\to\mathcal H\) and \(\sigma:\mathcal H\to\mathcal G\) such that \(\sigma\circ\rho\) is similar to \(\mathrm{id}_{\mathcal G}\) and \(\rho\circ\sigma\) is similar to \(\mathrm{id}_{\mathcal H}\).
+By Definition~\ref{def:hom-similarity} there exist \'{e}tale functors \(\rho:\mathcal G\to\mathcal H\) and \(\sigma:\mathcal H\to\mathcal G\) such that \(\sigma\circ\rho\) is similar to \(\mathrm{id}_{\mathcal G}\) and \(\rho\circ\sigma\) is similar to \(\mathrm{id}_{\mathcal H}\).
 By Corollary~\ref{cor:similar-equal-Hn},
 \[
 H_n(\sigma\circ\rho)=H_n(\mathrm{id}_{\mathcal G})=\mathrm{id}_{H_n(\mathcal G;A)},
@@ -2703,12 +2706,12 @@ Since \(H_0(\sigma)\) is the inverse of \(H_0(\rho)\), we conclude
 \end{proof}
 
 \begin{lemma}[{\cite[Theorem~3.6(1)]{matui2012homology}}]\label{lem:reduction-with-section}
-Let \(\mathcal G\) be an \'etale groupoid and let \(F\subset \mathcal G_0\) be an open \(\mathcal G\)-full subset.
+Let \(\mathcal G\) be an \'{e}tale groupoid and let \(F\subset \mathcal G_0\) be an open \(\mathcal G\)-full subset.
 Suppose there exists a continuous map \(\theta:\mathcal G_0\to \mathcal G_1\) such that
 \(
 r_{\mathcal G}\bigl(\theta(x)\bigr)=x, s_{\mathcal G}\bigl(\theta(x)\bigr)\in F \text{ for all }x\in\mathcal G_0,
 \)
-and whose image \(\theta(\mathcal G_0)\) is a bisection, equivalently \(r_{\mathcal G}\circ\theta=\mathrm{id}_{\mathcal G_0}\) and \(s_{\mathcal G}\circ\theta:\mathcal G_0\to F\) are local homeomorphisms.
+and whose image \(\theta(\mathcal G_0)\) is a bisection, that is, \(r_{\mathcal G}\circ\theta=\mathrm{id}_{\mathcal G_0}\) and \(s_{\mathcal G}\circ\theta:\mathcal G_0\to F\) are local homeomorphisms.
 Define functors
 \[
 \rho:\mathcal G\rightarrow \mathcal G|_{F},
@@ -2728,7 +2731,7 @@ and the inclusion functor \(\sigma:\mathcal G|_{F}\hookrightarrow \mathcal G\) g
 \quad
 \sigma_1:(\mathcal G|_{F})_1\rightarrow \mathcal G_1,\quad \sigma_1(h)=h.
 \]
-Then \(\rho\) and \(\sigma\) are \'etale functors and \(\mathcal G\) and \(\mathcal G|_{F}\) are homologically similar in the sense of Definition~\ref{def:hom-similarity}.
+Then \(\rho\) and \(\sigma\) are \'{e}tale functors and \(\mathcal G\) and \(\mathcal G|_{F}\) are homologically similar in the sense of Definition~\ref{def:hom-similarity}.
 More precisely:
 \begin{itemize}[noitemsep,nolistsep]
 \item \(\sigma\circ\rho\) is similar to \(\mathrm{id}_{\mathcal G}\) via \(\theta\), meaning
@@ -2782,10 +2785,10 @@ Units are preserved because
 \item \textbf{Continuity.}
 Follows from continuity of \(r_{\mathcal G},s_{\mathcal G}\), inversion, multiplication, and \(\theta\).
 
-\item \textbf{\'Etaleness.}
+\item \textbf{\'{E}taleness.}
 The map \(\rho_0=s_{\mathcal G}\circ\theta\) is a local homeomorphism because \(\theta(\mathcal G_0)\) is a bisection and \(s_{\mathcal G}\) is a local homeomorphism.
 The map \(\rho_1\) is a local homeomorphism because it is built from the local homeomorphisms \(r_{\mathcal G},s_{\mathcal G}\), inversion, multiplication restricted to products of bisections, and \(\theta\), using stability of local homeomorphisms under finite products and base change.
-The inclusion \(\sigma:\mathcal G|_{F}\hookrightarrow\mathcal G\) is \'etale because \((\mathcal G|_{F})_1=s_{\mathcal G}^{-1}(F)\cap r_{\mathcal G}^{-1}(F)\) is open in \(\mathcal G_1\) and \(\sigma_0,\sigma_1\) are open embeddings.
+The inclusion \(\sigma:\mathcal G|_{F}\hookrightarrow\mathcal G\) is \'{e}tale because \((\mathcal G|_{F})_1=s_{\mathcal G}^{-1}(F)\cap r_{\mathcal G}^{-1}(F)\) is open in \(\mathcal G_1\) and \(\sigma_0,\sigma_1\) are open embeddings.
 
 \item \textbf{Similarity \(\sigma\circ\rho \sim \mathrm{id}_{\mathcal G}\) via \(\theta\).}
 For objects \(x\in\mathcal G_0\),
@@ -2814,7 +2817,7 @@ Moreover, for \(x\in F\) we have \(r_{\mathcal G}(\theta(x))=x\) and \(s_{\mathc
 \end{itemize}
 \end{proof}
 
-In the Kakutani invariance argument we repeatedly pass to full open reductions \(\G|_F\) and compare \(\G\) with \(\G|_F\) by explicit \'etale functors.
+In the Kakutani invariance argument we repeatedly pass to full open reductions \(\G|_F\) and compare \(\G\) with \(\G|_F\) by explicit \'{e}tale functors.
 At chain level this comparison is implemented by pushforwards along the induced maps on nerves, so we need a concrete way to transport compactly supported chains on \(\G_\bullet\) into compactly supported chains on \((\G|_F)_\bullet\) and back.
 
 The key technical input is a continuous choice of arrows that move points into \(F\):
@@ -2823,7 +2826,7 @@ Such a map is a global section of the range map \(r:\G_1\to \G_0\) with values l
 Fullness of \(F\) guarantees existence of arrows pointwise, but a continuous choice requires patching local bisections coherently.
 
 This is exactly where \(\sigma\)-compactness enters.
-Since \(\G\) is \'etale and \(\G_0\) is totally disconnected, around each \(x\in \G_0\) one can find a compact open bisection \(U_x\subset s^{-1}(F)\) with \(x\in r(U_x)\) and \(s(U_x)\subset F\).
+Since \(\G\) is \'{e}tale and \(\G_0\) is totally disconnected, around each \(x\in \G_0\) one can find a compact open bisection \(U_x\subset s^{-1}(F)\) with \(x\in r(U_x)\) and \(s(U_x)\subset F\).
 A continuous global section can then be obtained by selecting a countable family of such bisections covering \(\G_0\) and refining it to a disjoint cover of \(\G_0\) by compact open subsets in the range.
 The refinement step uses only total disconnectedness and Hausdorffness, but the reduction to a countable cover uses \(\sigma\)-compactness in an essential way, by applying compactness on an exhausting sequence of compact subsets.
 Once a disjoint compact open cover \(\G_0=\bigsqcup_n r(V_n)\) with bisections \(V_n\subset s^{-1}(F)\) is available, the section is forced on each piece by \(\theta|_{r(V_n)}=(r|_{V_n})^{-1}\), and continuity follows because the pieces are open.
@@ -2832,14 +2835,14 @@ Lemma~\ref{lem:theta-exists} formalizes this construction.
 It is the mechanism that turns the geometric fullness hypothesis into an explicit, continuous arrow selection, which in turn produces the functors needed for homological similarity and hence for Kakutani invariance.
 
 \begin{lemma}[{\cite[Lemma~4.3]{matui2012homology}}]\label{lem:theta-exists}
-Let \(\mathcal G\) be an \'etale groupoid with \(\mathcal G_0\) \(\sigma\)-compact and totally disconnected, and let \(F\subset \mathcal G_0\) be an open \(\mathcal G\)-full subset.
+Let \(\mathcal G\) be an \'{e}tale groupoid with \(\mathcal G_0\) \(\sigma\)-compact and totally disconnected, and let \(F\subset \mathcal G_0\) be an open \(\mathcal G\)-full subset.
 Then there exists a continuous map \(\theta:\mathcal G_0\to\mathcal G_1\) such that
 \(r\bigl(\theta(x)\bigr)=x\) and \(s\bigl(\theta(x)\bigr)\in F\) for all \(x\in\mathcal G_0\).
 \end{lemma}
 
 \begin{proof}
 For each \(x\in\mathcal G_0\) choose \(g_x\in\mathcal G_1\) with \(r(g_x)=x\) and \(s(g_x)\in F\), which is possible since \(F\) is \(\mathcal G\)-full.
-As \(\mathcal G\) is \'etale, there exists an open bisection \(B_x\ni g_x\).
+As \(\mathcal G\) is \'{e}tale, there exists an open bisection \(B_x\ni g_x\).
 Since \(F\) is open and \(s(g_x)\in F\), replacing \(B_x\) by \(B_x\cap s^{-1}(F)\) we may assume \(s(B_x)\subseteq F\).
 
 Because \(\mathcal G_0\) is totally disconnected and locally compact, we can choose a compact open neighbourhood \(W_x\subset r(B_x)\) of \(x\) and set
@@ -2898,11 +2901,11 @@ This construction is the basic compact open partition argument that underlies se
 In the proof of Kakutani invariance in Theorem~\ref{thm:kakutani-invariance} one repeatedly replaces a groupoid by a full reduction \(\red{\G}{F}\) to a suitable open, typically clopen, subset \(F\subseteq \G_0\).
 Geometrically, such a reduction does not change the orbit picture: every \(\G\)\nobreakdash-orbit meets \(F\), so \(\red{\G}{F}\) still sees all orbits.
 To make this usable on the level of Moore chains, one needs a concrete way to move units into \(F\) by arrows depending continuously on the unit.
-This is the role of the next step: Lemma~\ref{lem:theta-exists} constructs a continuous section of the range map with image in \(s^{-1}(F)\), and Lemma~\ref{lem:reduction-with-section} turns such a section into \'etale functors \(\rho:\G\to \red{\G}{F}\) and \(\sigma:\red{\G}{F}\hookrightarrow \G\) whose composites are similar to the identities.
+This is the role of the next step: Lemma~\ref{lem:theta-exists} constructs a continuous section of the range map with image in \(s^{-1}(F)\), and Lemma~\ref{lem:reduction-with-section} turns such a section into \'{e}tale functors \(\rho:\G\to \red{\G}{F}\) and \(\sigma:\red{\G}{F}\hookrightarrow \G\) whose composites are similar to the identities.
 Since similarity yields chain homotopies by Proposition~\ref{prop:similar-homotopy}, this produces the chain-level comparison needed for invariance.
 
 \begin{proposition}\label{prop:G-vs-reduction}
-Let \(\G\) be \'etale with \(\G_0\) \(\sigma\)-compact and totally disconnected, and let \(F\subseteq \G_0\) be open and \(\G\)\nobreakdash-full.
+Let \(\G\) be \'{e}tale with \(\G_0\) \(\sigma\)-compact and totally disconnected, and let \(F\subseteq \G_0\) be open and \(\G\)\nobreakdash-full.
 Then \(\G\) and \(\red{\G}{F}\) are homologically similar.
 \end{proposition}
 
@@ -2911,7 +2914,7 @@ By Lemma~\ref{lem:theta-exists} there exists a continuous map \(\theta:\G_0\to \
 Moreover, the construction in Lemma~\ref{lem:theta-exists} produces \(\theta(\G_0)\) as a union of pairwise disjoint compact open bisections, hence \(\theta(\G_0)\) is itself a bisection.
 Therefore \(r\circ \theta=\mathrm{id}_{\G_0}\) and \(s\circ \theta:\G_0\to F\) are local homeomorphisms.
 
-Applying Lemma~\ref{lem:reduction-with-section} to this \(\theta\) yields \'etale functors
+Applying Lemma~\ref{lem:reduction-with-section} to this \(\theta\) yields \'{e}tale functors
 \(\rho:\G\to \red{\G}{F}\) and \(\sigma:\red{\G}{F}\hookrightarrow \G\)
 such that \(\sigma\circ \rho\) is similar to \(\mathrm{id}_{\G}\) via \(\theta\) and \(\rho\circ \sigma\) is similar to \(\mathrm{id}_{\red{\G}{F}}\) via \(\theta|_{F}\).
 Hence \(\G\) and \(\red{\G}{F}\) are homologically similar in the sense of Definition~\ref{def:hom-similarity}.
@@ -2920,7 +2923,7 @@ Hence \(\G\) and \(\red{\G}{F}\) are homologically similar in the sense of Defin
 \begin{proof}[Proof of Theorem~\ref{thm:kakutani-invariance}]~
 \begin{itemize}[noitemsep,nolistsep]
 \item \textbf{Reduction to full clopen subsets.}
-By Kakutani equivalence in Definition~\ref{def:kakutani}, there exist clopen, \(\G\)\nobreakdash-full \(F_{\G}\subseteq \G_0\) and clopen, \(\Hh\)\nobreakdash-full \(F_{\Hh}\subseteq \Hh_0\), and an isomorphism of \'etale groupoids
+By Kakutani equivalence in Definition~\ref{def:kakutani}, there exist clopen, \(\G\)\nobreakdash-full \(F_{\G}\subseteq \G_0\) and clopen, \(\Hh\)\nobreakdash-full \(F_{\Hh}\subseteq \Hh_0\), and an isomorphism of \'{e}tale groupoids
 \(
 \phi:\red{\G}{F_{\G}}\xrightarrow{\cong}\red{\Hh}{F_{\Hh}}.
 \)
@@ -2932,7 +2935,7 @@ Proposition~\ref{prop:G-vs-reduction} yields homological similarities
 
 \item \textbf{Identify the reductions.}
 Set \(\rho\coloneqq \phi\) and \(\sigma\coloneqq \phi^{-1}\).
-Then \(\rho\) and \(\sigma\) are \'etale functors and
+Then \(\rho\) and \(\sigma\) are \'{e}tale functors and
 \(
 \sigma\circ\rho=\mathrm{id}_{\red{\G}{F_{\G}}},
 \rho\circ\sigma=\mathrm{id}_{\red{\Hh}{F_{\Hh}}}.
@@ -2953,11 +2956,11 @@ For \(A=\ZZ\), Proposition~\ref{prop:hom-sim-iso} also yields that the induced i
 \end{itemize}
 \end{proof}
 
-We define a homology theory for \'etale groupoids by using the simplicial geometry of the nerve
+We define a homology theory for \'{e}tale groupoids by using the simplicial geometry of the nerve
 \(
 \G_\bullet=\bigl(\G_n,(d_i)_{i=0}^n,(s_j)_{j=0}^n\bigr)_{n\ge 0}.
 \)
-If \(\G\) is \'etale, then every face map \(d_i:\G_n\to \G_{n-1}\) is a local homeomorphism. Hence, for every topological abelian group \(A\), pushforward along \(d_i\) is defined on compactly supported continuous functions. Applying \(C_c(-,A)\) levelwise yields the simplicial abelian group
+If \(\G\) is \'{e}tale, then every face map \(d_i:\G_n\to \G_{n-1}\) is a local homeomorphism. Hence, for every topological abelian group \(A\), pushforward along \(d_i\) is defined on compactly supported continuous functions. Applying \(C_c(-,A)\) levelwise yields the simplicial abelian group
 \(
 C_c(\G_\bullet,A)=\bigl(C_c(\G_n,A)\bigr)_{n\ge 0},
 \)
@@ -2977,7 +2980,7 @@ is a chain complex, and we set
 H_n(\G;A)\coloneqq \ker(\partial_n)\big/\operatorname{im}(\partial_{n+1}).
 \)
 
-An \'etale functor \(\varphi:\Hh\to\G\) induces a simplicial map \(N\varphi:\Hh_\bullet\to\G_\bullet\), hence a chain map
+An \'{e}tale functor \(\varphi:\Hh\to\G\) induces a simplicial map \(N\varphi:\Hh_\bullet\to\G_\bullet\), hence a chain map
 \(
 (N\varphi)_*:C_c(\mathcal{H}_\bullet,A)\to C_c(\mathcal{G}_\bullet,A).
 \)
@@ -2987,7 +2990,7 @@ Similarity of functors \(\rho,\sigma:\G\to\Hh\) produces an explicit chain homot
 \)
 In particular, similar functors induce the same morphisms on homology. If \(\G\) and \(\Hh\) are homologically similar, then \(H_n(\G;A)\cong H_n(\Hh;A)\) for all \(n\), and for \(A=\ZZ\) the induced isomorphism on \(H_0\) preserves the positive cone.
 
-To compare a groupoid with a full reduction \(\red{\G}{F}\) one needs a continuous choice of arrows moving each unit into \(F\). If \(\G_0\) is \(\sigma\)-compact and totally disconnected and \(F\subset \G_0\) is open and \(\G\)-full, a countable refinement by compact open bisections yields a continuous map \(\theta:\G_0\to\G_1\) with \(r(\theta(x))=x\) and \(s(\theta(x))\in F\). From \(\theta\) one constructs \'etale functors \(\rho:\G\to \red{\G}{F}\) and \(\sigma:\red{\G}{F}\hookrightarrow \G\) such that \(\sigma\circ\rho\) is similar to \(\mathrm{id}_{\G}\) and \(\rho\circ\sigma\) is similar to \(\mathrm{id}_{\red{\G}{F}}\). Hence \(\G\) and \(\red{\G}{F}\) are homologically similar.
+To compare a groupoid with a full reduction \(\red{\G}{F}\) one needs a continuous choice of arrows moving each unit into \(F\). If \(\G_0\) is \(\sigma\)-compact and totally disconnected and \(F\subset \G_0\) is open and \(\G\)-full, a countable refinement by compact open bisections yields a continuous map \(\theta:\G_0\to\G_1\) with \(r(\theta(x))=x\) and \(s(\theta(x))\in F\). From \(\theta\) one constructs \'{e}tale functors \(\rho:\G\to \red{\G}{F}\) and \(\sigma:\red{\G}{F}\hookrightarrow \G\) such that \(\sigma\circ\rho\) is similar to \(\mathrm{id}_{\G}\) and \(\rho\circ\sigma\) is similar to \(\mathrm{id}_{\red{\G}{F}}\). Hence \(\G\) and \(\red{\G}{F}\) are homologically similar.
 
 Finally, if \(\G\) and \(\Hh\) are Kakutani equivalent, there exist full clopen subsets \(F_{\G}\subset\G_0\) and \(F_{\Hh}\subset\Hh_0\) and an isomorphism \(\red{\G}{F_{\G}}\cong \red{\Hh}{F_{\Hh}}\). Combining invariance under full reductions with invariance under isomorphism gives natural isomorphisms
 \(
