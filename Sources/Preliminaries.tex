@@ -286,18 +286,6 @@ A groupoid is given by the quadruple \((\mathcal{G},\mathcal{G}_2,m,i)\) where \
 \item[(G3')] For all \(\gamma\in\mathcal{G}\), \((\gamma,\gamma^{-1})\in\mathcal{G}_2\).
 \item[(G4')] For all \((\gamma,\eta)\in\mathcal{G}_2\) one has \(\gamma^{-1}\cdot(\gamma\cdot\eta)=\eta\) and \((\gamma\cdot\eta)\cdot\eta^{-1}=\gamma\).
 \end{enumerate}
-
-Define the unit space by
-\[
-\mathcal{G}_0\coloneqq\{\gamma\cdot\gamma^{-1}\mid \gamma\in\mathcal{G}\}
-=\{\gamma^{-1}\cdot\gamma\mid \gamma\in\mathcal{G}\},
-\]
-and the range and source maps by \(r(\gamma)\coloneqq \gamma\cdot\gamma^{-1}\) and \(s(\gamma)\coloneqq \gamma^{-1}\cdot\gamma\).
-Henceforth we identify the domain of multiplication with source--range matching:
-\[
-(\alpha,\beta)\in\mathcal{G}_2\ \Leftrightarrow\ s(\alpha)=r(\beta).
-\]
-We use left--to--right composition \(\alpha\cdot\beta\).
 \end{definition}
 
 Units are derived rather than primitive in this version. The four axioms encode inversion, associativity with domain control, and the two unit laws via cancellation identities, from which \(\mathcal{G}_0\) together with \(r\) and \(s\) are defined. This presentation is economical for proofs and aligns with categorical practice, morphisms first, objects reconstructed, yet it is equivalent to the expanded axiom list used earlier. The relationship with the previous definition is as follows:
