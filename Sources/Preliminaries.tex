@@ -425,14 +425,14 @@ Let \(\mathcal{G}\) be a groupoid. A subgroupoid consists of subsets \(\mathcal{
 r\vert^{\mathcal{H}_0}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H}_0,
 s\vert^{\mathcal{H}_0}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H}_0,
 m\vert^{\mathcal{H}}_{\mathcal{H}_2}:\mathcal{H}_2\to\mathcal{H},
-(i)|^{\mathcal{H}}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H},
+i|^{\mathcal{H}}_{\mathcal{H}}:\mathcal{H}\to\mathcal{H},
 \)
 where \(\mathcal{H}_2\coloneqq\{(\alpha,\beta)\in\mathcal{H}\times\mathcal{H}\mid s(\alpha)=r(\beta) \}\), such that:
 \begin{enumerate}[noitemsep,nolistsep]
-  \item[(S1)] \(\mathcal{H}_0=\mathcal{H}\cap\mathcal{G}_0\) and \(r(\mathcal{H})\cup s(\mathcal{H})\subseteq\mathcal{H}_0\).
-  \item[(S2)] If \((\alpha,\beta)\in\mathcal{H}_2\), then \(\alpha\cdot\beta\in\mathcal{H}\).
-  \item[(S3)] If \(\gamma\in\mathcal{H}\), then \(\gamma^{-1}\in\mathcal{H}\).
-  \item[(S4)] For all \(x\in\mathcal{H}_0\) one has \(r(x)=x=s(x)\) and \(x\in\mathcal{H}\).
+  \item[(S1)] \(\mathcal{H}_0=\mathcal{H}\cap\mathcal{G}_0\) and \(r\vert^{\mathcal{H}_0}_{\mathcal{H}}(\mathcal{H})\cup s\vert^{\mathcal{H}_0}_{\mathcal{H}}(\mathcal{H})\subseteq\mathcal{H}_0\).
+  \item[(S2)] If \((\alpha,\beta)\in\mathcal{H}_2\), then \(m\vert^{\mathcal{H}}_{\mathcal{H}_2}(\alpha,\beta) \in\mathcal{H}\).
+  \item[(S3)] If \(\gamma\in\mathcal{H}\), then \(i|^{\mathcal{H}}_{\mathcal{H}}(\gamma) \in\mathcal{H}\).
+  \item[(S4)] For all \(x\in\mathcal{H}_0\) one has \(r\vert^{\mathcal{H}_0}_{\mathcal{H}}(x)=x=s\vert^{\mathcal{H}_0}_{\mathcal{H}}(x)\) and \(x\in\mathcal{H}\).
 \end{enumerate}
 \end{definition}
 
