@@ -40,4 +40,4 @@ Finally, we prove a Mayer–Vietoris principle for ample groupoids with topologi
 ## 📄 Download
 You can download the full thesis as a PDF by clicking the link below:
 
-[![Download PDF](https://img.shields.io/badge/Download-PDF-red?style=for-the-badge&logo=adobeacrobatreader)](https://karhunenloeve.github.io/MScMath/Thesis.pdf)
+[![Download PDF](https://img.shields.io/badge/Download-PDF-red?style=for-the-badge&logo=adobeacrobatreader)](https://karhunenloeve.github.io/MScMath/generated-pdfs/Thesis.pdf)
