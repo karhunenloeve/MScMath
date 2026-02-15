@@ -552,7 +552,7 @@ Let \((\gamma_i)_{i\in I}\) be a net in \(\mathcal G\) with \(\gamma_i\to \alpha
 \end{proof}
 
 \begin{remark}
-In \cite[Lemma~2.3.2]{Sims2018} the statement is proved under the standing hypotheses of \cite[Definition~2.3.1]{Sims2018}, in particular assuming local compactness. However, those uses are inessential for the implication itself. Indeed, the argument only requires that the structure maps \(s,r,m,(-)^{-1},u\) are continuous and that \(\mathcal G_0\) is Hausdorff in the relative topology.
+In \cite[Lemma~2.3.2]{Sims2018} the statement is proved under the standing hypotheses of \cite[Definition~2.3.1]{Sims2018}, in particular assuming local compactness. However, those uses are inessential for the implication itself. Indeed, the argument only requires that the structure maps \(s,r,m,i,u\) are continuous and that \(\mathcal G_0\) is Hausdorff in the relative topology.
 \end{remark}
 
 \section{\'{E}tale Groupoids}
@@ -623,7 +623,7 @@ This construction is well defined and depends only on \(g\). Since \(s\) is a lo
 \begin{remark}[Basic properties {\cite[§1.2]{crainic1999homology}}]
 \leavevmode
 \begin{enumerate}[label=(\alph*),nosep]
-\item Since \(\G\) is \'{e}tale, \(s\) is a local homeomorphism. After shrinking \(U\), there exists a local section \(\sigma:U\to\G\) of \(s\) with \(\sigma(x)=g\) and \(s\circ\sigma=\mathrm{id}_U\). The inversion map \(\G\to\G\), \(h\mapsto h^{-1}\), is a homeomorphism and \(r=s\circ(i_{\G})\), so \(r\) is a local homeomorphism as well. In particular, \(r|_{\sigma(U)}:\sigma(U)\to V\) is a homeomorphism onto the open set \(V\coloneqq r(\sigma(U))\subseteq\G_0\). Consequently the representative \(\varphi_{(U,\sigma)}=r\circ\sigma:U\to V\) of \(\widetilde g\) is a local homeomorphism.
+\item Since \(\G\) is \'{e}tale, \(s\) is a local homeomorphism. After shrinking \(U\), there exists a local section \(\sigma:U\to\G\) of \(s\) with \(\sigma(x)=g\) and \(s\circ\sigma=\mathrm{id}_U\). The inversion map \(\G\to\G\), \(h\mapsto h^{-1}\), is a homeomorphism and \(r=s\circ i_{\G}\), so \(r\) is a local homeomorphism as well. In particular, \(r|_{\sigma(U)}:\sigma(U)\to V\) is a homeomorphism onto the open set \(V\coloneqq r(\sigma(U))\subseteq\G_0\). Consequently the representative \(\varphi_{(U,\sigma)}=r\circ\sigma:U\to V\) of \(\widetilde g\) is a local homeomorphism.
 \item For the unit \(1_x\in\G\) we may take \(U\subseteq\G_0\) and \(\sigma(u)\coloneqq 1_u\) for \(u\in U\). Then \(s\circ\sigma=\mathrm{id}_U\) and \(r\circ\sigma=\mathrm{id}_U\), so the germ \(\widetilde{1_x}\) is represented by the identity map near \(x\) and hence \(\widetilde{1_x}=\mathrm{1}_x\).
 \item If \(g:x\to y\) and \(h:y\to z\), choose local sections \(\sigma_g:U\to\G\) and \(\sigma_h:V\to\G\) with \(x\in U\), \(y\in V\), \(s\circ\sigma_g=\mathrm{id}_U\), \(s\circ\sigma_h=\mathrm{id}_V\), \(\sigma_g(x)=g\), and \(\sigma_h(y)=h\). Shrinking \(U\) if necessary, we may assume \(\varphi_{(U,\sigma_g)}(U)\subseteq V\). On \(U\) the map \(\varphi_{(U,\sigma_g)}=r\circ\sigma_g\) represents \(\widetilde g\) and \(\varphi_{(V,\sigma_h)}=r\circ\sigma_h\) represents \(\widetilde h\). The product section \(U\to\G\), \(u\mapsto \sigma_h(\varphi_{(U,\sigma_g)}(u))\cdot\sigma_g(u)\), represents \(hg\), and its range map is the composition \(\varphi_{(V,\sigma_h)}\circ\varphi_{(U,\sigma_g)}\) near \(x\). Hence the germ of \(hg\) at \(x\) is the composite germ \(\widetilde h\circ\widetilde g\).
 \end{enumerate}
@@ -636,16 +636,15 @@ This construction is well defined and depends only on \(g\). Since \(s\) is a lo
   Let \(X\) be a topological space. Consider the groupoid \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) given by
   \(\G \coloneqq X\), \(\G_{0} \coloneqq X\),
   \(r_{\G} \coloneqq \mathrm{id}_{X}\), \(s_{\G} \coloneqq \mathrm{id}_{X}\),
-  \(g^{-1}_{\G} \coloneqq g\), and \(g\cdot_{\G}h \coloneqq g\) whenever \(g,h\in X\) and \(g=h\). Then \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) is a topological groupoid, and since \(r_{\G}\) and \(s_{\G}\) are homeomorphisms, \(\G\) is \'{e}tale.
+  \(i_{\G}(g) \coloneqq g\), and \(g\cdot_{\G}h \coloneqq g\) whenever \(g,h\in X\) and \(g=h\). Then \((\G,\G_{0},r_{\G},s_{\G},\cdot_{\G},i_{\G})\) is a topological groupoid, and since \(r_{\G}\) and \(s_{\G}\) are homeomorphisms, \(\G\) is \'{e}tale.
 
   \item \textbf{Translation groupoid of a discrete group action \cite[§1.3(2)]{crainic1999homology}.}
   Let a discrete group \(\Gamma\) act on a locally compact Hausdorff space \(X\) by homeomorphisms via a left action \(\Gamma\times X\to X, (g,x)\mapsto g\cdot x\). The associated transformation groupoid \(\Gamma\ltimes X\) is the \'{e}tale groupoid with \( (\Gamma\ltimes X)_0\coloneqq X\), source and range maps \(s_{\Gamma\ltimes X}(g,x)\coloneqq x, r_{\Gamma\ltimes X}(g,x)\coloneqq g\cdot x\), unit map \(u_{\Gamma\ltimes X}(x)\coloneqq (e,x)\), inverse map \((g,x)^{-1}\coloneqq (g^{-1},g\cdot x)\), and multiplication \((h,y)\cdot(g,x)\coloneqq (hg,x)\) whenever \(s_{\Gamma\ltimes X}(h,y)=r_{\Gamma\ltimes X}(g,x)\), that is whenever \(y=g\cdot x\), so that explicitly \((h,g\cdot x)\cdot(g,x)=(hg,x)\).
 
   Since \(\Gamma\) is discrete, sets of the form \(\{g\}\times U\subseteq \Gamma\times X\) with \(U\subseteq X\) open form a basis. On \(\{g\}\times U\) the source map is the homeomorphism \((g,x)\mapsto x\), hence \(s_{\Gamma\ltimes X}\) is a local homeomorphism. Likewise, \(r_{\Gamma\ltimes X}\) restricts to the homeomorphism \((g,x)\mapsto g\cdot x\) from \(\{g\}\times U\) onto \(g\cdot U\). Therefore \(r_{\Gamma\ltimes X}\) is a local homeomorphism as well, and \(\Gamma\ltimes X\) is \'{e}tale.
-
   For a right action \((x,\gamma)\mapsto x\cdot\gamma\) one can also use the arrow space \(X\times\Gamma\) and define \(r_{X\rtimes\Gamma}(x,\gamma)\coloneqq x, s_{X\rtimes\Gamma}(x,\gamma)\coloneqq x\cdot\gamma\), with \(u_{X\rtimes\Gamma}(x)=(x,e)\), \((x,\gamma)^{-1}=(x\cdot\gamma,\gamma^{-1})\), and \((x,\gamma)\cdot(x\cdot\gamma,\eta)=(x,\gamma\eta)\).
 
-  \item \textbf{Action groupoid of a right \(\G\)-space \cite[§1.3(6)]{crainic1999homology}.} Let \((\G,\G_0,r,s,m,(-)^{-1})\) be an \'{e}tale groupoid with unit map \(u: \G_0 \rightarrow \G, x \mapsto 1_x\). A right \(\G\)-space consists of a topological space \(X\), a continuous anchor map \(p:X\to\G_0\), and a continuous action map \(\cdot:X\ptimesr\G\to X\), \((x,g)\mapsto x\cdot g\), defined on the fibre product \(X\ptimesr\G=\{(x,g)\in X\times\G\mid p(x)=r(g)\}\), such that for all \((x,g)\in X\ptimesr\G\) one has \(p(x\cdot g)=s(g)\) and \(x\cdot 1_{p(x)}=x\), and whenever \((g,h)\in\G_2\) and \(p(x)=r(g)\) one has \((x\cdot g)\cdot h=x\cdot(gh)\).
+  \item \textbf{Action groupoid of a right \(\G\)-space \cite[§1.3(6)]{crainic1999homology}.} Let \((\G,\G_0,r,s,\cdot,i)\) be an \'{e}tale groupoid with unit map \(u: \G_0 \rightarrow \G, x \mapsto 1_x\). A right \(\G\)-space consists of a topological space \(X\), a continuous anchor map \(p:X\to\G_0\), and a continuous action map \(\cdot:X\ptimesr\G\to X\), \((x,g)\mapsto x\cdot g\), defined on the fibre product \(X\ptimesr\G=\{(x,g)\in X\times\G\mid p(x)=r(g)\}\), such that for all \((x,g)\in X\ptimesr\G\) one has \(p(x\cdot g)=s(g)\) and \(x\cdot 1_{p(x)}=x\), and whenever \((g,h)\in\G_2\) and \(p(x)=r(g)\) one has \((x\cdot g)\cdot h=x\cdot(gh)\).
 
   The action groupoid \(X\rtimes\G\) is the topological groupoid with objects \((X\rtimes\G)_0=X\) and arrows \((X\rtimes\G)_1=X\ptimesr\G\) with the subspace topology from \(X\times\G\), and structure maps \(r_{X\rtimes\G}(x,\gamma)=x\), \(s_{X\rtimes\G}(x,\gamma)=x\cdot\gamma\), \(u_{X\rtimes\G}(x)=(x,1_{p(x)})\), \((x,\gamma)^{-1}=(x\cdot\gamma,\gamma^{-1})\), and multiplication \((x,\gamma)\cdot(x\cdot\gamma,h)=(x,\gamma\eta)\), defined whenever \((\gamma,\eta)\in\G_2\). The space of composable pairs is \((X\rtimes\G)_2=\{((x,\gamma),(y,\eta))\in (X\rtimes\G)_1^2\mid y=x\cdot\gamma,\ (\gamma,\eta)\in\G_2\}\).
 
@@ -661,7 +660,7 @@ A homomorphism of \'{e}tale groupoids \(\varphi:\K\to\G\) is a pair of continuou
 such that the following identities hold:
 \begin{align*}
 &r_{\G}\circ \varphi_{1} = \varphi_{0}\circ r_{\K}, & \ &s_{\G}\circ \varphi_{1} = \varphi_{0}\circ s_{\K}, \\
-&\varphi_{1}\circ (i_{\K}) = (i_{\G})\circ \varphi_{1},  & &\varphi_{1}\circ u_{\K} = u_{\G}\circ \varphi_{0}, \\
+&\varphi_{1}\circ i_{\K} = i_{\G}\circ \varphi_{1},  & &\varphi_{1}\circ u_{\K} = u_{\G}\circ \varphi_{0}, \\
 &\varphi_{1}(g\cdot_{\K} h) = \varphi_{1}(g)\cdot_{\G} \varphi_{1}(h) &
 &\text{for all }(g,h) \in \K\times_{\K_{0}}\K.
 \end{align*}
