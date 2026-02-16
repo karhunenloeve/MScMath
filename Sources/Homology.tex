@@ -1186,7 +1186,8 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \begin{aligned}
     g^{-1}\cdot \varphi_1(h) &= g^{-1}\cdot ((g^{-1})^{-1}\cdot \alpha) \\
     &= (g^{-1}\cdot (g^{-1})^{-1})\cdot \alpha \\
-    &= 1_y\cdot \alpha = \alpha,
+    &= 1_y\cdot \alpha \\
+    &= \alpha,
     \end{aligned}
     \]
     so \(h\in \Hom_{\varphi\downarrow y}\bigl((x,\alpha),(x_0,g^{-1})\bigr)\). If \(k:(x,\alpha)\mapsto(x_0,g^{-1})\) is any other morphism in \(\varphi\downarrow y\), then
@@ -1194,11 +1195,11 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \(\varphi_1:\Hh_1(x,x_0)\to \G_1(\varphi_0(x),\varphi_0(x_0))\) we conclude \(k=h\).
     Thus every object admits a unique morphism to \((x_0,g^{-1})\), and \((x_0,g^{-1})\) is terminal.
         
-    \item \textbf{A simplicial deformation retraction of \(N\varphi\!\downarrow\! y\) onto a point.} To apply Quillen's Theorem~A to \(B\varphi\), we must understand the comma groupoids \(\varphi\!\downarrow\! y\). Since we have exhibited a terminal object \(T\) in \(\varphi\!\downarrow\! y\), it is enough to show directly that \(B\varphi\!\downarrow\! y\) is contractible. We do this constructively by writing down an explicit simplicial homotopy which contracts the nerve \(N\varphi\!\downarrow\! y\) to the \(0\)-simplex corresponding to \(T\). Fix \(y\in \G_0\) and let \(T\coloneqq(x_0,g^{-1})\in \Ob\varphi\!\downarrow\! y\) be the terminal object constructed above. Let \(\mathbf{1}\) be the terminal category, \(p:\varphi\!\downarrow\! y\to \mathbf{1}\) the unique functor, and \(s:\mathbf{1}\to\varphi\!\downarrow\! y\) the section with \(s(\star)=T\), where \(\star\) is the unique object of \(\mathbf{1}\). There is a natural transformation \(\eta:\mathrm{id}_{\varphi\!\downarrow\! y}\Rightarrow s\circ p\) whose component \(\eta_{(x,\alpha)}:(x,\alpha)\to T\) is the unique morphism; in particular \(\eta_T=\mathrm{id}_T\). We identify \(N(\mathbf{1})=\Delta^0\) and set
+    \item \textbf{A simplicial deformation retraction of \(N\varphi\!\downarrow\! y\) onto a point.} To apply Quillen's Theorem~A to \(B\varphi\), we must understand the comma groupoids \(\varphi\!\downarrow\! y\). Since we have exhibited a terminal object \(T\) in \(\varphi\!\downarrow\! y\), it is enough to show directly that \(B\varphi\!\downarrow\! y\) is contractible. We do this constructively by writing down an explicit simplicial homotopy which contracts the nerve \(N\varphi\!\downarrow\! y\) to the \(0\)-simplex corresponding to \(T\). Fix \(y\in \G_0\) and let \(T\coloneqq(x_0,g^{-1})\in \Ob\varphi\!\downarrow\! y\) be the terminal object constructed above. Let \(\mathbf{1}\) be the terminal category, \(p:\varphi\!\downarrow\! y\to \mathbf{1}\) the unique functor, and \(s:\mathbf{1}\to\varphi\!\downarrow\! y\) the section with \(s(\star)=T\), where \(\star\) is the unique object of \(\mathbf{1}\). There is a natural transformation \(\eta:\mathrm{id}_{\varphi\!\downarrow\! y}\Rightarrow s\circ p\) whose component \(\eta_{(x,\alpha)}:(x,\alpha)\to T\) is the unique morphism; in particular \(\eta_T=\mathrm{id}_T\). We identify \(N\mathbf{1}=\Delta^0\) and set
     \[
-    r\coloneqq N(p):N\varphi\!\downarrow\! y\to \Delta^0,
+    r\coloneqq Np:N\varphi\!\downarrow\! y\to \Delta^0,
     \quad
-    i\coloneqq N(s):\Delta^0\to N\varphi\!\downarrow\! y.
+    i\coloneqq Ns:\Delta^0\to N\varphi\!\downarrow\! y.
     \]
     Then \(r\circ i=\mathrm{id}_{\Delta^0}\) and \(i\circ r = N(s\circ p)\). For each \(n\ge 0\) and \(0\le k\le n\) define a map \(H_k:\ N\varphi\!\downarrow\! y_n \rightarrow N\varphi\!\downarrow\! y_{n+1}\) as follows: given an \(n\)-simplex \(\mathbf{a}\) we define \(H_k(\mathbf{a})\) by
     \[
@@ -1302,7 +1303,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \xrightarrow{\operatorname{id}_{b_\ell}}b_\ell
     \xrightarrow{g_{\ell+1}}\cdots\xrightarrow{g_{n+1}}b_{n+1}
     \bigr),
-    \quad
+    \quad \text{for} \
     0\le \ell\le n+1.
     \]
     
@@ -1324,12 +1325,12 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \end{itemize}
 
     \item \textbf{Contractibility of \(B\varphi\!\downarrow\! y\).} For each \(n\ge 0\), the simplicial set \(\Delta^0\) has a unique \(n\)-simplex. Its image under
-    \(i=N(s):\Delta^0\to N\varphi\!\downarrow\! y\) is the degenerate \(n\)-simplex
+    \(i=Ns:\Delta^0\to N\varphi\!\downarrow\! y\) is the degenerate \(n\)-simplex
     \[
     T \xrightarrow{\mathrm{id}_T} \cdots \xrightarrow{\mathrm{id}_T} T
     \quad\in N\varphi\!\downarrow\! y_n.
     \]
-    Since \(\eta_T=\mathrm{id}_T\), inserting \(\eta\) after the \(k\)-th arrow does not change this simplex, except for adding one more identity arrow. Concretely, for all \(n\ge 0\) and \(0\le k\le n\), \(H_k\circ i_n = s_k\circ i_n.\) In particular, the simplicial homotopy \(H\) is stationary on the image of \(i\). Therefore \((r,i,H)\) is a simplicial strong deformation retraction of \(N\varphi\!\downarrow\! y\) onto the vertex \(i(\star)=N(s)(\star)\), that is, the \(0\)-simplex corresponding to \(T\). Thus, \(B\varphi\!\downarrow\! y\) is contractible.
+    Since \(\eta_T=\mathrm{id}_T\), inserting \(\eta\) after the \(k\)-th arrow does not change this simplex, except for adding one more identity arrow. Concretely, for all \(n\ge 0\) and \(0\le k\le n\), \(H_k\circ i_n = s_k\circ i_n.\) In particular, the simplicial homotopy \(H\) is stationary on the image of \(i\). Therefore \((r,i,H)\) is a simplicial strong deformation retraction of \(N\varphi\!\downarrow\! y\) onto the vertex \(i(\star)=Ns(\star)\), that is, the \(0\)-simplex corresponding to \(T\). Thus, \(B\varphi\!\downarrow\! y\) is contractible.
     
     \item \textbf{Strong deformation retraction \((Br,Bi,BH)\).} To pass from the simplicial homotopy \((H_k)_{0\le k\le n}\) to an ordinary homotopy on geometric realizations, we use the standard prism decomposition of \(\Delta^n\times[0,1]\), see \cite[Chapter~14]{may1967}. For \(n\ge 0\) and \(0\le k\le n\) define
     \[
@@ -1602,7 +1603,7 @@ The strategy is to apply Quillen's Theorem~A to the functor \(\varphi:\Hh\to\G\)
     \end{itemize}
 \end{proof}
 
-Theorem~\ref{thm:morita-implies-weak-equivalence} identifies Morita equivalence as the correct homotopical notion of equivalence at the level of classifying spaces: if \(\varphi:\Hh\xrightarrow{\sim}\G\) is Morita, then \(B\Hh\simeq B\G\). In particular, any invariant that is functorially extracted from \(B\G\) and invariant under weak homotopy equivalence is automatically Morita invariant. This is a useful benchmark for our later constructions: it clarifies that Morita equivalent groupoids are indistinguishable from the viewpoint of the homotopy type of the quotient geometry encoded by the nerve. At the same time, the Moore chain complex \(C_c(\G_\bullet,A)\) is built from compactly supported, locally constant \(A\)-valued functions on the levels \(\G_n\), and it is generally not the singular chain complex of \(B\G\), see Example~\ref{ex:moore-not-singular}. Consequently, Morita invariance of \(B\G\) does not by itself imply Morita invariance of Moore homology: there is no a priori mechanism that identifies \(C_c(\Hh_\bullet,A)\) with \(C_c(\G_\bullet,A)\) from the weak equivalence \(B\Hh\simeq B\G\). What Theorem~\ref{thm:morita-implies-weak-equivalence} does provide is the correct conceptual interpretation: any discrepancy between Moore homology and singular homology of \(B\G\) is not an artefact of the Morita representative, but an intrinsic feature of the compactly supported Moore model. In particular, if one seeks a comparison map from Moore homology to \(H_\bullet^{\mathrm{sing}}(B\G;A)\), then the theorem forces such a comparison, when it exists, to be Morita invariant on the \(B\G\)-side, while the Moore side requires independent invariance arguments at the chain level.
+Theorem~\ref{thm:morita-implies-weak-equivalence} identifies Morita equivalence as the correct homotopical notion of equivalence at the level of classifying spaces: if \(\varphi:\Hh\xrightarrow{\sim}\G\) is Morita, then \(B\Hh\simeq B\G\). In particular, any invariant that is functorially extracted from \(B\G\) and invariant under weak homotopy equivalence is automatically Morita invariant. This is a useful benchmark for our later constructions: it clarifies that Morita equivalent groupoids are indistinguishable from the viewpoint of the homotopy type of the quotient geometry encoded by the nerve. At the same time, the Moore chain complex \(C_c(\G_\bullet,A)\) is built from compactly supported, for discrete \(A\) locally constant \(A\)-valued functions on the levels \(\G_n\), and it is generally not the singular chain complex of \(B\G\), see Example~\ref{ex:moore-not-singular}. Consequently, Morita invariance of \(B\G\) does not by itself imply Morita invariance of Moore homology: there is no a priori mechanism that identifies \(C_c(\Hh_\bullet,A)\) with \(C_c(\G_\bullet,A)\) from the weak equivalence \(B\Hh\simeq B\G\). What Theorem~\ref{thm:morita-implies-weak-equivalence} does provide is the correct conceptual interpretation: any discrepancy between Moore homology and singular homology of \(B\G\) is not an artefact of the Morita representative, but an intrinsic feature of the compactly supported Moore model. In particular, if one seeks a comparison map from Moore homology to \(H_\bullet^{\mathrm{sing}}(B\G;A)\), then the theorem forces such a comparison, when it exists, to be Morita invariant on the \(B\G\)-side, while the Moore side requires independent invariance arguments at chain level.
 
 Theorem~\ref{thm:morita-implies-weak-equivalence} relates to Moore homology in two ways:
 \begin{enumerate}[noitemsep,nolistsep]
