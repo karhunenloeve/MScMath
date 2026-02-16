@@ -329,7 +329,7 @@ which is (G5).
 \item Associativity on composable triples is exactly (G2'), giving (G6).
 \end{itemize}
 
-\item \textbf{\((\alpha,\beta)\in\mathcal{G}_2 \Leftrightarrow s(\alpha)=r(\beta)\).} If \((\alpha,\beta)\in\mathcal{G}_2\), then \((\alpha\cdot\beta,\beta^{-1})\in\mathcal{G}_2\) by (G2') and (G3'), hence by (G5) and (G3),
+\item \(\symbf{(\alpha,\beta)\in\mathcal{G}_2 \Leftrightarrow s(\alpha)=r(\beta)}\). If \((\alpha,\beta)\in\mathcal{G}_2\), then \((\alpha\cdot\beta,\beta^{-1})\in\mathcal{G}_2\) by (G2') and (G3'), hence by (G5) and (G3),
 \[
 s(\alpha)=s\bigl((\alpha\cdot\beta)\cdot\beta^{-1}\bigr)=s(\beta^{-1})=r(\beta).
 \]
@@ -576,7 +576,33 @@ Let $\G$ be a topological groupoid. The groupoid \(\G\) is called \'{e}tale if t
     Since inversion \(i\) is a homeomorphism and \(r=s\circ i\), this is equivalent to requiring that the range map \(r:\G\to\G_{0}\) is a local homeomorphism. Many authors state the condition as: \(r\) and \(s\) are local homeomorphisms. In particular, for all \(g\in\G\) there is an open neighbourhood  \(U\subset\G\) with \(g\in U\) such that \(s|_{U}: U\xrightarrow{\cong} s(U)\) and \(r|_{U}: U\xrightarrow{\cong} r(U)\) are homeomorphisms.
 \end{remark}
 
-Such a set \(U\) is called a local bisection. In the smooth or Lie setting the same definition applies with local diffeomorphisms in place of local homeomorphisms. Direct limits assemble compatible local data around a point. Two local maps represent the same element once they agree on some smaller neighbourhood.
+Such a set \(U\) is called a local bisection. In the smooth or Lie setting the same definition applies with local diffeomorphisms in place of local homeomorphisms.
+
+\begin{lemma}[Discrete fibers of local homeomorphisms]\label{lem:local-homeo-discrete-fibers}
+Let $p:X\to Y$ be a local homeomorphism. Then for every $y\in Y$ the fiber $p^{-1}(y)$ is a discrete subspace of $X$. In particular, if $\G$ is an \'etale groupoid, then for every $x\in \G_0$ the fibers $r^{-1}(x)$ and $s^{-1}(x)$ are discrete subspaces of $\G$.
+\end{lemma}
+
+\begin{proof}
+Fix $y\in Y$.
+To show that $p^{-1}(y)$ is discrete, it suffices to prove that every singleton $\{x\}$ with $x\in p^{-1}(y)$ is open in the subspace topology on $p^{-1}(y)$.
+
+Fix $x\in p^{-1}(y)$.
+Since $p$ is a local homeomorphism, there exists an open neighbourhood $U\subseteq X$ of $x$ such that the restriction $p|_U:U\to p(U)$ is a homeomorphism onto an open subset of $Y$.
+Set
+\(
+V\coloneqq U\cap p^{-1}(y).
+\)
+Then $V$ is open in the subspace $p^{-1}(y)$.
+Moreover, $V=\{x\}$.
+Indeed, if $x'\in V$, then $x'\in U$ and $p(x')=y=p(x)$, hence $x'=x$ because $p|_U$ is injective.
+Thus $\{x\}$ is open in $p^{-1}(y)$.
+Since $x$ was arbitrary, the fiber $p^{-1}(y)$ is discrete.
+
+If $\G$ is \'etale, then by definition $r$ and $s$ are local homeomorphisms.
+Applying the first part to $p=r$ and $p=s$ gives that $r^{-1}(x)$ and $s^{-1}(x)$ are discrete for every $x\in \G_0$.
+\end{proof}
+
+Direct limits assemble compatible local data around a point. Two local maps represent the same element once they agree on some smaller neighbourhood.
 
 \begin{definition}[Direct limit]
 Fix \(x\in\G_0\) and let \(\mathcal{N}(x)\) denote the directed set of open neighbourhoods of \(x\), ordered by reverse inclusion. For each \(U\in\mathcal{N}(x)\) set
