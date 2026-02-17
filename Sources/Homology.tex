@@ -1798,7 +1798,7 @@ Let \(\varphi:\Hh\to\G\) be an \'{e}tale functor between \'{e}tale groupoids, an
   \]
   and the maps \((\varphi_n)_*\) form a chain map between Moore complexes
   \[
-    (N\varphi)_*:C_c(\mathcal{H}_\bullet,A)\rightarrow C_c(\mathcal{G}_\bullet,A),
+    (\varphi_\bullet)_*:C_c(\mathcal{H}_\bullet,A)\rightarrow C_c(\mathcal{G}_\bullet,A),
     \ \partial_n^{\G}\circ(\varphi_n)_*=(\varphi_{n-1})_*\circ\partial_n^{\Hh}\ \quad \text{for all }n\ge 1.
   \]
   Hence \(\varphi\) induces homomorphisms on homology
@@ -1834,8 +1834,8 @@ Let \(\varphi:\Hh\to\G\) be an \'{e}tale functor between \'{e}tale groupoids, an
   For \(f\in C_c(\Hh_n,A)\) and \(\mathbf g\in \G_n\), the sum
   \(\sum_{\mathbf h\in \varphi_n^{-1}(\mathbf g)} f(\mathbf h)\) is finite because \(\varphi_n^{-1}(\mathbf g)\) is discrete and
   \(\varphi_n^{-1}(\mathbf g)\cap \operatorname{supp}(f)\) is finite by Lemma~\ref{lem:finite_sheets}.
-  We show that \((N\varphi)_*\) is a chain map.
-  For each \(n\ge 1\) and \(0\le i\le n\), simpliciality of \(N\varphi\) gives
+  We show that \((\varphi_\bullet)_*\) is a chain map.
+  For each \(n\ge 1\) and \(0\le i\le n\), simpliciality of \(\varphi_\bullet\) gives
   \[
     d_i^{\G}\circ \varphi_n=\varphi_{n-1}\circ d_i^{\Hh}.
   \]
@@ -1850,7 +1850,7 @@ Let \(\varphi:\Hh\to\G\) be an \'{e}tale functor between \'{e}tale groupoids, an
     =\sum_{i=0}^n (-1)^i (\varphi_{n-1})_*\circ (d_i^{\Hh})_*
     =(\varphi_{n-1})_*\circ \partial_n^{\Hh}.
   \]
-  Thus \((N\varphi)_*\) induces \(H_n(\varphi)\) on homology.
+  Thus \((\varphi_\bullet)_*\) induces \(H_n(\varphi)\) on homology.
   If \(\psi:\G\to\K\) is another \'{e}tale functor, then \((\psi\circ\varphi)_n=\psi_n\circ \varphi_n\), hence
   \(((\psi\circ\varphi)_n)_*=(\psi_n)_*\circ(\varphi_n)_*\) by Proposition~\ref{prop:pushforward_compatible}, and functoriality on homology follows.
   The identity functor induces the identity chain map
@@ -2186,7 +2186,7 @@ Let \(f\in C_c(\G,\ZZ)\).
   In particular, \(\operatorname{supp}(f)\) is compact and open.
 
   \item \textbf{Generation by characteristic functions of bisections.}
-  Since \(K=\operatorname{supp}(f)\) is compact and \(f\) is locally constant, the image \(f(K)\subseteq \ZZ\) is finite.
+  Since \(K\coloneqq\operatorname{supp}(f)\) is compact and \(f\) is locally constant, the image \(f(K)\subseteq \ZZ\) is finite.
   Let \(n_1,\ldots,n_m\) be the distinct nonzero values of \(f\) on \(K\), and set \(S_j\coloneqq f^{-1}(\{n_j\})\) for \(1\le j\le m\).
   Then each \(S_j\) is clopen, contained in \(K\), the sets \(S_1,\ldots,S_m\) are pairwise disjoint, and
   \[
