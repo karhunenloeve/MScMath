@@ -643,10 +643,10 @@ such that the following diagram has exact horizontal lines and commutes:
 \begin{tikzcd}[column sep=2.5em]
 \cdots \arrow{r}
   & H_n(\G';A)
-        \arrow{r}{H_n((j^{\G}_\bullet)_\ast;A)}
+        \arrow{r}{H_n((j^{\G}_\bullet)_\ast)}
         \arrow{d}[swap]{H_n\bigl((\Phi'_\bullet)_*\bigr)}
   & H_n(\G;A)
-        \arrow{r}{H_n((q^{\G}_\bullet)_\ast;A)}
+        \arrow{r}{H_n((q^{\G}_\bullet)_\ast)}
         \arrow{d}[swap]{H_n\bigl((\Phi_\bullet)_*\bigr)}
   & H_n(\G/\G';A)
         \arrow{r}{\partial_n^{\G}}
@@ -657,9 +657,9 @@ such that the following diagram has exact horizontal lines and commutes:
   & \cdots \\
 \cdots \arrow{r}
   & H_n(\Hh';A)
-        \arrow{r}{H_n((j^{\Hh}_\bullet)_\ast;A)}
+        \arrow{r}{H_n((j^{\Hh}_\bullet)_\ast)}
   & H_n(\Hh;A)
-        \arrow{r}{H_n((q^{\Hh}_\bullet)_\ast;A)}
+        \arrow{r}{H_n((q^{\Hh}_\bullet)_\ast)}
   & H_n(\Hh/\Hh';A)
         \arrow{r}{\partial_n^{\Hh}}
   & H_{n-1}(\Hh';A)
@@ -1901,7 +1901,7 @@ Therefore \(\Phi_\bullet\) is a chain isomorphism, and the claimed identificatio
 \end{proof}
 
 We now define the cohomology theory that pairs naturally with the integral Moore complex and hence fits the classical cohomological universal coefficient formalism. 
-Throughout, \(\partial_\bullet\) denotes the Moore differential on the integral chain complex \(\bigl(C_c(\G_\bullet,\ZZ),\partial_\bullet\bigr)\), constructed earlier from push-forwards along the face maps of the nerve.
+Throughout, \(\partial_\bullet\) denotes the Moore differential on the integral chain complex \(\bigl(C_c(\G_\bullet,\ZZ),\partial_\bullet\bigr)\), constructed earlier from pushforwards along the face maps of the nerve.
 
 \begin{proposition}\label{prop:cochain-hom}
 Let \(A\) be an abelian group.
@@ -2423,10 +2423,10 @@ Then for each \(n\ge 0\) the universal coefficient sequences of Theorem~\ref{thm
         \arrow{d}[swap]{H_n(i)\otimes\operatorname{id}_A}
   & H_n(\G';A)
         \arrow{r}{\kappa_n^{\G'}}
-        \arrow{d}[swap]{H_n(i;A)}
+        \arrow{d}[swap]{H_n(i)}
   & \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G'),A\bigr)
         \arrow{r}
-        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(i),A)}
+        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(i))}
   & 0
 \\
 0 \arrow{r}
@@ -2435,10 +2435,10 @@ Then for each \(n\ge 0\) the universal coefficient sequences of Theorem~\ref{thm
         \arrow{d}[swap]{H_n(p)\otimes\operatorname{id}_A}
   & H_n(\G;A)
         \arrow{r}{\kappa_n^{\G}}
-        \arrow{d}[swap]{H_n(p;A)}
+        \arrow{d}[swap]{H_n(p)}
   & \operatorname{Tor}_1^{\mathbb Z}\bigl(H_{n-1}(\G),A\bigr)
         \arrow{r}
-        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(p),A)}
+        \arrow{d}[swap]{\operatorname{Tor}_1^{\mathbb Z}(H_{n-1}(p))}
   & 0
 \\
 0 \arrow{r}
@@ -2452,13 +2452,13 @@ Then for each \(n\ge 0\) the universal coefficient sequences of Theorem~\ref{thm
 \end{tikzcd}
 \]
 Here \(H_n(i)\) and \(H_n(p)\) are induced by \(i_\bullet\) and \(p_\bullet\) on integral Moore homology.
-The maps \(H_n(i;A)\) and \(H_n(p;A)\) are induced on homology by the chain maps
+The maps \(H_n(i)\coloneqq H_n(i;A)\) and \(H_n(p)\coloneqq H_n(p;A)\) are induced on homology by the chain maps
 \[
 i_\bullet^A:C_c(\G'_\bullet,A)\to C_c(\G_\bullet,A),
 \qquad
 p_\bullet^A:C_c(\G_\bullet,A)\to C_c(\G''_\bullet,A),
 \]
-obtained by tensoring \(i_\bullet,p_\bullet\) with \(\operatorname{id}_A\) and conjugating by the chain isomorphisms
+obtained by tensoring \(i_\bullet,p_\bullet\) with \(\operatorname{id}_A\) and composing with the chain isomorphisms
 \(\Phi_\bullet\) from Proposition~\ref{prop:coefficients-tensor}.
 The right vertical maps are the functorial maps induced on \(\operatorname{Tor}_1^{\mathbb Z}(-,A)\).
 \end{theorem}
@@ -2657,7 +2657,7 @@ In both cases the UCT sequences split in general non-canonically.
 
 \begin{proof}~
 \begin{enumerate}[noitemsep,nolistsep]
-\item This is the failure mechanism established in Corollary~\ref{cor:discrete-necessity} and made explicit in the Cantor-space example:
+\item This is the failure mechanism established in Corollary~\ref{cor:discrete-necessity} and made explicit in the Cantor-space Example~\ref{ex:phi-iso-and-fails}:
 one constructs \(\xi\in C_c(X,A)\) with infinite image using a clopen partition shrinking to a non-isolated point and the convergence \(a_n\to 0\).
 Every element in \(\operatorname{im}(\Phi_X)\) has finite image, hence \(\xi\notin \operatorname{im}(\Phi_X)\).
 
