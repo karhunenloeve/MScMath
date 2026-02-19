@@ -3170,11 +3170,11 @@ Hence $\partial_n$ depends only on $[c]$.
 \item \textbf{Exactness.}
 The equalities needed for exactness follow from the construction.
 
-\begin{itemize}[noitemsep,nolistsep]
-\item First, $\beta_\bullet\circ \alpha_\bullet=0$ implies
+\begin{enumerate}[noitemsep,nolistsep]
+\item $\beta_\bullet\circ \alpha_\bullet=0$ implies
 $H_n(\beta_\bullet)\circ H_n(\alpha_\bullet)=0$ for all $n$.
 
-\item Second, $\operatorname{im}\bigl(H_n(\alpha_\bullet)\bigr)=\ker\bigl(H_n(\beta_\bullet)\bigr)$.
+\item $\symbf{\operatorname{im}\bigl(H_n(\alpha_\bullet)\bigr)=\ker\bigl(H_n(\beta_\bullet)\bigr).}$
 Let $[b]\in H_n(C_\bullet^{1,2})$ with $H_n(\beta_\bullet)([b])=0$.
 Choose a cycle $b\in C_n^{1,2}$ representing $[b]$.
 Then $\beta_n(b)$ is a boundary in $C_\bullet$, so choose $d\in C_{n+1}$ with $\beta_n(b)=\partial_{n+1}^{\G}(d)$.
@@ -3195,7 +3195,7 @@ and $\alpha_{n-1}$ is injective.
 Hence $[u]\in H_n(C_\bullet^{12})$ and $H_n(\alpha_\bullet)([u])=[b]$.
 The reverse inclusion follows from $H_n(\beta_\bullet)\circ H_n(\alpha_\bullet)=0$.
 
-\item Third, $\operatorname{im}\bigl(H_n(\beta_\bullet)\bigr)=\ker(\partial_n)$.
+\item $\symbf{\operatorname{im}\bigl(H_n(\beta_\bullet)\bigr)=\ker(\partial_n).}$
 If $[b]\in H_n(C_\bullet^{1,2})$ is represented by a cycle $b$, then $\partial_n([\,\beta_n(b)\,])=0$ because one may take this $b$ in the definition and obtain $a=0$ from \eqref{eq:MV-connecting-defining}.
 Conversely, let $[c]\in H_n(C_\bullet)$ with $\partial_n([c])=0$.
 Choose $c$ and a lift $b$ with $\beta_n(b)=c$.
@@ -3214,7 +3214,7 @@ Then
 so $b-\alpha_n(u)$ is a cycle in $C_n^{1,2}$ and $\beta_n\bigl(b-\alpha_n(u)\bigr)=c$.
 Thus $[c]\in \operatorname{im}\bigl(H_n(\beta_\bullet)\bigr)$.
 
-\item Fourth, $\operatorname{im}(\partial_n)=\ker\bigl(H_{n-1}(\alpha_\bullet)\bigr)$.
+\item $\symbf{\operatorname{im}(\partial_n)=\ker\bigl(H_{n-1}(\alpha_\bullet)\bigr)}$.
 If $\partial_n([c])=[a]$, then $\alpha_{n-1}(a)=\partial_n^{1,2}(b)$ is a boundary, hence $H_{n-1}(\alpha_\bullet)([a])=0$.
 Conversely, let $[a]\in H_{n-1}(C_\bullet^{12})$ with $H_{n-1}(\alpha_\bullet)([a])=0$.
 Choose a cycle $a\in C_{n-1}^{12}$ representing $[a]$.
@@ -3232,7 +3232,7 @@ Then $\partial_n^{\G}(c)=0$ since
 \]
 Using this $b$ in the definition of $\partial_n([c])$ yields the unique element $a$ again by injectivity of $\alpha_{n-1}$.
 Thus $[a]\in \operatorname{im}(\partial_n)$.
-\end{itemize}
+\end{enumerate}
 
 The displayed equalities give exactness at every term.
 Naturality follows because the connecting map construction is functorial for morphisms of short exact sequences of chain complexes of abelian groups.
@@ -3257,11 +3257,11 @@ This hypothesis is used only to ensure that for every simplicial degree $n$ one 
 \)
 so that for each simplicial degree $n$ the maps induced by the inclusions
 \[
-C_c\bigl((\mathcal G\vert_{U_1\cap U_2})_n,A\bigr)
+0 \to C_c\bigl((\mathcal G\vert_{U_1\cap U_2})_n,A\bigr)
 \xrightarrow{\ \iota\ }
 C_c\bigl((\mathcal G\vert_{U_1})_n,A\bigr)\oplus C_c\bigl((\mathcal G\vert_{U_2})_n,A\bigr)
 \xrightarrow{\ \rho\ }
-C_c(\mathcal G_n,A)
+C_c(\mathcal G_n,A) \to 0
 \]
 given by $\iota(c)=(c,-c)$ and $\rho(c_1,c_2)=c_1+c_2$ form a short exact sequence.
 Injectivity of $\iota$ and $\rho\circ\iota=0$ are immediate.
